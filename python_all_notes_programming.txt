@@ -1,0 +1,72 @@
+1 ------------------------->>> CLASES - ENCAPSULAMIENTO - HERENCIA - POLIMORFISMO :
+
+CLASE : CUANDO CLASIFICAMOS UN OBJETO EJEMPLO : CUANDO VEMOS UN PERRO SABEMOS QUE ES UN PERRO ASI QUE DECIMOS ES UN PERRO O SEA LA CLASE PERRO SEA LA DEL CUALQUIER RAZA.
+
+ENCAPSULAMIENTO : ES UN PRIVATE O CUANDO HACEMOS ELEMENTOS UNICOS DE ESTA CLASE Y NO PUEDEN SER TOCADOS POR OTRAS
+
+HERENCIA : CUANDO ADQUIRIMOS TANTO LOS ATRIBUTOS Y METODOS DE LA CLASE ES ESTE EJEMPLO SE VE LA FUNCION "esta_vivo()".
+
+POLIMORFISMO : CUANDO SE LLAMA A UN METODO O ATRIBUTO PERO CADA CLASE VARIA ES SU USO O LO QUE HARA EJEMPLO : TENEMOS LA FUNCION "COMER()" CADA CLASE HACE ALGO DIFERENTE.
+
+EJEMPLO 1 : 
+
+class Ser_vivo:   		// CLASE
+    vivo = " be life"            //ATRIBUTO
+    def __init__(self):
+        pass
+    def comer(self):              
+        print("eating.")
+        
+class Persona(Ser_vivo):             	// HERENCIA
+    def __init__(self):
+        self.__name = "alex"
+    def comer(self):                      // POLIMORFISMO
+        print("eating sitdown.")
+    def get_name(self):               	// USO DEL GET Y SET 
+        return self.__name
+    def set_name(self,dato):
+        self.__name = dato
+
+class Dog(Ser_vivo): 
+    def __init__(self):
+        pass
+    def comer(self):
+        print("eating in its glass.")
+        
+yo = Persona()     		// CREACION DE OBJETOS HIJAS DE LA CLASE "Ser_vivo".
+mascota = Dog()
+
+yo.comer()               	// POLIMORFISMO
+print(yo.vivo)              	// HERENCIA
+print(yo.get_name())
+yo.set_name("alexander")        	// USO GET & SET
+print("new name: ",yo.get_name()) 
+
+mascota.comer()                	// POLIFORMISMO
+print(mascota.vivo)            	// HERENCIA
+
+
+2 ------------------------>>> USO DEL MAP :
+
+MAP() : ITERA A CADA VALOR ENVIADO POR UNA FUNCION, PRIMERO VA LA FUNCION DESPUES EL ELEMENTO A ITERAR: (FUNCION, ITERACION(LIST,DIC,TUPLE,ETC)).
+
+def grade(score):
+    if score < 5:
+        return 'SS'
+    elif score < 7:
+        return 'AP'
+    elif score < 9:
+        return 'NT'
+    elif score < 10:
+        return 'SB'
+    else:
+        return 'MH'
+
+def apply_grade(scores):
+    subjects = map(str.upper, scores.keys())
+    grades = map(grade, scores.values())
+    return dict(zip(subjects, grades))
+
+print(apply_grade({'Matemáticas':6.5, 'Física':5, 'Química':3.4, 'Economía':8.2, 'Historia':9.7, 'Programación':10}))
+
+3 ---------------->>>>>>
