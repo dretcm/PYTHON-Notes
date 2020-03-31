@@ -655,6 +655,21 @@ print("new name: ",yo.get_name())
 mascota.comer()                	// POLIFORMISMO
 print(mascota.vivo)            	// HERENCIA
 
+36.1 -------- USO DEL SUPER().__INIT__ :  SUPER () . __INIT__ :
+
+//LA FUNCION SUPER() PERMITE QUE EL ESTADO DE __INIT__ DE LA CLASE PADRE SE EJECUTE, SI NO SE PONE ESO SOLO SE EJECUTARA EL ESTADO DE LA CLASE LLAMADA O HIJA.
+
+class clase1:                  //PADRE
+    def __init__(self):
+           print("hello i am class1")
+class clase2(clase1):          //HIJA
+       def __init__(self):          
+              super().__init__()         //LLAMA AL ESTADO __INIT__() DE SU PADRE QUE ES "clase1"  
+              print("adios i am class2")
+
+yo = clase2()
+
+//RECUERDA QUE SOLO LLAMA A SU PADRE NO AL ABUELO, SI QUEREMOS LLAMAR AL ABUELO DEBEMOS HACER LO MISMO EN LA CLASE PADRE.
 
 37 ------------------------>>> USO DEL MAP :
 
