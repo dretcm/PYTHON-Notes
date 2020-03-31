@@ -621,7 +621,7 @@ POLIMORFISMO : CUANDO SE LLAMA A UN METODO O ATRIBUTO PERO CADA CLASE VARIA ES S
 EJEMPLO 1 : 
 
 class Ser_vivo:   		// CLASE
-    vivo = " be life"            //ATRIBUTO
+    vivo = " be life"            //ATRIBUTO TIPO STRING O CADENA
     def __init__(self):
         pass
     def comer(self):              
@@ -660,16 +660,62 @@ print(mascota.vivo)            	// HERENCIA
 //LA FUNCION SUPER() PERMITE QUE EL ESTADO DE __INIT__ DE LA CLASE PADRE SE EJECUTE, SI NO SE PONE ESO SOLO SE EJECUTARA EL ESTADO DE LA CLASE LLAMADA O HIJA.
 
 class clase1:                  //PADRE
-    def __init__(self):
+    def __init__(self,name,age):
+	   self.name = name
+	   self.age = age
            print("hello i am class1")
 class clase2(clase1):          //HIJA
-       def __init__(self):          
-              super().__init__()         //LLAMA AL ESTADO __INIT__() DE SU PADRE QUE ES "clase1"  
+       def __init__(self,name,age,color):          
+              super().__init__(name,age)         //LLAMA AL ESTADO __INIT__() DE SU PADRE QUE ES "clase1"  Y ENVIA LOS PARAMETROS  DE SU CONTRUCTOR
               print("adios i am class2")
+	      self.color = color
 
 yo = clase2()
 
 //RECUERDA QUE SOLO LLAMA A SU PADRE NO AL ABUELO, SI QUEREMOS LLAMAR AL ABUELO DEBEMOS HACER LO MISMO EN LA CLASE PADRE.
+
+36.2 ---------------------->>> CLASSMETHOD : STATICMETHOD :
+
+//CLASSMETHOD : puede usar las instancias de la clase (atributos, metodos).
+//STATICMETHOD : no puede usar (atributos, metodos) de la clase, esta por si sola en la clase, como una funcion más.
+
+class Poblacion:
+       people  = 100
+       
+       @classmethod 
+       def quantity_of_people(cls):
+              cls.decorador()
+              return cls.people
+       
+       @classmethod
+       def increase_quantity(cls):
+              cls.people += 1
+              
+       @classmethod
+       def decorador(cls):
+              print("resultado: ",end="")
+
+print(Poblacion.quantity_of_people())  # resultado: 100
+Poblacion.increase_quantity()
+print(Poblacion.quantity_of_people())  # resultado: 101
+
+
+class Math:              
+       @staticmethod
+       def pow(dato_1, dato_2):
+              return pow(dato_1,dato_2)
+       
+       @staticmethod
+       def factorial(dato):
+              valor = 1
+              for i in range(1,dato+1):
+                     valor *= i
+              return valor
+                     
+ 
+print(Math.pow(5,3))  # 125
+print(Math.factorial(5)) # 120
+
 
 37 ------------------------>>> USO DEL MAP :
 
