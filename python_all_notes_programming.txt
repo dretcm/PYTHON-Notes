@@ -679,4 +679,10 @@ def apply_grade(scores):
 
 print(apply_grade({'Matemáticas':6.5, 'Física':5, 'Química':3.4, 'Economía':8.2, 'Historia':9.7, 'Programación':10}))
 
-3 ---------------->>>>>>
+3 ---------------->>>>>>  FILTER : USO DE FILTER :
+
+>>> l = [5,10,73,25,52]
+>>> print(list(filter(lambda n:n%5==0, l)))
+[5, 10, 25]
+
+4 ------------------->>>>
