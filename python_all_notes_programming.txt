@@ -680,7 +680,7 @@ yo = clase2()
 //STATICMETHOD : no puede usar (atributos, metodos) de la clase, esta por si sola en la clase, como una funcion más.
 
 class Poblacion:
-       people  = 100
+       people  = 100     // ATRIBUTOS
        
        @classmethod 
        def quantity_of_people(cls):
@@ -691,8 +691,8 @@ class Poblacion:
        def increase_quantity(cls):
               cls.people += 1
               
-       @classmethod
-       def decorador(cls):
+       @classmethod 
+       def decorador(cls):           // METODOS
               print("resultado: ",end="")
 
 print(Poblacion.quantity_of_people())  # resultado: 100
