@@ -681,8 +681,12 @@ print(apply_grade({'Matemáticas':6.5, 'Física':5, 'Química':3.4, 'Economía':8.2,
 
 3 ---------------->>>>>>  FILTER : USO DE FILTER :
 
+//EXTRAE LOS ELEMENTOS QUE CUMPLAN EL REQUISITO DE LA FUNCIONEN CASO QUE SEAN VERDADEROS:
+// O SEA SI EN LA LISTA EL PRIMERO ES TRUE Y LOS DEMAS FALSE ENTONCES RETORNA UNA LISTA CON EL ELEMENTO TRUE QUE ES EL PRIMERO.
+
 >>> l = [5,10,73,25,52]
 >>> print(list(filter(lambda n:n%5==0, l)))
-[5, 10, 25]
+
+SALIDA : [5, 10, 25]
 
 4 ------------------->>>>
