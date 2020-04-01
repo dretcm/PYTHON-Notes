@@ -740,7 +740,7 @@ def apply_grade(scores):
 
 print(apply_grade({'Matemáticas':6.5, 'Física':5, 'Química':3.4, 'Economía':8.2, 'Historia':9.7, 'Programación':10}))
 
-3 ---------------->>>>>>  FILTER : USO DE FILTER :
+38 ---------------->>>>>>  FILTER : USO DE FILTER :
 
 //EXTRAE LOS ELEMENTOS QUE CUMPLAN EL REQUISITO DE LA FUNCIONEN CASO QUE SEAN VERDADEROS:
 // O SEA SI EN LA LISTA EL PRIMERO ES TRUE Y LOS DEMAS FALSE ENTONCES RETORNA UNA LISTA CON EL ELEMENTO TRUE QUE ES EL PRIMERO.
@@ -750,4 +750,89 @@ print(apply_grade({'Matemáticas':6.5, 'Física':5, 'Química':3.4, 'Economía':8.2,
 
 SALIDA : [5, 10, 25]
 
-4 ------------------->>>>
+39 ------------------->>>>  USO DE NUMPY : 
+
+import numpy as np
+
+arreglo = np.ones([4,5,3])
+print("\nejemplo 1:\n",arreglo)
+
+arreglo = np.arange(10)
+print("\nejemplo 2:\n",arreglo)
+
+arreglo = np.arange(5,10)
+print("\nejemplo 3:\n",arreglo)
+
+arreglo = np.arange(2,3,0.1)
+print("\nejemplo 4:\n",arreglo)
+
+arreglo = np.linspace(1.,4.,6)
+print("\nejemplo 5:\n",arreglo)
+
+arreglo = np.full((2,3), 5)
+print("\nejemplo 6:\n",arreglo)
+
+arreglo = np.eye(5)
+print("\nejemplo 7:\n",arreglo)
+
+arreglo = np.random.random((4,5))
+print("\nejemplo 8:\n",arreglo)
+
+
+#SALIDA :
+
+ejemplo 1:
+ [[[1. 1. 1.]
+  [1. 1. 1.]
+  [1. 1. 1.]
+  [1. 1. 1.]
+  [1. 1. 1.]]
+
+ [[1. 1. 1.]
+  [1. 1. 1.]
+  [1. 1. 1.]
+  [1. 1. 1.]
+  [1. 1. 1.]]
+
+ [[1. 1. 1.]
+  [1. 1. 1.]
+  [1. 1. 1.]
+  [1. 1. 1.]
+  [1. 1. 1.]]
+
+ [[1. 1. 1.]
+  [1. 1. 1.]
+  [1. 1. 1.]
+  [1. 1. 1.]
+  [1. 1. 1.]]]
+
+ejemplo 2:
+ [0 1 2 3 4 5 6 7 8 9]
+
+ejemplo 3:
+ [5 6 7 8 9]
+
+ejemplo 4:
+ [2.  2.1 2.2 2.3 2.4 2.5 2.6 2.7 2.8 2.9]
+
+ejemplo 5:
+ [1.  1.6 2.2 2.8 3.4 4. ]
+
+ejemplo 6:
+ [[5 5 5]
+ [5 5 5]]
+
+ejemplo 7:
+ [[1. 0. 0. 0. 0.]
+ [0. 1. 0. 0. 0.]
+ [0. 0. 1. 0. 0.]
+ [0. 0. 0. 1. 0.]
+ [0. 0. 0. 0. 1.]]
+
+ejemplo 8:
+ [[0.54600486 0.73706976 0.85524028 0.89200753 0.25364417]
+ [0.35571309 0.02002548 0.1081764  0.27915285 0.47872488]
+ [0.49900018 0.03077063 0.57523311 0.59013634 0.80158343]
+ [0.65366827 0.09053311 0.30189149 0.79028571 0.94809943]]
+
+40 ------------------->>>
