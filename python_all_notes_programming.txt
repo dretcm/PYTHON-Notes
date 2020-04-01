@@ -957,7 +957,7 @@ alex
 val  ->  yorishi
 z  ->  49
 
---EJEMPLO 2: 
+--EJEMPLO 1: 
 
 def suma(*args):
        total = 0
@@ -967,7 +967,7 @@ def suma(*args):
 
 print(suma(1,2,3,4,5))
 
---EJEMPLO 3:
+--EJEMPLO 2:
 
 def suma_todo(**kwargs):
        total = 0
