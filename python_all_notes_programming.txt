@@ -35,6 +35,17 @@ def go_back():
 		dic_account[c_user.get()][2] = c_fullname.get()
 		dic_account[c_user.get()][3] = c_var_pais.get()
 
+ -- ELIMINACION DE ELEMENTOS EN UN DICCIONARIO :
+
+listin = {'Juan':123456789, 'Pedro':987654321,"Luis":123456789}
+print(listin)
+
+listin.pop("Pedro"," ")      // PRIMERA FORMA DE ELEMINAR (LLAVE O KEY DEL DICCIONARIO, VALORO VALUE).
+print(listin)
+			     //USO DEL " DEL " ELIMINAR
+del(listin["Luis"])         //SEGUNDA FORMA : SOLO SE ENVIA EL DICCIONARIO Y DENTRO LA KEY O LLAVE.
+print(listin)
+
 ---------------------------->>> PARA QUE FUNCION EL INT PRIMARY KEY AUTOINCREMENT :
 
 ("create table empleados(id integer primary key autoincrement,name text,salario float,bono text)")
