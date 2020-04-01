@@ -1,13 +1,26 @@
 ------------------------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------" Python "------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------
---------->> INCOVAR UNA FUNCION ATES QUE TODAS USAR :
+
+--------->> FUNCION MAIN : NAME MAIN :
+
+//INCOVAR UNA FUNCION ANTES QUE TODAS LAS LINEAS DE COMANDO ANTERIORES A ESTA :
+
+def principal():
+	print("gatos")
+print("hola")
 
 if __name__=="__main__":
 	principal()
-	
+	print("felinos")
 
-DICCIONARIO MULTIPLE :
+SALIDA ::
+
+gatos
+felinos
+hola
+	
+---------->>> DICCIONARIO MULTIPLE :
 
 dic_account={"a":{1:"a",2:"ADMINISTRADOR",3:"Todo el mundo"}}
 
@@ -45,10 +58,33 @@ ga.close()
 
 palabra.strip(" ") //en este caso borra todos los espacios, puedes cambiar lo q queires borrar introduciendolo en los parentesis.
 
-1 --> 
+------------------->>> ASIGNACION MULTIPLE :
+
+cadena = "alexander-carpio-mamani"
+a, b, c = cadena.split("-")
+print(a)
+print(b)
+print(c)
+
+cadena = ["1","2","3"]
+a, b, c = map(int, cadena)
+print(a)
+print(b)
+print(c)
+
+# SALIDA : 
+
+alexander
+carpio
+mamani
+1
+2
+3
+
+1 ----------> 
 print("para que lo imprimido sea de forma lateral: ",variable,end=" ")
 y usar " pass " es como un comentario pero no ignorado, así que no pasa nada solo es como para probar algo o ya sabes.
-2 --> 
+2 ---------> 
 #en listas:
 lista.append(añade_elemento) # para añadir elementos a las listas.
 lista.extend([x,y,z]) # para exterder a la lista con elementos puestos.
@@ -349,6 +385,12 @@ except FileNotFoundError:
     print('No existe el fichero con la tabla del', n)
 else:
     print(f.read())
+
+//OTRA FORMA DE USAR EL OPEN :
+
+with open("tabla_alex.txt","r") as file:
+       print(file.readlines())
+       file.close()
 
 20--->>>
 #1.list(map(funcion,parametros)) #bien para iterar colecciones.
