@@ -302,7 +302,7 @@ print(alex.username)
 
 print(alex.get_password())                                        #llamamos a la funcion get_password().
 
-18--->>
+18--->> ARCHIVOS : FILES : TXT :
 #para almacenar datos en bloc de notas o notepad.
 f=open("new.txt",'r')   # donde open("nombredelbloc.txt",'r') el 'r' es para leer el documento, 'w' para crear un nuevo documento y escribir, y 'a' para sobre escribir al final o como un append
 f1=f.readlines()      # lee todas la lineas y readline() lee una solo linea
@@ -326,6 +326,30 @@ print(f.closed) #para ver si esta cerrado o abierto (True or False)
 # para imprimir unas buenas lineas de un archivo txt debemos usar esto:
 for linea in open("new.txt"):     #donde "linea" es el iterable, y "open("new.txt")" es lo que debe iterar que ya es un txt creado en la misma locacion del programa
     print(linea,end="")           #aqui imprime el iterable "linea" y en " end="" " es para que no de su salto de linea y siga linea por linea normal, ya que el los txt siempre al final de cada linea esta incluido un "\n".
+
+// CON ESTO PUEDES LEER TODO EL ARCHIVO:
+
+file = open("tabla_alex.txt","r")
+print(file.read())
+file.close()
+
+//CON ESTO SACAS UNA LISTA DE TODO EL ARCHIVO CADA ELEMENTO DE LA LISTA ES UNA LINEA DEL ARCHIVO:
+
+file = open("tabla_alex.txt","r")
+print(file.readlines())
+file.close()
+
+// CON ESTO PUEDES VALIDAR CON EXCEPT EN CASO QUE NO SE ENCUENTRE EL ARCHIVO:
+
+n = int(input('Introduce un número entero entre 1 y 10: '))
+file_name = 'tabla-' + str(n) + '.txt'
+try: 
+    f = open(file_name, 'r')
+except FileNotFoundError:
+    print('No existe el fichero con la tabla del', n)
+else:
+    print(f.read())
+
 20--->>>
 #1.list(map(funcion,parametros)) #bien para iterar colecciones.
 
