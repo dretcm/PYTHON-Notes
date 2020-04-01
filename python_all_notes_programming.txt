@@ -901,7 +901,7 @@ ejemplo 8:
  [0.49900018 0.03077063 0.57523311 0.59013634 0.80158343]
  [0.65366827 0.09053311 0.30189149 0.79028571 0.94809943]]
 
-40 ------------------->>> USO DE * Y ** EN PYTHON PARA PARAMETROS :
+40 ------------------->>> USO DE * Y ** EN PYTHON PARA PARAMETROS : SOBRECARGA DE FUNCIONES 2.0 :
 
 // viene a ser como una sobrecarga de funciones o mejor llamado como un " parametro dinamico ":
 
@@ -956,5 +956,27 @@ alex
 
 val  ->  yorishi
 z  ->  49
+
+--EJEMPLO 2: 
+
+def suma(*args):
+       total = 0
+       for i in args:
+              total += i
+       return total
+
+print(suma(1,2,3,4,5))
+
+--EJEMPLO 3:
+
+def suma_todo(**kwargs):
+       total = 0
+       cadena = ""
+       for i in kwargs:
+              total += kwargs[i]
+              cadena += f"{i}, "
+       return cadena + " = " + str(total)
+
+print(suma_todo(pollo=7.5,arroz=5.0,papa=3.5))
 
 41 ---------------->>>>
