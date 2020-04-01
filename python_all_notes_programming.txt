@@ -901,4 +901,60 @@ ejemplo 8:
  [0.49900018 0.03077063 0.57523311 0.59013634 0.80158343]
  [0.65366827 0.09053311 0.30189149 0.79028571 0.94809943]]
 
-40 ------------------->>>
+40 ------------------->>> USO DE * Y ** EN PYTHON PARA PARAMETROS :
+
+// viene a ser como una sobrecarga de funciones o mejor llamado como un " parametro dinamico ":
+
+def por_posicion(*args):
+       cadena = ""
+       for i in args:
+              cadena += str(i)
+              print(i)
+       print("cadena = ",cadena)
+       
+def por_nombre(**kwargs):
+       print(kwargs)
+       
+def Send(*args, **kwargs):
+       print("\n ARGUMENTS: \n")
+       for i in args:
+              print(i)
+       print("\n KEYWORDS ARGUMENTS: \n")
+       for i in kwargs:
+              print(i, " -> ",kwargs[i])
+              
+print("\nPOR POSICION: \n")
+por_posicion(45,"alex",True,"datos",3.1416)
+
+print("\nPOR NOMBRE: \n")
+por_nombre(h="carpio",x="alexander",k="mamani")
+
+Send(5,"alex",41.4,val="yorishi",z=49)
+
+# SALIDA :
+
+POR POSICION: 
+
+45
+alex
+True
+datos
+3.1416
+cadena = 45alexTruedatos3.1416
+
+POR NOMBRE: 
+
+{'h': 'carpio', 'x': 'alexander', 'k': 'mamani'}
+
+ ARGUMENTS: 
+
+5
+alex
+41.4
+
+ KEYWORDS ARGUMENTS: 
+
+val  ->  yorishi
+z  ->  49
+
+41 ---------------->>>>
