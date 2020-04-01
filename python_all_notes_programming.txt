@@ -46,6 +46,18 @@ print(listin)
 del(listin["Luis"])         //SEGUNDA FORMA : SOLO SE ENVIA EL DICCIONARIO Y DENTRO LA KEY O LLAVE.
 print(listin)
 
+listin.clear() 		// PARA ELIMINAR, vaciar, TODO EL DICCIONARIO Y VOLVERLO ASI "{}".
+
+listin.items()   	// TODO EL DICCIONARIO CON KEYS Y VALUES :
+
+listin.keys() 	// RETORNA TODAS LAS LLAVES O CLAVES EN ESTE DICCIONARIO DEVOLVERIA TODOS LOS NOMBRES("Juan","Pedro","Luis").
+
+listin.values()  //RETORNA TODOS LOS VALORES AQUI SERIAN(LOS NUMEROS TELEFONICOS).
+
+listin.get("Luis","no existe este valor en el diccionario")    //si se encuentra luis en este diccionario entonces retorna key & value, caso contrario imprimer la cadena del segundo parametro.
+
+print("Pedro" in listin)     //COMO LOS VALORES TIPICOS TRUE Y FALSE.
+
 ---------------------------->>> PARA QUE FUNCION EL INT PRIMARY KEY AUTOINCREMENT :
 
 ("create table empleados(id integer primary key autoincrement,name text,salario float,bono text)")
