@@ -1,0 +1,385 @@
+
+--------------------------------------------------------------------------TKINTER---------------------------------------------------------------------------------------
+
+1 -------->> INTERFAZ GRAFICA INICIO : 
+
+from tkinter import *
+
+inicio = Tk()  # creamos la var para interfaces, osea creamos la ventana
+
+inicio.title(" alexander") #titulo
+
+inicio.resizable(0,0)  #primer espacio es para el ancho y se segundo para el largo, sirve apra abilitar el despliegue de maximizar o minimizar la pantalla.
+
+inicio.geometry("800x500") #anchura y alto de la ventana establecidos -- recordar q la primera parte es para el ancho
+
+inicio.config(bg="green") #busca más opciones pls la de ahi "bg" solo es para cambiar fondo de color
+
+inicio.iconbitmap("moneybolsa.ico")  #sirve pra cambiar el icono de la ventana "iconbitmap"
+
+inicio.mainloop() # creamos  la funcion pra que actue todo, para que empiezea funcionar la ventana
+
+--#crear dentro del mainloop():   // el .quit() es para salir o terminar el mainloop()
+
+//enviar como parametro a la ventana creada.
+
+myframe = Frame(inicio) #crea un marco dentro de la ventana
+#usamos pack para empacar
+myframe.pack(fill="both",expand=True)  # rellena la pantalla con el fill y para x y y usaremos "both" y el expand para True para que aplique
+myframe.config(width="400",height="450",bg="blue") # ancho y altura y bg para el fondo.
+myframe.config(relief="groove",bd=40,cursor="hand2") #relief es el relieve que tipo en este caso es de tipo engemado(buscar más en internet),el "bd" sirve para el borde del diseño
+ # el cursor sirve pra cmabiar el tipo de puntero "hand2" un tipo de flecha especial "exiten más investigar en internet pls.
+
+
+// IMPORTANTE: DESPUES DE CREAR UN BLOQUE USAREMOS EL .PACK() SINO USAMOS ESTO, NO MODIFICARA NADA LO DE ATRAS, SOLO MODIFICARA TODO APARTIR DE ESE PUNTO.
+
+2 ------> USO DEL LABEL:
+
+                         #contenido del label  #color de la letra  #tipo de letra y tamaño  #para el fondo del label.
+label1 = Label(myframe2,text=" BANK DRETCM ",fg="blue",font=("negrita",15),bg="LightGoldenrodYellow",relief="groove",bd=3) //ponesmos myframe2 para que este drneto del marco lo demas si lo entenderas.
+label1.place(x=10,y=0)  // .place sirve para ubicar la posicion del label //recordar usar Label con mayuscula al inicio.
+// en vez del .place() se podria usar columnas con la funcion  .grid(row=la_fila_que_quieras, column = la_columna_q_quieras, sticky="buca lados este norte oeste sur en internet")
+//tambien podrias agregar el(padx=10,pady=10)  //que equivaldrian a la distancia entre los demas elementos
+
+// el "inicio.mainloop()"  siempre terminar con eso es como el getch() o el finalizamiento para que funcione el programa actualizado
+
+img = PhotoImage("nombre de la imagen.png")
+label2 = Label(image=img)  //para mostrar imagenes
+label2.pack()
+
+
+3 ---------->>>>> FORMULA PARA MODIFICAR IMAGENES:
+
+from PIL import Image
+
+img = Image.open('money.png')   //enviamos la imagenos normal
+new_img = img.resize((256,256))    //ponemos sus nuevas medidas
+new_img.save('new.png','png')   //se guarda con el save. y dentro pondremos el nuevo nombre de la imageny en que formato que es despues de la coma.
+
+
+4 ---------->>>> INGRESO DE DATOS :
+                           //el font se invocara en e entry mismo
+enter1 = Entry(ven,show="*",font=("negrita",16),relief="groove",bd=3)  //con Entry podremos crear una entrada de datos, ven es una ventana creada y el show="*" es lo que mostraremos por pantalla si queremos lo sacamos para que muestre el texto sino mostrara "*"
+enter1.place(width=200,height=30)  //para modificar el ancho y alto
+enter1.pack() 
+enter1.config(justify="center")  //para que cuando se escriba provenga del centro, exiten "right" o "left" etc averigua.
+
+// para desabilitar una entrada o Entry
+from tkinter import *
+
+root = Tk()
+entry = Entry(root, state='disabled')
+entry.pack()
+root.mainloop()
+
+
+lik para saber más : https://recursospython.com/guias-y-manuales/caja-de-texto-entry-tkinter/
+
+// para crear TEXTOS O Text :
+
+texto = Text(lugar_a_donde_pertenecera, width="100", height="50")
+texto.place(x=10,y=10)  //o podrias usar el grid(padx,pady)
+
+texto1.config(yscrollcommand=scroll1.set,font=("negrita",12),state="disabled")
+//recordar usar despues de insertar el texto.
+
+5 ----------->>>> PARA CREAR LA BARRAS DE MOVIMIENTO DE LA VENTANA O Scrollbar() :
+
+//usaremos dese ahora más al .grid()
+
+texto = Text(ventana, width="50", height="20)
+texto.grid(row=1,column=1,padx=10,pady=10,)
+
+//usaremos el scroll:
+
+scroll = Scrollbar(ventana, command=texto.yview) // podemos poner xview para que eamos de parte de abajo o modificamos con el .grid()
+scroll.grid(row=1,column=2,sticky="nsew")  // column=2 porque la barra estara una columna alado del texto
+// sticky sirve para acomodarce o apegarce segun que direccion le enviemos -- n-s-e-w-ne-es-wn-nwes- etc o sea para acomodarce al marco.
+
+y para que funcione:
+
+texto.config(yscrollcommand=scroll.set)
+
+6 ----------->>>> BUTTONS O BOTONES: Button () :
+
+def finish():
+	ventana.quit()   //finaliza todo es con el "ventana.destroy()"
+
+boton1 = Button( ventana, text = " exit ", command = finish )     // el command sera la funcion a llamar.
+boton1.place(x=650,y=400,width=100,height=50)
+boton1.config(bg="orangered3",cursor="hand2",font=("negrita",20),fg="white",relief="groove",bd=10)
+
+7 --------->>>>> MODIFICACIONES :
+
+contenido_de_algo = StringVar()  //tipo string como variable
+enter2 = Entry(ven,width=30,show="*",font=("negrita",16),textvariable=contenido_de_algo)        //el contenido digitado se almacena en "contenido_de_algo"
+enter2.pack()
+enter2.config(justify="center")
+enter2.place(width=200,height=30)
+enter2.place(x=400,y=245)
+
+
+//   set cambio ---- get obtener
+def boton1_funcion():
+	contenido_de_algo.get()  // esto seria igual a contenido digitado por el Entry(enter2)
+	contenido_de_algo.set(" hola gente ")   //modificar algo
+	contenido_de_algo.get()  // esto seria igual a " hola gente "
+	contenido_De_algo.get("desde_que_fila.desde_que_columna",END) //el END es para que coja hasta el final; en donde escribo ponemos numeros se podria usar mejor con el Text.
+				//algo asi("1.0")  desde la fila 1 y desde la columna 0
+             
+
+
+8 ----------->>> RADIOBUTTON : Radiobutton()
+
+def radio_var():
+	if(opcion.get() == 1):
+		print("es hombre")
+	if(opcion.get() == 2):
+		print("es mujer")
+
+opcion = IntVar()
+
+radio1 = Radiobutton(ventana, text="masculino",fg="blue",bg="orange",font=("arial",16),value=1,variable=opcion,command=radio_var)
+radio1.place(x=0,y=0)
+
+radio2 = Radiobutton(ven,text="femenino",bg="orange",font=("negrita",15),fg="blue",variable=opcion,value=2,command=radio_var)
+radio2.grid(row=2,column=1)
+
+
+9 ------------>>>> CHECKBUTTONS : Checkbutton()
+
+mate = IntVar()
+comu = IntVar()
+ciencia = IntVar()
+
+def check_lista():
+	fin=""
+	if(mate.get()==1):
+		fin +=" matematica"
+	if(comu.get()==1):
+		fin +=" comunicacion"
+	if(ciencia.get()==1):
+		fin +=" ciencia"
+
+	print(fin)
+	
+check1 = Checkbutton(ven,text="matematica",variable=mate,onvalue=1,offvalue=0,command=check_lista)
+check1.grid(row=3,column=1)
+
+check2 =Checkbutton(ven,text="comunicacion",variable=comu,onvalue=1,offvalue=0,command=check_lista)
+check2.grid(row=3,column=2)
+
+check3 =Checkbutton(ven, text="ciencia",variable=ciencia,onvalue=1,offvalue=0,command=check_lista)
+check3.grid(row=3,column=3)
+
+// modificaciones con fondo de imagen:
+
+	niv = PhotoImage(file="newvisa.png")
+	ch1=Checkbutton(create_account, text="Visa",image=niv).place(x=220,y=270)
+
+
+10 ----------->> MENU DE OPCIONES EN LA BARRA :
+
+from tkinter import *
+
+ventana =Tk()
+
+def finish():
+	respuesta = messagebox.askquestion(" Exit "," Do you sure to want exit? ")   #retorna un "yes" o un "no"
+	if(respuesta == "yes"):
+		ventana.destroy()
+
+def Menu_Main(principal):
+	menu_main = Menu(principal)
+
+	principal.config(menu = menu_main)
+
+	menu_file = Menu(menu_main,tearoff=0)
+	menu_file.add_command(label="1. new")
+	menu_file.add_command(label="2. save")
+	menu_file.add_command(label="3. exit",command=finish)   //en cada ad_command se puede agregar comando o las acciones.
+
+	menu_tools = Menu(menu_main,tearoff=0)       //el tearoff=0  sirve para que el menu del menu no se desplegue
+	menu_tools.add_command(label="1. axe")
+	menu_tools.add_command(label="2. arrow")
+
+	menu_options = Menu(menu_main,tearoff=0)
+	menu_options.add_command(label="1. color")
+	menu_options.add_command(label="2. guie")
+
+	menu_main.add_cascade(label="File",menu = menu_file)
+	menu_main.add_cascade(label="Tools",menu = menu_tools)
+	menu_main.add_cascade(label="Options",menu = menu_options)
+
+Menu_Main(ventana)
+
+ventana.mainloop()
+
+
+11 ---------------->> MESSAGEBOX MENSAJES POR VENTANA :
+
+from tkinter import messagebox
+
+messagebox.showinfo("nombre_de_la_ventana", "contenido a mostrar")   // ("Error", " password or user incorrect.")  // showinfo = !
+
+messagebox.showwarning("nombre_de_la_ventana", "contenido a mostrar")  // showinfo = signo de peligro
+
+def finish():
+	respuesta = messagebox.askquestion(" Exit "," Do you sure to want exit? ")   #retorna un "yes" o un "no"
+	if(respuesta == "yes"):
+		ventana.destroy()
+
+def finish():
+	respuesta = messagebox.askokcancel(" Exit "," Do you sure to want exit? ")   #retorna un "True" o un "False"
+	if(respuesta == True):
+		ventana.destroy()
+
+def finish():
+	respuesta = messagebox.askretrycancel(" Exit "," Do you sure to want exit? ")   #retorna un "True" o un "False"  //para que salga un reintentar
+	if(respuesta == True):
+		ventana.destroy()
+
+//para abrir archivos
+
+from tkinter import filedialog
+
+def file_open():
+	archivo = filedialog.askopenfilename(title=" Searcher"                                                //titulo como siempre
+		,filetypes=(("Archivos de texto","*.txt"),("Archivos mp3","*.mp3"),("Archivos png","*.png")))
+	           //ese coso de filetypes especifica los tipos de formato a buscar, primero el nombre para que aparesca en busqueda relacionada y el segundo se define el formato "*.txt"
+	
+	print(archivo) //imprime la ubicacion del archivo.
+
+
+
+12 -------->> FORMA PARA SACAR MÁS PANTALLAS: 
+
+from tkinter import *
+
+def show():
+	print(val.get())
+
+def cambio():
+	def show2():
+		inicio.deiconify()         //funcion que vuelve a la ventana anterior ## ese .deiconify() es la contra parte del ".withdraw()"
+		n1.destroy()
+
+	inicio.withdraw()       //oculta la ventana es la contra parte del  ".deiconify()"
+	n1 = Toplevel()
+	n1.geometry("800x500")
+	val1 = StringVar()
+	enter1=Entry(n1,textvariable=val1).place(x=100,y=20)
+	boton1 = Button(n1,text= "text gat ",command=show2).place(x=20,y=20)
+
+
+
+inicio = Tk()  
+inicio.title("Bank Alexander")
+val = StringVar()
+enter = Entry(inicio, textvariable=val).place(x=100,y=20)
+
+
+boton = Button(inicio,text= "text ",command=show).place(x=20,y=20)
+boton3 = Button(inicio,text= "chang ",command=cambio).place(x=100,y=20)
+inicio.mainloop()
+
+
+13 ---------> RELIEF MAS FORMAS:
+
+from Tkinter import *
+import Tkinter
+
+top = Tkinter.Tk()
+
+B1 = Tkinter.Button(top, text ="FLAT", relief=FLAT )
+B2 = Tkinter.Button(top, text ="RAISED", relief=RAISED )
+B3 = Tkinter.Button(top, text ="SUNKEN", relief=SUNKEN )
+B4 = Tkinter.Button(top, text ="GROOVE", relief=GROOVE )
+B5 = Tkinter.Button(top, text ="RIDGE", relief=RIDGE )
+
+
+14 ---------> LISTA DESPLEGABLE : Y MEJOR FORMA DE UN SCROLL (ya viene incluido)
+
+from tkinter import *
+from tkinter import ttk
+v = Tk()
+v.geometry("300x300+500+100")
+
+var=StringVar(v)             //creamos variable que contenga los parametros a la ventana perteneciente como var de esa pestaña
+var.set("Country")            //sera lo que salra por el menu desplegable antes de tocarlo
+ 
+f =open("paisesnew.txt","r")          //archivo donde contendo toda la info
+opciones = f.readline().split(",")            
+
+
+op = ttk.Combobox(v,textvariable=var,values=opciones)       
+op.pack()
+
+f.close()
+v.mainloop()
+
+15 --------->>>> CENTRADO O POSICION DE LA PANTALLA : 
+from tkinter import *
+
+v = Tk()
+v.geometry("300x300+200+100")  // DONDE SUMAMOS ES LA PARTE QUE SE VA A MOVER--LA PRIMERA SUMA ES X, LA SEGUNDO ES Y.
+v.mainloop()
+
+
+
+16 --------> RECORDAR :
+
+// siempre al crear tu aplicativo todas las imagenes archivos guardarlos en donde se creo tu aplicativo
+
+
+usar : auto-py-to-exe     //sera la mejor forma de hacerlo.  lonk del video -- https://www.youtube.com/watch?v=48ex_RoMLD0
+
+17 ----------> DESHABILITAR :
+
+-> state="disabled"  //para desabilitar objtos
+-> state ="readonly" //que solo mostrara info
+-> state="normaly" //es como no poner nada
+
+18 ---------->  LISTBOX :
+
+listabox=Listbox(frame2,font=("negrita",14))
+listabox.pack(side="left",fill="y")
+
+sr1=Scrollbar(frame2,command=listabox.yview)
+sr1.pack(side="right",fill="y")
+
+listabox.config(yscrollcommand=sr1.set)
+
+for i in range(25):
+	listabox.insert(END,str(i))
+
+//para ver cual es ELEMENTO MARCADO:
+
+def show():
+	if(len(listabox.curselection())!=0):
+		print(listabox.get(listabox.curselection()))
+
+
+listabox=Listbox(frame2,font=("negrita",14))
+listabox.pack(side="left",fill="y")
+
+sr1=Scrollbar(frame2,command=listabox.yview)
+sr1.pack(side="right",fill="y")
+
+listabox.config(yscrollcommand=sr1.set)
+
+for i in range(26):
+	listabox.insert(END,f"{i+1} PcGaming")
+
+
+Button(ventana1,command=show,width=10,height=5,text="show").pack()
+
+
+ventana1.mainloop()
+
+//devolver en una tupla la posicion de la Listbox() :
+
+nombre_de_la_variable_lista.curselection()
+
+19 -------------->
+

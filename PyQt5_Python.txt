@@ -1,0 +1,205 @@
+--------------------------------------------------------- PYQT5------------------------------------------------------------}
+"""" shif + alt + 2 // 2 vantallas de sublimetext"""""""
+
+--------------->> VALIDACIONES :
+
+usar el: 
+
+try: 
+	//proceso a seguir}
+except ERROR A DAR:
+	//mensaje
+
+1 ---------------->    VENTANA SIMPLE :
+
+from PyQt5 import uic
+from PyQt5.QtWidgets import QApplication
+
+Form, Window = uic.loadUiType("dialog.ui")
+
+app = QApplication([])
+window = Window()
+form = Form()
+form.setupUi(window)
+window.show()
+app.exec_()
+
+- me :
+
+from PyQt5 import QtWidgets, uic
+
+app = QtWidgets.QApplication([])
+dig =uic.loadUi("primer.ui")
+
+dig.show()
+app.exec()
+
+
+/// aplicaion de calculadora: 
+
+from PyQt5 import QtWidgets, uic
+
+class Calculadora:
+	vil=2
+	def __init__(self):
+		self.app = QtWidgets.QApplication([])
+		self.dig = uic.loadUi("primer.ui")
+
+		self.dig.boton1.clicked.connect(self.suma)
+
+		self.dig.boton2.clicked.connect(self.mul)
+
+		self.dig.boton3.clicked.connect(self.divide)
+
+		self.dig.boton4.clicked.connect(self.power)
+
+		self.dig.show()
+		self.app.exec()
+
+	def suma(self):
+		self.dig.e3.setText(str(int(self.dig.e1.text()) + int(self.dig.e2.text()) ))
+	def mul(self):
+		self.dig.e3.setText(str( int(self.dig.e1.text()) * int(self.dig.e2.text())  ))
+	def divide(self):
+		self.dig.e3.setText(str(  int(self.dig.e1.text()) / int(self.dig.e2.text()) ))
+	def power(self):
+		self.val=1
+		self.ele=int(self.dig.e2.text())
+		for i in range(self.ele):
+			self.val*=int(self.dig.e1.text())
+		self.dig.e3.setText(str(self.val))
+
+
+yo = Calculadora()
+
+
+2 ----------->>> ENTRADAS :
+
+dig.nombre.setText("valor a poner")
+
+dig.nombre.text()  //saca valor
+
+self.dig.nombre.setPlaceholderText("resultado")    //va a tener cuando no haya texto ese sinvolo o lo q ingreses
+
+self.dig.e1.setFocus() //para que este azulito
+
+def show():
+	pass
+self.dig.nombre.returnPressed.connect(self.show)   /// PARA APRETAR ENTER EN VEZ DEL CLICK MUY MUY IMPORTANTE.
+
+
+self.dig.nombre.setReadOnly(True)   // para solo leida de datos y bloqueada para interactuar.
+
+3 ------------>>> BOTONES:
+def funcion():
+	pass
+
+dig.nombre.clicked.connect(funcion)
+
+
+4 -------------->>>> LISTAS CON ENTRADA O ListWidgets ():
+
+from PyQt5 import QtWidgets, uic
+
+class Prueba:
+	def __init__(self):
+		self.app=QtWidgets.QApplication([])
+		self.dig=uic.loadUi("tercero.ui")
+
+		self.dig.boton1.clicked.connect(self.add_element)
+		self.dig.enter1.returnPressed.connect(self.add_element)
+		self.dig.enter1.setPlaceholderText(" Enter text ")
+		self.dig.show()
+		self.app.exec()
+
+	def add_element(self):
+		if not self.dig.enter1.text() == "":
+			self.dig.enterlista.addItem(self.dig.enter1.text())
+			self.dig.enter1.setText("")
+
+yo = Prueba()
+
+
+5--------------->>>> 
+
+from PyQt5.QtWidgets import *
+
+QMessageBox(None,"title","message")
+
+
+6 -------------->>>> PARA INSERTAR DATOS DESDE SQLITE3 HASTA UNA TABLEWIDGET :
+
+from PyQt5 import QtWidgets, uic
+from PyQt5.QtWidgets import *
+import sqlite3
+
+class Class8:
+	def __init__(self):
+
+		self.app=QtWidgets.QApplication([])
+		self.dig=uic.loadUi("clase8.ui")
+
+		self.dig.boton1.clicked.connect(self.show_data)
+		self.dig.show()
+		self.app.exec()
+
+	def show_data(self):
+		conn=sqlite3.connect("data8.db")
+		c=conn.cursor()
+		c.execute("select * from curso ")
+		for row,user in enumerate(c.fetchall()):
+			self.dig.entradatodo.insertRow(row)
+			for column,data in enumerate(user):
+				val=QtWidgets.QTableWidgetItem(str(data))
+				self.dig.entradatodo.setItem(row,column,val)
+		conn.commit()
+		c.close()
+
+
+yo = Class8()
+
+//// ELIMINAR DATOS Y LIMPIAR LA LISTA COMPLETA :
+
+def delete_all_table(self):
+	while(self.dig.entradatodo.rowCount()>0):
+		self.dig.entradatodo.removeRow(0)
+
+
+7 ------------->>> CHECKBUTTONS :
+
+self.check_val=0
+if self.dig.check1.isChecked():
+	self.check_val=1
+
+8----------->>>>> CAMBIO DE FORMA IMAGEN COLOR EN QT DESINGNER :
+
+-changeStyelSheet click
+
+border-radius:60px;   //para que cambie de foram a redodne y pueves ver sus respectivos angulos.
+
+
+https://www.youtube.com/watch?v=TRKebElniyo&t=799s  //para insertar imagenes.
+
+
+9 ------------------->>> MOSTRAR IMAGENES :
+
+from PyQt5 import QtWidgets, uic
+from PyQt5.QtWidgets import *
+from PyQt5 import QtGui            //CLAVE
+
+app=QtWidgets.QApplication([])
+dig=uic.loadUi("aquitodo.ui")
+
+dig.label1.setPixmap(QtGui.QPixmap("bgsky.png"))    //MODIFICACION.
+
+dig.show()
+app.exec()
+
+
+// y el el Qt Designer  ... darle check al scaledcontents
+
+10 ------------->>> TALLA DE PANTALLA:
+
+1-click mainwindow
+2-size constraints
+3-selecionas lo que quieres maximo o minimo o lo que tienes con set minimun or maximun size que seria ambos.

@@ -1,0 +1,15 @@
+Creamos un txt, y lo guardamos con "nombre.json"   y ya tendremos un data base de json
+
+
+1 -----------> DATOS ABRIR :
+
+def principal():
+	with open("dataalex.json","r") as file:
+		data = json.load(file)
+		print(data)
+
+parecido a un: 
+
+file = open("dataalex.json","r")
+data=json.load(file)
+print(data)
