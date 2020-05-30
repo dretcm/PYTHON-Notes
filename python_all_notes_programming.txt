@@ -841,38 +841,90 @@ print(apply_grade({'Matemáticas':6.5, 'Física':5, 'Química':3.4, 'Economía':8.2,
 
 SALIDA : [5, 10, 25]
 
-39 ------------------->>>>  USO DE NUMPY : 
+39 ------------------->>>>  USO DE NUMPY or NP: 
 
 import numpy as np
 
-arreglo = np.ones([4,5,3])
+arreglo = np.zeros([3,5,4])   // genera una marizz replea de zeros o 0. 3 = canidad de marizes, 5 = filas, 4 = columnas.
+
+arreglo = np.ones([4,5,3])   	//genera una mariz replea de unos o 1. 4 = arreglos, 5 = filas, 3 = columnas.
 print("\nejemplo 1:\n",arreglo)
 
-arreglo = np.arange(10)
+arreglo = np.arange(10)        // genera desde el 0 al 9 un array.
 print("\nejemplo 2:\n",arreglo)
 
-arreglo = np.arange(5,10)
+arreglo = np.arange(5,10)      // desde 5 hasta 9, siempre el limite es -1. (limite 10 = 10-1 = 9)
 print("\nejemplo 3:\n",arreglo)
 
-arreglo = np.arange(2,3,0.1)
+arreglo = np.arange(2,3,0.1)   // desde 2, hasta 3, con paso de 0.1. 
 print("\nejemplo 4:\n",arreglo)
 
-arreglo = np.linspace(1.,4.,6)
+arreglo = np.linspace(1.,4.,6)   // genera un array de "6" valores entre "1." hasta "4.".
 print("\nejemplo 5:\n",arreglo)
 
-arreglo = np.full((2,3), 5)
+arreglo = np.full((2,3), 5)      // 2 = filas, 3 = columnas, 5 = el valor que va a ver en todos los arrays.
 print("\nejemplo 6:\n",arreglo)
 
-arreglo = np.eye(5)
+arreglo = np.eye(5)    // genera una mariz identidad, "5" es el numero de columnas  filas o sea una martriz de 5x5.
 print("\nejemplo 7:\n",arreglo)
 
-arreglo = np.random.random((4,5))
+// tambien se podria usar: "array = np.identity(5)" donde 5 es una matriz de 5x5.
+
+arreglo = np.random.random((4,5))   // 4 = filas, 5 = columnas.
 print("\nejemplo 8:\n",arreglo)
 
+arreglo = np.empty((3,5))  //genera una  martriz vacia de ceros. 3 = filas, 5 = columnas.
+
+a = np.array([(1,2,3),(4,5,6)])
+print(a.ndim)       # resulado "2"  porque el array evaluado es bidimensional.
+
+a = np.array([(1,2,3)])
+print(a.dtype)       # imprime el tipo de dato, en este caso es "int64".
+
+a = np.array([(1,2,3,4,5,6)])
+print(a.size)    # 6, retorna el tamaño del array.
+print(a.shape)   # (1,6)   retorna la forma del array.
+
+
+a = np.array([(1,2,3),(4,5,6)])   # matriz de 2 filas por 3 columnas.
+print(a)
+
+[ [1,2,3]
+[4,5,6] ]
+
+a = a.reshape(3,2)  # se cambio a una matriz de 3 filas  2 columnas.
+print(a)
+
+[ [1,2]
+[3,4]
+[5,6] ]
+
+a = np.array([(1,2,3),(4,5,6)])   
+print(a[0,2])   # imprime "3".
+
+a = np.array([(1,2,3),(4,5,6)])   
+print(a[0:,2])   # imprime "[3,6]". # "[0:" = desde el array 0 hasa el final, y ", 2]" obtener el elemento en la posicion 2.
+
+a = np.array([(1,2,3),(4,5,6)])   # se puede usar con array o matrices.
+print(a.min())   # imprime "1".
+print(a.max())   # imprime "6".
+print(a.sum())   # imprime "21".
+
+a = np.array([(1,2,3),(4,5,6)])   
+print(np.sqrt(a))   # imprime la raiz de cada elemento.
+print(np.std(a))    # imprime la desviacion estandar (La desviación estándar es la medida de dispersión más común, que indica qué tan dispersos están los datos con respecto a la media)
+
+x = np.array([(1,2,3),(4,5,6)])  
+y = np.array([(1,2,3),(4,5,6)])
+print(x+y) # imprimira una matriz, suma, resta, producto, y division.
+print(x-y)
+print(x*y)
+print(x/y)  
 
 #SALIDA :
 
 ejemplo 1:
+
  [[[1. 1. 1.]
   [1. 1. 1.]
   [1. 1. 1.]
@@ -925,6 +977,7 @@ ejemplo 8:
  [0.35571309 0.02002548 0.1081764  0.27915285 0.47872488]
  [0.49900018 0.03077063 0.57523311 0.59013634 0.80158343]
  [0.65366827 0.09053311 0.30189149 0.79028571 0.94809943]]
+
 
 40 ------------------->>> USO DE * Y ** EN PYTHON PARA PARAMETROS : SOBRECARGA DE FUNCIONES 2.0 :
 
@@ -1004,4 +1057,115 @@ def suma_todo(**kwargs):
 
 print(suma_todo(pollo=7.5,arroz=5.0,papa=3.5))
 
-41 ---------------->>>>
+41 ---------------->>>> PANDAS AS PD :
+
+import pandas as pd
+a = pd.DataFrame(np.array([(1,2,3),(4,5,6)]))
+print(a) 
+
+# salida:
+
+   0  1  2
+0  1  2  3
+1  4  5  6 
+
+import numpy as np
+import pandas as pd
+data = np.array([ [" ","col1","col2"] , ["fila1",22,33] , ["fila2",55,16] ])
+print(pd.DataFrame(data = data[1:,1:], index = data[1:,0], columns = data[0,1:]))
+# primer [1:,1:] para los elementos a mostrar, segundo index [1:,0] para los indices de las filas, tercero[0,1:] para los indices de la columna.
+# salida:
+
+      col1 col2
+fila1   22   33
+fila2   55   16
+
+countrys = pd.Series({"Peru":"Lima","Argentina":"Buenas Aires",
+                  "Chile":"San Tiago","Mexico":"Mexico CD o DF"})
+print(countrys)
+
+#salida:
+Peru                   Lima
+Argentina      Buenas Aires
+Chile             San Tiago
+Mexico       Mexico CD o DF
+
+a = pd.DataFrame(np.array([(1,2,3),(4,5,6)]))
+print(a.shape)  # imprime el tipo de martriz en ese caso es "2X3"
+
+a = pd.DataFrame(np.array([(1,2,3),(4,5,6)]))
+print(len(a.index))  # imprime la altura o numero de filas en este caso es "2".
+
+a = pd.DataFrame(np.array([(1,2,3),(4,5,6)]))
+print(a.describe())   #Esadisticas del Frame o matriz.
+
+#salida:
+             0        1        2
+count  2.00000  2.00000  2.00000
+mean   2.50000  3.50000  4.50000
+std    2.12132  2.12132  2.12132
+min    1.00000  2.00000  3.00000
+25%    1.75000  2.75000  3.75000
+50%    2.50000  3.50000  4.50000
+75%    3.25000  4.25000  5.25000
+max    4.00000  5.00000  6.00000
+
+a = pd.DataFrame(np.array([(1,2,3),(4,5,6),(7,8,9)]))
+print(a.mean())  # imprime la media de cada columna.
+
+#salida:
+0    4.0
+1    5.0
+2    6.0
+
+a = pd.DataFrame(np.array([(1,2,3),(4,5,6),(7,8,9)]))
+print(a.corr())  #para mostrar todas las correlaciones entre los numeros.
+
+#salida:
+     0    1    2
+0  1.0  1.0  1.0
+1  1.0  1.0  1.0
+2  1.0  1.0  1.0
+
+a = pd.DataFrame(np.array([(1,2,3),(4,5,6),(7,8,9)]))
+print(a.count())  #para mostrar la cantidad de los valores no nulos en el frame.
+
+#salida:
+0  3
+1  3
+2  3
+
+a = pd.DataFrame(np.array([(1,2,3),(4,5,6),(7,8,9)]))
+print(a.max())  #para mostrar el valor mas alto en cada columna.
+
+#salida:
+0  7
+1  8
+2  9
+
+a = pd.DataFrame(np.array([(1,2,3),(4,5,6),(7,8,9)]))
+print(a.min())  #para mostrar el valor mas bajo en cada columna.
+
+#salida:
+0  1
+1  2
+2  3
+
+a = pd.DataFrame(np.array([(1,2,3),(4,5,6),(7,8,9)]))
+print(a.median())  #para mostrar la mediana de cada columna.
+
+#salida:
+0  4
+1  5
+2  6
+
+a = pd.DataFrame(np.array([(1,2,3),(4,5,6),(7,8,9)]))
+print(a.std())  #para mostrar la desviacion estandar de cada columna.
+
+#salida:
+0  3.0
+1  3.0
+2  3.0
+
+
+42 ---------------->>>> MATPLOLIB:
