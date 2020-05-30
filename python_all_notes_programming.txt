@@ -1170,6 +1170,10 @@ print(a.std())  #para mostrar la desviacion estandar de cada columna o en otras 
 
 
 42 ---------------->>>> MATPLOLIB : import matplotlib.pyplot as plt :
+|| TEXT ||
+
+plt.text(3,-0.1, "Suma de Riemann: ", color='r')       # 1 parametro(eje x), 2 parametro(eje y), 3 parametro(string), 4 (color con una char).
+plt.text(3,-0.5, "Suma de Riemann: ", color='r')
 
 ||| DIAGRAMA DE LINEA |||
 
@@ -1292,5 +1296,30 @@ plt.pie(divisiones, labels=actividades, colors=colores, startangle=90, shadow=Tr
 
 plt.title('Gráfico circular 24 H',color = 'purple')
 plt.show()
+
+
+- EJEMPLO 1 DISTANCIA:
+
+import numpy as np
+import matplotlib.pyplot as plt
+import math
+
+def distancia(x1,y1):
+  return math.sqrt(pow(x1[1]-x1[0],2)+pow(y1[1]-y1[0],2))
+
+x1 = np.array([3,7])
+y1 = np.array([1,4])
+
+plt.scatter(x1,y1, color = "red")
+
+plt.plot(x1,y1,color = 'skyblue')
+
+plt.legend()
+plt.grid()
+plt.xlabel("Eje X: ")
+plt.text(3,-0.1, "La Distancia entre los puntos es: "+str(distancia(x1,y1)), color='r')
+plt.show()
+
+- EJEMPLO 2 :
 
 43 ---------------->>>>
