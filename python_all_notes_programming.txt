@@ -1168,6 +1168,41 @@ print(a.std())  #para mostrar la desviacion estandar de cada columna.
 2  3.0
 
 
-42 ---------------->>>> MATPLOLIB:
+42 ---------------->>>> MATPLOLIB : import matplotlib.pyplot as plt :
+
+||| DIAGRAMA DE LINEA |||
+
+EJEMPLO 1:
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.arange(0, 6,1) #Eje X
+y = np.arange(0,6,1)  #Eje Y
+
+plt.plot(x, y, color ="red", label="linea", linewidth = 3)
+plt.legend()      #muestra la legenda de los datos.
+plt.show()        #muestra una pendiente de color rojo.
+
+EJEMPLO 2:
+import numpy as np
+import matplotlib.pyplot as plt
+
+x1 = np.array([4,6,8,10,12])
+y1 = np.array([5,15,10,15,5])
+
+x2 = np.array([5,5,10,10,5])
+y2 = np.array([2,7,7,2,2])
+
+plt.plot(x1,y1, label="liena", linewidth=2, color="green")  # creacion de la recta "M"
+plt.plot(x2,y2, label="linea", linewidth=2, color="blue")   # creacion de un "Cuadrado"
+
+plt.title("Diagram de M",color="red")      # titulo o encabezado del diagrama
+plt.xlabel("Eje X Positivo")    # un texto en el eje x
+plt.ylabel("Eje Y Positivo")    # un texto en el eje y
+plt.legend()   
+plt.grid()  # para que tenga el cuadriculado
+plt.show()
+
+||| DIAGRAMA |||
 
 43 ---------------->>>>
