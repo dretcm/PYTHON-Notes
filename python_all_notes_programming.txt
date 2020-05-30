@@ -1169,3 +1169,5 @@ print(a.std())  #para mostrar la desviacion estandar de cada columna.
 
 
 42 ---------------->>>> MATPLOLIB:
+
+43 ---------------->>>>
