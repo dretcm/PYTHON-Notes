@@ -920,7 +920,9 @@ y = np.array([(1,2,3),(4,5,6)])
 print(x+y) # imprimira una matriz, suma, resta, producto, y division.
 print(x-y)
 print(x*y)
-print(x/y)  
+print(x/y)
+
+X = np.random.permutation(X)  # genera un roden aleatorio de los elementos del array enviado.
 
 #SALIDA :
 
@@ -1174,6 +1176,10 @@ print(a.std())  #para mostrar la desviacion estandar de cada columna o en otras 
 
 plt.text(3,-0.1, "Suma de Riemann: ", color='r')       # 1 parametro(eje x), 2 parametro(eje y), 3 parametro(string), 4 (color con una char).
 plt.text(3,-0.5, "Suma de Riemann: ", color='r')
+
+|| MARCO FIGURA ||
+
+plt.figure(figsize=(7,6))  // PRIMER PARAMETRO DE "FIGZISE" (X,Y).
 
 ||| DIAGRAMA DE LINEA |||
 
