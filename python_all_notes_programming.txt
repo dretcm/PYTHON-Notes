@@ -915,6 +915,8 @@ print(np.sqrt(a))   # imprime la raiz de cada elemento.
 print(np.std(a))    # imprime la desviacion estandar (La desviación estándar es la medida de dispersión más común, que indica qué tan dispersos están los datos con respecto a la media)
 # la desviacion standar viene a ser el _Delta de X.
 
+print(np.mean(a))  # la media del array, matriz etc.
+
 x = np.array([(1,2,3),(4,5,6)])  
 y = np.array([(1,2,3),(4,5,6)])
 print(x+y) # imprimira una matriz, suma, resta, producto, y division.
