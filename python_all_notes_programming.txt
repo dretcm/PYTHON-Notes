@@ -931,6 +931,9 @@ std = np.std(X,axis=0)
 
 std[ std == 0 ] = 1 # COMO UN MINI CONDICIONAL. si elemento[x] es == 0 entonces elemento[x] = 1 etcetcetc.
 
+a = np.array([(1,2,3),(4,5,6)])
+print(np.sum(a))  # imprime 21, suma todos los elementos del arreglo o matriz.
+
 #SALIDA :
 
 ejemplo 1:
