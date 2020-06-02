@@ -924,6 +924,11 @@ print(x/y)
 
 X = np.random.permutation(X)  # genera un roden aleatorio de los elementos del array enviado.
 
+mu = np.mean(X,axis=0) # X es un arreglo o matriz, AL PONER AXIS = 0 NOS RETORNARA UN ARRAY DE LA MEDIA DE CADA COLUMNA.
+std = np.std(X,axis=0)
+
+std[ std == 0 ] = 1 # COMO UN MINI CONDICIONAL. si elemento[x] es == 0 entonces elemento[x] = 1 etcetcetc.
+
 #SALIDA :
 
 ejemplo 1:
