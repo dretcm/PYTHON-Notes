@@ -934,6 +934,34 @@ std[ std == 0 ] = 1 # COMO UN MINI CONDICIONAL. si elemento[x] es == 0 entonces 
 a = np.array([(1,2,3),(4,5,6)])
 print(np.sum(a))  # imprime 21, suma todos los elementos del arreglo o matriz.
 
+dists = np.sum(np.power(X_test[:, np.newaxis] - X_train,2),axis=2)
+# se usa el axis 2, para entrar al 3 array. [ [ [3],[3] ],[ [3], [3] ] ]
+
+a = np.arange(6).reshape(2,3) + 10
+a
+array([[10, 11, 12],
+       [13, 14, 15]])
+
+np.argmin(a)
+0
+
+np.argmin(a, axis=0)
+array([0, 0, 0])
+
+np.argmin(a, axis=1)
+array([0, 0])
+
+
+result = np.where(arr == 15)   #encontrar el indice de un array o matriz
+ 
+print('Tuple of arrays returned : ', result)
+print("Elements with value 15 exists at following indices", result[0], sep='\n')
+
+#salida:
+Tuple of arrays returned :  (array([ 4,  7, 11], dtype=int32),)
+Elements with value 15 exists at following indices
+[ 4  7 11]
+
 #SALIDA :
 
 ejemplo 1:
