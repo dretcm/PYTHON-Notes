@@ -963,8 +963,8 @@ Elements with value 15 exists at following indices
 [ 4  7 11]
 
 #CONCATENAR O UNIR 2 ARRAY O MATRICES:
-A = np.array([[1,2],[3,5]])
-B = np.array([5,6])
+A = np.array([([1,2],[3,5]]))
+B = np.array(([5,6]))
 
 np.concatenate((A, B))
 
