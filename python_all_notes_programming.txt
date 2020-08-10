@@ -1046,6 +1046,32 @@ ejemplo 8:
  [0.65366827 0.09053311 0.30189149 0.79028571 0.94809943]]
 
 
+import numpy as np # DATOS CON CABECERA, y ORDENAR CON SEGUN ETIQUETA DE CABECERA
+cabecera = [('nombre','S10'),('edad',int)]
+datos = [('juan',19),('felipe',23),('luis',16),('thiago',18)]
+
+users = np.array(datos, dtype=cabecera)
+
+np.sort(users, order = 'edad')
+
+#salida: 
+
+array([(b'luis', 16), (b'thiago', 18), (b'juan', 19), (b'felipe', 23)],
+      dtype=[('nombre', 'S10'), ('edad', '<i8')])
+
+# MATRIZ CON DIAGONAL DEFINIDA:
+import numpy as np
+arr = np.diag([1,2,3,4,5])
+print(arr)
+
+#salida: 
+
+[[1 0 0 0 0]
+ [0 2 0 0 0]
+ [0 0 3 0 0]
+ [0 0 0 4 0]
+ [0 0 0 0 5]]
+
 40 ------------------->>> USO DE * Y ** EN PYTHON PARA PARAMETROS : SOBRECARGA DE FUNCIONES 2.0 :
 
 // viene a ser como una sobrecarga de funciones o mejor llamado como un " parametro dinamico ":
