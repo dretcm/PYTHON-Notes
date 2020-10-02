@@ -1418,4 +1418,72 @@ plt.show()
 
 - EJEMPLO 2 :
 
-43 ---------------->>>>
+43 ---------------->>>>  OPERADORES EN PYTHON
+
+
+class Backpack():
+  def __init__(self, owner):
+    self.owner = owner
+    self.__store = {}
+
+    print('backpack bought.')
+
+  def __call__(self, item):
+    if item not in self.__store:
+      self.__store[item] = 1
+    else:
+      self.__store[item] += 1
+
+  def __getitem__(self, idx):
+    if idx < 0 or idx >= len(self.__store):
+      return 'that item doesnt exist in the backpack.'
+    return list(self.__store.items())[idx]
+
+  def __len__(self):
+    return sum(self.__store.values())
+
+  def store(self):
+    return self.__store
+
+class Num():
+  def __init__(self, nums):
+    self.nums = nums
+  
+  def __add__ (self, Obj):  # operador '+' suma de objetos
+    res =  self.nums + Obj.nums
+    return Num(res)
+  def __call__(self):
+    return self.nums
+a = Num([1,2,3])
+b = Num([4,5,6])
+c = a + b
+print(c())
+
+Mochila = Backpack('alex')
+Mochila('pencil')
+Mochila('pencil')
+Mochila('book')
+print(Mochila[2])
+print(len(Mochila))
+Mochila.store()
+
+
+44 ---------------->> Use " * " :
+
+l = [1,2,'aea',True]
+
+a = {'aea':1,'gaa':3}
+
+print(*l)
+print(l)
+print(*a)
+print(a)
+
+- output:
+
+1 2 aea True
+[1, 2, 'aea', True]
+aea gaa
+{'aea': 1, 'gaa': 3}
+
+45 ---------------->>
