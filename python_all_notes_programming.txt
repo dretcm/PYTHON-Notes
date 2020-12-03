@@ -1486,4 +1486,63 @@ print(a)
 aea gaa
 {'aea': 1, 'gaa': 3}
 
-45 ---------------->>
+45 ---------------->> PyAutoGui :
+
+import pyautogui, time
+time.sleep(5)
+for word in f:
+	pyautogui.typewrite("mensaje spam")
+	pyautogui.press("enter")     
+
+46 ----------------->> DOCS : DOCX : WORD
+
+import zipfile
+import docx
+import os
+
+path = 'D:\....'
+
+
+# zf = zipfile.ZipFile(path + '\file_name.zip')
+# #print(zf.namelist())
+# zf.extractall(path2)
+# zf.close()
+
+photos = list(os.listdir(path2))
+#print(photos)
+
+doc = docx.Document()
+
+for i in range(len(photos)):
+    doc.add_picture(path + photos[i], width=docx.shared.Cm(8), height=docx.shared.Cm(10))
+
+doc.save('images_etc.docx')
+
+47 ----------------->> DERIVATES : DERIVADAS : 
+
+import sympy as sp
+
+x = sp.Symbol('x') # Variable dependiente
+
+y = x**3 # funcion o f(x)
+
+print(sp.diff(y,x))  #(funcion, variable, numero de derivadas)
+print(sp.diff(y,x,2))
+print(sp.diff(y,x,3))
+
+
+### WITH NUMPY
+
+import sympy as sp
+import numpy as np
+
+x = sp.Symbol('x') # Variable dependiente
+
+y = x**3 + 1 # funcion o f(x)
+
+y_prime = sp.diff(y,x)
+
+f = sp.lambdify(x, y_prime, 'numpy')
+print(f(np.ones(3)))
+
+48 ----------------->>
