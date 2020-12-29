@@ -1072,6 +1072,18 @@ print(arr)
  [0 0 0 4 0]
  [0 0 0 0 5]]
 
+# Use Where:
+
+import numpy as np
+
+A = np.random.random((3,3))
+A = np.where(A > 0.5, 1, 0)
+print(A)
+
+# np.linalg. etc:
+
+funciones de algebra linear.
+
 40 ------------------->>> USO DE * Y ** EN PYTHON PARA PARAMETROS : SOBRECARGA DE FUNCIONES 2.0 :
 
 // viene a ser como una sobrecarga de funciones o mejor llamado como un " parametro dinamico ":
