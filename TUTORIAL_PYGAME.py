@@ -1,4 +1,4 @@
-# (1) ------------------------------------ window, rename, size, quit ---------------------------------- #
+# (1) ---------------------------- window, rename, size, quit ------------------------- #
 
 import pygame, sys
 from pygame.locals import *  # for QUIT, etc
@@ -21,4 +21,34 @@ while True:
         pygame.display.update()
         clock.tick(60)  # for the 60 fps
 
-# (2) ------------------------------------ window, rename, size, quit ---------------------------------- #
+# (2) ------------------------------------ load image ---------------------------------- #
+
+import pygame, sys
+from pygame.locals import *
+
+clock = pygame.time.Clock() 
+WINDOW_SIZE = (400, 400)
+
+pygame.init()
+
+pygame.display.set_caption('My Pygame Window ')
+screen = pygame.display.set_mode(WINDOW_SIZE, 0, 32) 
+
+player_image = pygame.image.load('character.png')  # import, open image
+
+while True:
+
+        screen.blit(player_image, (0, 0))  # put the image in the surface (image loaded, image´s position)
+        # the axis(X,Y) is inverted.
+        # where (0,0) is TOP-LEFT and (400,400) is BOTTON-RIGHT.
+        for event in pygame.event.get():
+                if event.type == QUIT:
+                        pygame.quit() 
+                        sys.exit() 
+                        
+        pygame.display.update()
+        clock.tick(60)
+        
+ 
+# (3) ------------------------------------ window, rename, size, quit ---------------------------------- #       
+# (4) ------------------------------------ window, rename, size, quit ---------------------------------- # 
