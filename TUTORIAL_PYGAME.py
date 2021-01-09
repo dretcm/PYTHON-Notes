@@ -48,7 +48,7 @@ player_rect  = pygame.Rect(player_location[0], player_location[1], player_image.
 test_rect = pygame.Rect(100, 100, 100, 50) # rectangular collider with size test
 
 while True:
-        screen.fill((146, 244, 255)) # fill background with the colors RGB (0-255)
+        screen.fill((146, 244, 255)) # fill background with the colors RGB (0-255)(black-white)
         
         screen.blit(player_image, player_location) # put the image in the surface (image loaded, image´s position)
         # the axis(X,Y) is inverted.
@@ -107,6 +107,5 @@ while True:
         pygame.display.update() # this function will apply the display resfresh
         clock.tick(60)
         
- 
 # (3) ------------------------------------ window, rename, size, quit ---------------------------------- #       
 # (4) ------------------------------------ window, rename, size, quit ---------------------------------- # 
