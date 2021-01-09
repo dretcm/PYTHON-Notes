@@ -12,7 +12,7 @@ screen = pygame.display.set_mode(WINDOW_SIZE, 0, 32)  # set the size of window
 while True:
         
         for event in pygame.event.get():  # events at interact with the display, window.
-                if event.type == QUIT:  # QUIT is event type or message of exit to pygame
+                if event.type == QUIT:  # QUIT is event type or message of exit or close pygame´s window.
                         pygame.quit() # exit from pygame
                         sys.exit()  # exit from Python
                         
