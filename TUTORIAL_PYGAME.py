@@ -18,7 +18,7 @@ while True:
                         pygame.quit() # exit from pygame
                         sys.exit()  # exit from Python
                         
-        pygame.display.update()
+        pygame.display.update() # makes that display update according above process
         clock.tick(60)  # for the 60 fps
 
 # (2) ------------------------------------ load image ---------------------------------- #
@@ -46,7 +46,7 @@ while True:
                         pygame.quit() 
                         sys.exit() 
                         
-        pygame.display.update()
+        pygame.display.update() # this function will apply the display resfresh
         clock.tick(60)
         
  
