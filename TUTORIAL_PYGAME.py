@@ -1,4 +1,4 @@
-# (1) ---------------------------- window, rename, size, quit ------------------------- #
+# (1) ----------------------------------------- window, rename, size, quit --------------------------------------------- #
 
 import pygame, sys
 from pygame.locals import *  # for QUIT, etc
@@ -21,7 +21,7 @@ while True:
         pygame.display.update() # makes that display update according above process
         clock.tick(60)  # for the 60 fps
 
-# (2) ------------------------------------ load image ---------------------------------- #
+# (2) ------------------------------------ load image, inputs, physics, collisions ---------------------------------- #
 
 import pygame, sys
 from pygame.locals import *
