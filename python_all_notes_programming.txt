@@ -58,6 +58,23 @@ listin.get("Luis","no existe este valor en el diccionario")    //si se encuentra
 
 print("Pedro" in listin)     //COMO LOS VALORES TIPICOS TRUE Y FALSE.
 
+ -- MERGE:
+
+a = {'a':1, 'b':2}
+b ={'c':3, 'd':4}
+
+c = {*a,*b}   # {'c', 'a', 'b', 'd'}
+
+c = {**a,**b}  # {'a': 1, 'b': 2, 'c': 3, 'd': 4}
+
+c = a.copy()
+c.update(b)   # {'a': 1, 'b': 2, 'c': 3, 'd': 4}
+
+c = a | b  # {'a': 1, 'b': 2, 'c': 3, 'd': 4}
+
+c = dict(a.items() | b.items())  # {'a': 1, 'b': 2, 'c': 3, 'd': 4}
+
+
 ---------------------------->>> PARA QUE FUNCION EL INT PRIMARY KEY AUTOINCREMENT :
 
 ("create table empleados(id integer primary key autoincrement,name text,salario float,bono text)")
@@ -1497,6 +1514,13 @@ print(a)
 [1, 2, 'aea', True]
 aea gaa
 {'aea': 1, 'gaa': 3}
+
+a = {'a':1, 'b':2}
+b ={'c':3, 'd':4}
+
+c = {*a,*b}   # {'c', 'a', 'b', 'd'}
+
+c = {**a,**b}  # {'a': 1, 'b': 2, 'c': 3, 'd': 4}
 
 45 ---------------->> PyAutoGui :
 
