@@ -123,10 +123,10 @@ mamani
 
 1 ----------> 
 print("para que lo imprimido sea de forma lateral: ",variable,end=" ")
-y usar " pass " es como un comentario pero no ignorado, asÌ que no pasa nada solo es como para probar algo o ya sabes.
+y usar " pass " es como un comentario pero no ignorado, as√≠ que no pasa nada solo es como para probar algo o ya sabes.
 2 ---------> 
 #en listas:
-lista.append(aÒade_elemento) # para aÒadir elementos a las listas.
+lista.append(a√±ade_elemento) # para a√±adir elementos a las listas.
 lista.extend([x,y,z]) # para exterder a la lista con elementos puestos.
 lista.insert(poscicion,valor) # para colocar un elemento " y "en la posicion "x".
 lista.clear() # para eliminar todos los elementos de la lista.
@@ -147,10 +147,10 @@ for i in range(r):
         a=int(input(" Enter number in position ["+str(i)+"]["+str(f)+"]: "))
         matriz1.append(a)   # aqui agregamos elementos "a" ingresados por teclado a la matriz secundaria o las filas.
     matriz.append(matriz1)  # aqui agregamos la sublista a la lista principal.
-# conejos: cuando se traten de coleciones(listas, tuplas, conjuntos, diccionarios y no sÈ que m·s) usaremos cada herramienta posible para definir estas segun sean sus caracteristicas principales
+# conejos: cuando se traten de coleciones(listas, tuplas, conjuntos, diccionarios y no s√© que m√°s) usaremos cada herramienta posible para definir estas segun sean sus caracteristicas principales
 # osea si queremos ordenar algo, agregar, eliminar, usaremos listas(list(x)), si queremos solo saber que elementos hay sin repetirce usaremos "set(x)", si queremos
-# que tengan claves con valores usaremos "dict(zip(lista1,lista2))" donde veremos una mejor explicaciÛn en el punto 8, y "set" para convertirlos en conjuntos, tambien me olvidaba de las tuplas
-# que son "tuple(x)"que como que las convierten a constantes o algo asÌ.
+# que tengan claves con valores usaremos "dict(zip(lista1,lista2))" donde veremos una mejor explicaci√≥n en el punto 8, y "set" para convertirlos en conjuntos, tambien me olvidaba de las tuplas
+# que son "tuple(x)"que como que las convierten a constantes o algo as√≠.
 3-->>
 #para verificar si una palabra esta en una cadena se debe usar
 palabra.count('hi')------average es promedio
@@ -198,7 +198,7 @@ dates1=dict(zip(list1,list2))
 # y "list2" es igual a "values"
 9--->>
 # el "set()" sirve para convertir una lista,tupla,etc a un conjunto
-# donde lo m·s relevante de un conjunto es no repetir ningun elemento
+# donde lo m√°s relevante de un conjunto es no repetir ningun elemento
 # ejemplo:
 list1=[1,1,1,2,3,3,4,5,5,7]
 # pero con set(list1) o sea
@@ -210,8 +210,8 @@ print(list2)
 import math
 print(math.pow(x,y))   # donde " x " es el numero y " y " es a cuanto queremos elevarlo.
 print(math.sqrt(x))    # donde podremos sacarle raices cuadradas, pero si queires cubicas usemos:
-print(round(x**(1/3))) # asi serian una raiz cubica, obvio que hay muchas m·s formas pero pense si podia hacer eso.
-print(x**float(1/3))   # tambien encontre esta en internet y creo que tendria m·s sentido, y entre 2, 4, 5, etc.
+print(round(x**(1/3))) # asi serian una raiz cubica, obvio que hay muchas m√°s formas pero pense si podia hacer eso.
+print(x**float(1/3))   # tambien encontre esta en internet y creo que tendria m√°s sentido, y entre 2, 4, 5, etc.
 11--->>
                               # para un ejecutable usaremos el " import time ".
 import time
@@ -231,7 +231,7 @@ from modulos_creados import suma_total
 # para " CLASES Y OBJETOS " o para acostumbrarce " CLASS AND OBJECTS " ejemplos:
 class Humano:
      def __init__(self,edad):
-         self.edad=edad     # donde self viene a reflejar como un objeto a ingresar como el input ya veran m·s abajo y edad y self viene a ser como parametro y etc t˙ te entiendes.
+         self.edad=edad     # donde self viene a reflejar como un objeto a ingresar como el input ya veran m√°s abajo y edad y self viene a ser como parametro y etc t√∫ te entiendes.
          print(" hola esta es una clase")
      def hablar(self,mensaje):
          print(mensaje)
@@ -244,12 +244,12 @@ class Dotero(Humano):                 # donde agregamos"(Humano)" para que esta 
           print(" jugare poscicion: ",juego)
 class Acleta(Humano):
       def actividad(self,ejercicio):
-          print(" hoy dÌa hare unas/nos: ",ejercicio)
+          print(" hoy d√≠a hare unas/nos: ",ejercicio)
 
 alexander = Dotero(18)
-alexander.poscicion(5)                # aqui llamamos a la funcion "poscicion(5)" y el 5 es el parametro que envia a la funcion que se encuentra en lÒa clase " class Dotero(Humano):".
+alexander.poscicion(5)                # aqui llamamos a la funcion "poscicion(5)" y el 5 es el parametro que envia a la funcion que se encuentra en l√±a clase " class Dotero(Humano):".
 
-gustavo = Acleta(15)                  # aquÌ llamamos a otra clase 
+gustavo = Acleta(15)                  # aqu√≠ llamamos a otra clase 
 gustavo.actividad("planchitas")
 14--->>>
 #instancear es crear objetos apartir de una clase.
@@ -271,43 +271,43 @@ vali()
 16----->>>>>
 # para los textos y etc:
 
-1. Convertir a may˙scula la primera letra
-MÈtodo: capitalize()
-Retorna: una copia de la cadena con la primera letra en may˙sculas.
+1. Convertir a may√∫scula la primera letra
+M√©todo: capitalize()
+Retorna: una copia de la cadena con la primera letra en may√∫sculas.
 
->>> cadena = "bienvenido a mi aplicaciÛn" 
+>>> cadena = "bienvenido a mi aplicaci√≥n" 
 >>> print cadena.capitalize()
-"Bienvenido a mi aplicaciÛn"
+"Bienvenido a mi aplicaci√≥n"
 
-2. Convertir una cadena a min˙sculas
-MÈtodo: lower()
+2. Convertir una cadena a min√∫sculas
+M√©todo: lower()
 
-Retorna: una copia de la cadena en min˙sculas.
+Retorna: una copia de la cadena en min√∫sculas.
 
 >>> cadena = "Hola Mundo" 
 >>> print cadena.lower()
 "hola mundo"
 
-3. Convertir una cadena a may˙sculas
-MÈtodo: upper()
+3. Convertir una cadena a may√∫sculas
+M√©todo: upper()
 
-Retorna: una copia de la cadena en may˙sculas.
+Retorna: una copia de la cadena en may√∫sculas.
 
 >>> cadena = "Hola Mundo" 
 >>> print cadena.upper()
 "HOLA MUNDO"
 
-4. Convertir may˙sculas a min˙sculas y viceversa
-MÈtodo: swapcase()
+4. Convertir may√∫sculas a min√∫sculas y viceversa
+M√©todo: swapcase()
 
-Retorna: una copia de la cadena convertidas las may˙sculas en min˙sculas y viceversa.
+Retorna: una copia de la cadena convertidas las may√∫sculas en min√∫sculas y viceversa.
 
 >>> cadena = "Hola Mundo" 
 >>> print cadena.swapcase()
 "hOLA mUNDO"
 
-5. Convertir una cadena en Formato TÌtulo
-MÈtodo: title()
+5. Convertir una cadena en Formato T√≠tulo
+M√©todo: title()
 
 Retorna: una copia de la cadena convertida.
 
@@ -316,40 +316,40 @@ Retorna: una copia de la cadena convertida.
 "Hola Mundo"
 
 6. Centrar un texto
-MÈtodo: center(longitud[, "caracter de relleno"])
+M√©todo: center(longitud[, "caracter de relleno"])
 
 Retorna: una copia de la cadena centrada.
 
->>> cadena = "bienvenido a mi aplicaciÛn".capitalize() 
+>>> cadena = "bienvenido a mi aplicaci√≥n".capitalize() 
 >>> print cadena.center(50, "=") 
-===========Bienvenido a mi aplicaciÛn============ 
+===========Bienvenido a mi aplicaci√≥n============ 
 
 >>> print cadena.center(50, " ") 
-           Bienvenido a mi aplicaciÛn
+           Bienvenido a mi aplicaci√≥n
 
 7. Alinear texto a la izquierda
-MÈtodo: ljust(longitud[, "caracter de relleno"])
+M√©todo: ljust(longitud[, "caracter de relleno"])
 
 Retorna: una copia de la cadena alineada a la izquierda.
 
->>> cadena = "bienvenido a mi aplicaciÛn".capitalize() 
+>>> cadena = "bienvenido a mi aplicaci√≥n".capitalize() 
 >>> print cadena.ljust(50, "=")
-Bienvenido a mi aplicaciÛn=======================
+Bienvenido a mi aplicaci√≥n=======================
 
 8. Alinear texto a la derecha
-MÈtodo: rjust(longitud[, "caracter de relleno"])
+M√©todo: rjust(longitud[, "caracter de relleno"])
 
 Retorna: una copia de la cadena alineada a la derecha.
 
->>> cadena = "bienvenido a mi aplicaciÛn".capitalize() 
+>>> cadena = "bienvenido a mi aplicaci√≥n".capitalize() 
 >>> print cadena.rjust(50, "=") 
-=======================Bienvenido a mi aplicaciÛn
+=======================Bienvenido a mi aplicaci√≥n
 
 >>> print cadena.rjust(50, " ") 
-                       Bienvenido a mi aplicaciÛn
+                       Bienvenido a mi aplicaci√≥n
 
 9. Rellenar un texto anteponiendo ceros
-MÈtodo: zfill(longitud)
+M√©todo: zfill(longitud)
 
 Retorna: una copia de la cadena rellena con ceros a la izquierda hasta alcanzar la longitud final indicada.
 
@@ -417,7 +417,7 @@ file.close()
 
 // CON ESTO PUEDES VALIDAR CON EXCEPT EN CASO QUE NO SE ENCUENTRE EL ARCHIVO:
 
-n = int(input('Introduce un n˙mero entero entre 1 y 10: '))
+n = int(input('Introduce un n√∫mero entero entre 1 y 10: '))
 file_name = 'tabla-' + str(n) + '.txt'
 try: 
     f = open(file_name, 'r')
@@ -454,14 +454,14 @@ print (list(x))
 
 #2.list(filter(funcion,parametros)) #igual que map pero esta tiene una condiccion con elemtos filtrados
 
-def multiple(numero): # Primero declaramos una funciÛn condicional
- if numero % 5 == 0: # Comprobamos si un numero es m˙ltiple de cinco
- return True # SÛlo devolvemos True si lo es
+def multiple(numero): # Primero declaramos una funci√≥n condicional
+ if numero % 5 == 0: # Comprobamos si un numero es m√∫ltiple de cinco
+ return True # S√≥lo devolvemos True si lo es
 numeros = [2, 5, 10, 23, 50, 33]
 filter(multiple, numeros)
 
 
-#3.reduce(funcion, colecciÛn, inicial)
+#3.reduce(funcion, colecci√≥n, inicial)
 
 def add(a, b):
  return a + b
@@ -485,12 +485,12 @@ from tkinter import Tk
 ventana =Tk()
 ventana.title("hola")
 ventana.mainloop()
-#con esto nos saldra una pequeÒa ventana
+#con esto nos saldra una peque√±a ventana
 22--->>>
 #use break and continue, break rompe la iteracion de un for o while 
 #Al aparecer un Continue en Python, este regresa al comienzo del bucle, 
-#ignorando todos los estamentos que quedan en la iteraciÛn actual del 
-#bucle e inicia la siguiente iteraciÛn. Queda m·s claro con un ejemplo:
+#ignorando todos los estamentos que quedan en la iteraci√≥n actual del 
+#bucle e inicia la siguiente iteraci√≥n. Queda m√°s claro con un ejemplo:
 
 for letra in "Python":
     if letra == "h":
@@ -607,7 +607,7 @@ alf + 3 para volverlos a todos asi -->> ###print("hola")
 y para retornarlos usaremos alf +4 --->> print("hola")
 
 29--->
-para aÒadir a un diccionario usaremos:
+para a√±adir a un diccionario usaremos:
 dic['alex']=18
 para eliminar usaremos:
 del dic['alex']
@@ -676,7 +676,7 @@ c.execute("DROP TABLE t_pasar")
 con.commit()
 con.close()
 32----->>
-##para usar m·s en letras o strings:
+##para usar m√°s en letras o strings:
 import string
 usando los comandos q contiene string podremos sacar
 todos los numeros, tolas las letras mayusculas o minuscula, cambiar a cada letra mayuscula en cada palabra al iniciar, etc.
@@ -693,10 +693,10 @@ print(m)
 
 34 ------->>>> OPEN txt :
 
-recuerda que cuano esta en una funcion un open es m·s efectivo a la hora de cambiar cosas al instante: ejemplo (bot_mirrow_future_XD) :
+recuerda que cuano esta en una funcion un open es m√°s efectivo a la hora de cambiar cosas al instante: ejemplo (bot_mirrow_future_XD) :
 
 f = open("botspeak.txt",'w')
-f.write("hola\nno lo sÈ t˙ dime\nsi eso\nperro lo tienes\n")
+f.write("hola\nno lo s√© t√∫ dime\nsi eso\nperro lo tienes\n")
 f.close()
 def add(a):
     f = open("botspeak.txt",'a')
@@ -718,7 +718,7 @@ fat.close()
 35 ----------->>> USO DE ITERTOOLS :
 import itertools
 itertools.permutations(iterable,longitud)
----PERMUTATIONS : MODIFICA EL ORDEN DE LOS ELEMENTOS.(SÕ IMPORTA EL ORDEN). DATO:[2,6,13] SALIDA: [2,6,13], [2,13,6], [6,2,13], [6,13,2], [13,2,6], [13,6,2].
+---PERMUTATIONS : MODIFICA EL ORDEN DE LOS ELEMENTOS.(S√ç IMPORTA EL ORDEN). DATO:[2,6,13] SALIDA: [2,6,13], [2,13,6], [6,2,13], [6,13,2], [13,2,6], [13,6,2].
 
 itertools.combinations(iterable,longitud)
 ---COMBINATIONS : COMBINA TODOS LOS ELEMENTOS, NO SE REPITEN CONJUNTOS.(NO IMPORTA EL ORDEN). DATO:[2,6,13] SALIDA: [2,6], [2,13], [6,13].
@@ -794,7 +794,7 @@ yo = clase2()
 36.2 ---------------------->>> CLASSMETHOD : STATICMETHOD :
 
 //CLASSMETHOD : puede usar las instancias de la clase (atributos, metodos).
-//STATICMETHOD : no puede usar (atributos, metodos) de la clase, esta por si sola en la clase, como una funcion m·s.
+//STATICMETHOD : no puede usar (atributos, metodos) de la clase, esta por si sola en la clase, como una funcion m√°s.
 
 class Poblacion:
        people  = 100     // ATRIBUTOS
@@ -855,7 +855,7 @@ def apply_grade(scores):
     grades = map(grade, scores.values())
     return dict(zip(subjects, grades))
 
-print(apply_grade({'Matem·ticas':6.5, 'FÌsica':5, 'QuÌmica':3.4, 'EconomÌa':8.2, 'Historia':9.7, 'ProgramaciÛn':10}))
+print(apply_grade({'Matem√°ticas':6.5, 'F√≠sica':5, 'Qu√≠mica':3.4, 'Econom√≠a':8.2, 'Historia':9.7, 'Programaci√≥n':10}))
 
 38 ---------------->>>>>>  FILTER : USO DE FILTER :
 
@@ -908,7 +908,7 @@ a = np.array([(1,2,3)])
 print(a.dtype)       # imprime el tipo de dato, en este caso es "int64".
 
 a = np.array([(1,2,3,4,5,6)])
-print(a.size)    # 6, retorna el tamaÒo del array.
+print(a.size)    # 6, retorna el tama√±o del array.
 print(a.shape)   # (1,6)   retorna la forma del array.
 
 ----
@@ -938,7 +938,7 @@ print(a.sum())   # imprime "21".
 
 a = np.array([(1,2,3),(4,5,6)])   
 print(np.sqrt(a))   # imprime la raiz de cada elemento.
-print(np.std(a))    # imprime la desviacion estandar (La desviaciÛn est·ndar es la medida de dispersiÛn m·s com˙n, que indica quÈ tan dispersos est·n los datos con respecto a la media)
+print(np.std(a))    # imprime la desviacion estandar (La desviaci√≥n est√°ndar es la medida de dispersi√≥n m√°s com√∫n, que indica qu√© tan dispersos est√°n los datos con respecto a la media)
 # la desviacion standar viene a ser el _Delta de X.
 
 print(np.mean(a))  # la media del array, matriz etc.
@@ -1417,10 +1417,10 @@ import matplotlib.pyplot as plt
 dormir =[7,8,6,11,7]
 comer = [2,3,4,3,2]
 trabajar =[7,8,7,2,2]
-recreaciÛn = [8,5,7,8,13]
+recreaci√≥n = [8,5,7,8,13]
 #SACAMOS UN CONCLUSION Y SALE DIVISONES:
 divisiones = [7,2,2,13] 
-actividades = ['Dormir','Comer','Trabajar','RecreaciÛn']  #TEXTO QUE PARARECERA SEGUN EL ORDEN
+actividades = ['Dormir','Comer','Trabajar','Recreaci√≥n']  #TEXTO QUE PARARECERA SEGUN EL ORDEN
 colores = ['red','violet','skyblue','orange']  # COLORES SEGUN EL ORDEN
 
 plt.pie(divisiones, labels=actividades, colors=colores, startangle=90, shadow=True, explode=(0.1,0,0,0), autopct='%1.1f%%')
@@ -1428,7 +1428,7 @@ plt.pie(divisiones, labels=actividades, colors=colores, startangle=90, shadow=Tr
 # SHADOW = TRUE O FALSE SEGUN EL GUSTO, EXPLODE = SI SE PONE UN VALOR DIFERENTE A 0, SERA SEPARADO DE LOS DEMAS CON EL VALOR DADO SEGUN LA POSICION.
 # AUTOPCT = SE MOSTRARA EL VALOR EN PORCENTAJES E CADA DATO.
 
-plt.title('Gr·fico circular 24 H',color = 'purple')
+plt.title('Gr√°fico circular 24 H',color = 'purple')
 plt.show()
 
 
@@ -1590,6 +1590,7 @@ y_prime = sp.diff(y,x)
 f = sp.lambdify(x, y_prime, 'numpy')
 print(f(np.ones(3)))
 
+<<<<<<< HEAD
 48 ----------------->> Create QR Code : pip install qrcode
 
 // Simple text:
