@@ -432,6 +432,15 @@ with open("tabla_alex.txt","r") as file:
        print(file.readlines())
        file.close()
 
+// UnicodeDecodeError ERROR !!!!
+
+file = open('review.txt','r',encoding='utf-8')
+#text = file.read()
+#text = file.readlines()
+#text = file.readline()
+#print(text)
+
+
 20--->>>
 #1.list(map(funcion,parametros)) #bien para iterar colecciones.
 
@@ -1581,4 +1590,46 @@ y_prime = sp.diff(y,x)
 f = sp.lambdify(x, y_prime, 'numpy')
 print(f(np.ones(3)))
 
-48 ----------------->>
+48 ----------------->> Create QR Code : pip install qrcode
+
+// Simple text:
+
+import qrcode
+
+img = qrcode.make('hello, you create a text qr code')
+img.save('D:/my_qrcode.png')
+
+
+// Configuration QrCode:
+
+import qrcode
+
+qr = qrcode.QRCode(box_size=20, border=2)
+qr.add_data('hola amigooo')
+#qr.make(fit=True)
+
+img = qr.make_image(fill_color='black', back_color='white')
+img.save('D:/my_qrcode.png')
+
+// Configuration QrCode 2.0:
+
+import qrcode
+
+qr = qrcode.QRCode(box_size=50, border=1)
+qr.add_data('https://www.youtube.com/')
+#qr.make(fit=True)
+
+img = qr.make_image(fill_color='red', back_color='blue')
+img.save('D:/my_qrcode.png')
+
+
+// save qr image in other format
+
+import qrcode
+import qrcode.image.svg as SG
+
+factory = SG.SvgPathImage
+img = qrcode.make('hi, hello, hola, etc.', image_factory=factory)
+img.save('D:/my_qrcode.svg')
+
+49 ----------------->>
