@@ -76,6 +76,7 @@ yo = Calculadora()
 2 ----------->>> ENTRADAS :
 
 dig.nombre.setText("valor a poner")
+self.dig.input_1.clear() # similar al anterior pero limpia la entrada
 
 dig.nombre.text()  //saca valor
 
@@ -90,11 +91,17 @@ self.dig.nombre.returnPressed.connect(self.show)   /// PARA APRETAR ENTER EN VEZ
 
 self.dig.nombre.setReadOnly(True)   // para solo leida de datos y bloqueada para interactuar.
 
+// formato texto:
+
+dig.input_1.setStyleSheet('font: 75 11pt "Arial";')
+
 3 ------------>>> BOTONES:
 def funcion():
 	pass
 
-dig.nombre.clicked.connect(funcion)
+dig.button_1.clicked.connect(funcion)
+
+self.dig.button_2.setDisabled(True) # desactiva boton
 
 
 4 -------------->>>> LISTAS CON ENTRADA O ListWidgets ():
@@ -198,8 +205,87 @@ app.exec()
 
 // y el el Qt Designer  ... darle check al scaledcontents
 
+// background pantallas
+
+from PyQt5 import QtWidgets, uic
+
+app = QtWidgets.QApplication([])
+app.setStyleSheet("QMainWindow{background-image: url(bg.jpg)}")
+
+# app = QtWidgets.QApplication([])  # background COLOR
+# app.setStyleSheet("QMainWindow{background: black;}")
+
+dig = uic.loadUi("desing.ui")
+
+# w = QtWidgets.QMainWindow()  # una ventana aparte
+# w.setStyleSheet("QMainWindow{background-image: url(bg.jpg)}")
+# w.resize(591, 435)
+# w.show()
+
+dig.show()
+app.exec()
+
+// font of labels:
+
+dig.label.setStyleSheet("background: white;")
+
 10 ------------->>> TALLA DE PANTALLA:
 
 1-click mainwindow
 2-size constraints
 3-selecionas lo que quieres maximo o minimo o lo que tienes con set minimun or maximun size que seria ambos.
+
+11 ------------->>> Text Browser:
+
+// add elements and set format:
+
+from PyQt5 import QtWidgets, uic
+
+app = QtWidgets.QApplication([])
+app.setStyleSheet("QMainWindow{background-image: url(bg.jpg)}")
+
+dig = uic.loadUi("desing.ui")
+
+def send():
+    dig.textBrowser.append(dig.input_1.text())
+    dig.input_1.setText('')
+    
+dig.textBrowser.setStyleSheet('font: 75 11pt "Arial";')
+dig.input_1.setStyleSheet('font: 75 11pt "Arial";')
+dig.button_1.clicked.connect(send)
+
+dig.show()
+app.exec()
+
+
+// scroll bar in the botton or top:
+
+self.dig.textBrowser.verticalScrollBar().setValue(self.dig.textBrowser.verticalScrollBar().maximum()) # max
+self.dig.textBrowser.verticalScrollBar().setValue(self.dig.textBrowser.verticalScrollBar().minimum()) # min
+
+12 ------------>>> Titulo de ventana:
+
+self.PyQt5.QtWidgets.setWindowTitle('my window app')
+
+13 ------------>>> Negrita in text_Browser:
+
+self.tb = QTextBrowser()
+self.tb.setAcceptRichText(True) # este por default esta true
+self.tb.setOpenExternalLinks(True) # y este es para entrada de enlaces externos.
+
+<b>Bold</b>  # negrita
+<i>Italic</i> 
+<p style="color: red">Red</p>
+<p style="font-size: 20px">20px</p>
+<a href="https://www.naver.com">Naver</a>
+
+self.tb.append('<b>'+name+'</b>') # agrega un texto en negrita
+self.nickname = '<font face="impact" color = "red">'+name+'</font>'
+self.nickname = '<b><font color = "red">'+name+'</font></b>'
+
+14 ------------>>> Cerrar las ventanas de PyQt5:
+
+self.app = QtWidgets.QApplication([])
+self.app.closeAllWindows()
+
+15 ------------>>>
