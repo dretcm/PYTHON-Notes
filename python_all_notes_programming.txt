@@ -2,7 +2,7 @@
 --------------------------------------------------------------------------" Python "------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------
 
---------->> FUNCION MAIN : NAME MAIN :
+--------->> FUNCION MAIN : NAME MAIN AND FINISH SCRIPT:
 
 //INCOVAR UNA FUNCION ANTES QUE TODAS LAS LINEAS DE COMANDO ANTERIORES A ESTA :
 
@@ -19,6 +19,17 @@ SALIDA ::
 gatos
 felinos
 hola
+
+// task kill
+
+import sys
+try:
+	a = input()
+except:
+	sys.exit(1) # parameter 1 for errors, exit or finish script
+
+sys.exit(0)  # equals to sys.exit(), 0 is by default, finish script
+	
 	
 ---------->>> DICCIONARIO MULTIPLE :
 
@@ -74,6 +85,13 @@ c = a | b  # {'a': 1, 'b': 2, 'c': 3, 'd': 4}
 
 c = dict(a.items() | b.items())  # {'a': 1, 'b': 2, 'c': 3, 'd': 4}
 
+-- tours with dictionarys:
+
+a = ['a','b','c','d']
+b = [1,2,3,4]
+
+dictionary = {value:b[index]  for index, value in enumerate(a)} 
+# output:{'a': 1, 'b': 2, 'c': 3, 'd': 4}
 
 ---------------------------->>> PARA QUE FUNCION EL INT PRIMARY KEY AUTOINCREMENT :
 
@@ -94,9 +112,10 @@ print(dic1[2])
 ga.close()
 
 
-------------------->>> BORRA TODO LO QUE PONGA PARA LIMPIAR ALGO :
+------------------->>> BORRA TODOS LOS ESPACIOS DE UNA CADENA :
 
-palabra.strip(" ") //en este caso borra todos los espacios, puedes cambiar lo q queires borrar introduciendolo en los parentesis.
+palabra = '   HOLA   '
+palabra.strip(" ") //HOLA
 
 ------------------->>> ASIGNACION MULTIPLE :
 
@@ -1633,4 +1652,28 @@ factory = SG.SvgPathImage
 img = qrcode.make('hi, hello, hola, etc.', image_factory=factory)
 img.save('D:/my_qrcode.svg')
 
-49 ----------------->>
+49 ----------------->> Open Images:
+
+# 1 option:
+from PIL import Image
+data = Image.open('my_cat.png')
+plt.show()
+
+# 2 option:
+import matplotlib.pyplot as plt
+from PIL import Image
+
+data = Image.open('my_cat.png')
+plt.imshow(data)
+plt.show()
+
+# resize image:
+from PIL import Image
+img = Image.open('my_cat.png').resize((28,28)) # 28x28 pixels
+
+# RGB to GRAY : Scale : RGB => gray : (R + G + B)/3
+from PIL import Image
+img = Image.open('my_cat.png')
+new_img = img.convert('L')  # 'L' = (8-bit pixels, black and white)
+
+50 ----------------->>
