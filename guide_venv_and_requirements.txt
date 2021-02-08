@@ -45,7 +45,7 @@ C:\users\test\project>python -m venv project_venv --system-site-packages
 -> e.g:
 --------------requirements.txt--------------
 numpy==1.20.0
-pandas=1.2.1
+pandas==1.2.1
 --------------------------------------------
 
 4 ----------------->>>>> pip list
