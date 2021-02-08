@@ -119,26 +119,23 @@ palabra.strip(" ") //HOLA
 
 ------------------->>> ASIGNACION MULTIPLE :
 
-cadena = "alexander-carpio-mamani"
+cadena = "a-b-c"
 a, b, c = cadena.split("-")
 print(a)
 print(b)
 print(c)
 
 cadena = ["1","2","3"]
-a, b, c = map(int, cadena)
+a, b, c = map(int, cadena) # change of string to integer
 print(a)
 print(b)
 print(c)
 
 # SALIDA : 
 
-alexander
-carpio
-mamani
-1
-2
-3
+a
+b
+c
 
 1 ----------> 
 print("para que lo imprimido sea de forma lateral: ",variable,end=" ")
@@ -231,10 +228,30 @@ print(math.pow(x,y))   # donde " x " es el numero y " y " es a cuanto queremos e
 print(math.sqrt(x))    # donde podremos sacarle raices cuadradas, pero si queires cubicas usemos:
 print(round(x**(1/3))) # asi serian una raiz cubica, obvio que hay muchas más formas pero pense si podia hacer eso.
 print(x**float(1/3))   # tambien encontre esta en internet y creo que tendria más sentido, y entre 2, 4, 5, etc.
+
 11--->>
                               # para un ejecutable usaremos el " import time ".
 import time
 time.sleep(3)                 # donde "time.sleep(x) " es la funcion principal y "x" cuantos segundos de retraso queremos para finalizar algo o el programa.
+
+# ejemplo cronometro:
+
+import time
+
+date = int(input('enter minutes: ')) * 60
+
+while date != 0:
+        minutes = date // 60
+        seconds = date % 60
+        
+        timer = "{:02d}:{:02d}".format(minutes, seconds)
+        print(timer,end='\r')
+        
+        time.sleep(1)
+        date -= 1
+        
+print('\r> FINISH TIME.')
+
 12--->
                               # para crear modulos(funciones), debemos crear primero un .py para que cuando lo llamemos sea asi
 import modulos_creados 
@@ -1676,4 +1693,120 @@ from PIL import Image
 img = Image.open('my_cat.png')
 new_img = img.convert('L')  # 'L' = (8-bit pixels, black and white)
 
-50 ----------------->>
+50 ----------------->> Windown rotate or controller:
+
+pip install rotate-screen
+pip install pypiwin32
+
+import rotatescreen
+import time
+screen = rotatescreen.get_primary_display()  # originality the window is in angle 0°
+
+for i in range(1,11):
+    time.sleep(0.2)
+    val = i*90 % 360
+    screen.rotate_to(val)
+
+51 ----------------->> all, any, yield, and trick:
+
+# trick 1
+a, b = input('Enter 2 numbers separated by a space: ').split()
+print(f'{a} U {b} = {a+b}')
+
+# trick 2
+age = 27
+weigth = 72
+sex = 'M'
+
+if age > 20 and weigth < 100 and sex == 'M':
+        print('he cant be a segurity police, with and')
+        
+if age > 20 or weigth < 100 or sex == 'M':
+        
+        print('he cant be a segurity police, with or')
+
+conditions = [age > 20, weigth < 100, sex == 'M']
+
+
+if all(conditions):    # and
+        print('he cant be a segurity police, with all')
+
+if any(conditions):     # or
+        print('he cant be a segurity police, with any')
+
+# trick 3
+def sum_elements(*args):  # *[1,2,3,4,5] = 1,2,3,4,5
+        res = 0
+        for i in args:
+                res += i
+        return res
+print(sum_elements(1,2,3,4,5))
+
+# trick 4
+string = 'abcdefghi'
+print(string[::2])  # where [begin:finish:steps] type for
+print(string[::-1]) # backward
+
+# trick 5
+def table_of_number(x):
+        for i in range(11):
+                yield f'{x} x {i} = {x*i}'
+
+values = table_of_number(3)
+for i in values:
+        print(i)
+
+
+
+def split_test(arr):
+        for element in arr:
+                yield element
+
+values = list(split_test('hola gente'))
+print(values)
+
+
+52 -------------->> os para cmd
+
+import os
+latencia = list(os.popen('ping google.com'))
+ip_pc = list(os.popen('ipconfig'))
+print(latencia, ip_pc)
+
+# y otros comandos más que se te imaginen en cmd
+ 
+53 -------------->> decoradores : decorators
+
+# Example 1:
+def verificar_denominador(funcion):
+        def verificar(a,b):
+                if b==0:
+                        return 'Error: no existe la division por cero.'
+                return funcion(a,b)
+        return verificar
+
+@verificar_denominador
+def dividir(a,b):
+        return a / b
+
+print(dividir(12,3)) # 4.0
+print(dividir(12,0)) # Error: no existe la division por cero.
+
+# Example 2:
+def subtraccion_mayor(funcion):
+        def mayor(a,b):
+                if a > b:
+                        return funcion(a,b)
+                a, b = b, a
+                return funcion(a,b)
+        return mayor
+
+@subtraccion_mayor
+def sustraer(a,b):
+        return a - b
+
+print(sustraer(5,3)) # 2
+print(sustraer(2,9)) # 7
+
+
+54 -------------->>

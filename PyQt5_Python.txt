@@ -1,5 +1,5 @@
 --------------------------------------------------------- PYQT5------------------------------------------------------------}
-"""" shif + alt + 2 // 2 vantallas de sublimetext"""""""
+More About PyQt5: https://codetorial.net/en/pyqt5/intro.html
 
 --------------->> VALIDACIONES :
 
@@ -127,12 +127,45 @@ class Prueba:
 yo = Prueba()
 
 
-5--------------->>>> 
+5--------------->>>> Message Box
 
 from PyQt5.QtWidgets import *
 
 QMessageBox(None,"title","message")
 
+
+from PyQt5.QtWidgets import QMessageBox
+
+
+class MyApp(QWidget):
+
+    def __init__(self):
+        super().__init__()
+
+        self.initUI()
+
+    def initUI(self):
+
+        self.setWindowTitle('QMessageBox')
+        self.setGeometry(300, 300, 300, 200)
+        self.show()
+
+    def closeEvent(self, event):
+
+        reply = QMessageBox.question(self, 'Message', 'Are you sure to quit?',
+                                     QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+
+        if reply == QMessageBox.Yes:
+            event.accept()
+        else:
+            event.ignore()
+
+
+if __name__ == '__main__':
+
+    app = QApplication(sys.argv)
+    ex = MyApp()
+    sys.exit(app.exec_())
 
 6 -------------->>>> PARA INSERTAR DATOS DESDE SQLITE3 HASTA UNA TABLEWIDGET :
 
