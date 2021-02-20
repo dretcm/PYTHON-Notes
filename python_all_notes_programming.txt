@@ -138,8 +138,20 @@ b
 c
 
 1 ----------> 
+
 print("para que lo imprimido sea de forma lateral: ",variable,end=" ")
 y usar " pass " es como un comentario pero no ignorado, así que no pasa nada solo es como para probar algo o ya sabes.
+
+# usar ";" al final es como saltar en el script, e.g:
+
+a = 3; b= 5; print(a+b)
+
+# lo anterior es igual a decir:
+
+a = 3
+b = 5
+print(a+b)
+
 2 ---------> 
 #en listas:
 lista.append(añade_elemento) # para añadir elementos a las listas.
@@ -149,6 +161,7 @@ lista.clear() # para eliminar todos los elementos de la lista.
 lista.pop(posicion_a_eliminar) # para eliminar cierto elemto en la poscicion "x".
 lista.remove(valor_a_eliminar)
 lista.index(palabra_a_buscar) #te devuelve la poscicion.
+lista.sort() # ordena la lista.
 # para hacer las famosas matrices primero crearemos " matriz " que sera la principal, luego en los " for "  agregaremos mas listas " matriz1 "para que estas sean rows o filas
 # ejemplo:
 
@@ -167,7 +180,9 @@ for i in range(r):
 # osea si queremos ordenar algo, agregar, eliminar, usaremos listas(list(x)), si queremos solo saber que elementos hay sin repetirce usaremos "set(x)", si queremos
 # que tengan claves con valores usaremos "dict(zip(lista1,lista2))" donde veremos una mejor explicación en el punto 8, y "set" para convertirlos en conjuntos, tambien me olvidaba de las tuplas
 # que son "tuple(x)"que como que las convierten a constantes o algo así.
+
 3-->>
+
 #para verificar si una palabra esta en una cadena se debe usar
 palabra.count('hi')------average es promedio
 #donde palabra es la cadena, .count es el metodo o method, y lo 1 va ('hi') es la palabra q queremos verificar si esta en la cadena.
@@ -192,18 +207,47 @@ print(f)
 # o con un filter y lambda:
                        
 print(list(filter(lambda x:x%2==1,[1,2,3,4,5,6,7,8,9,10])))
+
+3.5 ----------->> lambda examples and list.sort(key) - sorted(key):
+
+a = 3
+function = lambda x: x*10
+
+print(function(a))
+
+a = 3
+b = 2
+function = lambda x,y: x+y
+
+print(function(a,b)) # 5
+
+
+names = ['Ruben F', 'Pedro B','Luisa C','Julieta A']
+sorted_names = sorted(names, key = lambda name: name[-1])
+names.sort(key = lambda name: name[-1])
+
+print(sorted_names)
+print(names)
+
+# Output:
+
+#['Julieta A', 'Pedro B', 'Luisa C', 'Ruben F']
+#['Julieta A', 'Pedro B', 'Luisa C', 'Ruben F']
+
 4---->>
+
 # para genera numeros aleatorios se debe usar
 import random
 val=random.randint(minimo,maximo)
 # en minimo y maximo van los limites
+
 5--->>
 # para ordenar una lista se usa el comando "lista.sort()" y para invertirla o verla al revez seria "lista.sort(reverse=True)".
 # tambien se puede usar "lista.reverse()" para voltear la lista perono ordenarla
 6--->>
 # para instalar algo se podria usar "pip install Howdoi " como ejemplo.
 7--->>
-# usar funtion max(algo) or min(algo) or suma(algo) de una lista o colecciones para hallar el maximo, minimo, y suma total.
+# usar funtion max(algo) or min(algo) or sum(algo) de una lista o colecciones para hallar el maximo, minimo, y suma total.
 8--->>
 # usar "zip", esta sirve para unir listas, o colecciones para transformarlas en un dicionario con sus respectivas llaves o keys y valores o values
 ejemplo:
@@ -234,7 +278,7 @@ print(x**float(1/3))   # tambien encontre esta en internet y creo que tendria m�
 import time
 time.sleep(3)                 # donde "time.sleep(x) " es la funcion principal y "x" cuantos segundos de retraso queremos para finalizar algo o el programa.
 
-# ejemplo cronometro:
+# ejemplo cronometro : chronometer :
 
 import time
 
@@ -252,6 +296,17 @@ while date != 0:
         
 print('\r> FINISH TIME.')
 
+# convert number to time:
+
+def number_to_time(number):
+        hours = number // 3600
+        number = number % 3600
+        minutes = number// 60
+        seconds = number % 60
+        return "{:02d}:{:02d}:{:02d}".format(hours,minutes,seconds)
+
+print(number_to_time(125))
+
 12--->
                               # para crear modulos(funciones), debemos crear primero un .py para que cuando lo llamemos sea asi
 import modulos_creados 
@@ -264,7 +319,9 @@ from modulos_creados import suma_total
                               # para algo especifico
                               # recuerda el modulo y el codigo o programa que este generando deben estar guardados en el mismo lugar 
 13-->>
+
 # para " CLASES Y OBJETOS " o para acostumbrarce " CLASS AND OBJECTS " ejemplos:
+
 class Humano:
      def __init__(self,edad):
          self.edad=edad     # donde self viene a reflejar como un objeto a ingresar como el input ya veran más abajo y edad y self viene a ser como parametro y etc tú te entiendes.
@@ -287,9 +344,13 @@ alexander.poscicion(5)                # aqui llamamos a la funcion "poscicion(5)
 
 gustavo = Acleta(15)                  # aquí llamamos a otra clase 
 gustavo.actividad("planchitas")
+
 14--->>>
+
 #instancear es crear objetos apartir de una clase.
+
 15--->>>
+
 # para validar int, o str, float, etc usaremos:
 
 def vali():                                   # en este ejemplo validamos un entero o int.
@@ -305,6 +366,7 @@ def vali():                                   # en este ejemplo validamos un ent
 vali()
 
 16----->>>>>
+
 # para los textos y etc:
 
 1. Convertir a mayúscula la primera letra
@@ -393,28 +455,32 @@ Retorna: una copia de la cadena rellena con ceros a la izquierda hasta alcanzar 
 >>> print str(numero_factura).zfill(12) 
 000000001575
 
-17--->>>>>
-#el uso del get y set es mayormente que el get returna un atributo(return self.sueldo) y el set cambia el atributo(self.sueldo=self.gasto)
-# para usar el privado y publico en clases( usaremos "self.__name" para privado y "self.name" publico) lanzada un error cuando enviemos a llamar al atributo privado.
+17--->>>>> class : private : methods and attributes :
+
+# private elements could be called inside the class, but not outside the class.
+
 class User:
     def __init__(self,username,password):
-        self.username=username                                    #publico
-        self.__password=self.__generar_password(password)         #privado y llamanda a la funcion "__generar_password"
+        self.username = username           # public attibute
+        self.__password = password         # private attibute
 
 
-    def __generar_password(self,password):
-        return password
+    def hello(self):                         # public function
+        return f' hello, im {self.username}.'
 
-    def get_password(self):                                       #esta funcion nos devuelve la password, porque recuerda que solo se puede ver un atributo privado mediante las clases.
-        return self.__password
+    def __show_password(self):               # private function
+        return f' my password is: {self.__password}.'
 
 
-alex=User('chaparito123','rufusbalto')
-print(alex.username)
+im = User('python','cplusplus123')
 
-print(alex.get_password())                                        #llamamos a la funcion get_password().
+print(im.username)  # python
+
+print(im.__show_password())    # AttributeError: 'User' object has no attribute '__show_password'
+
 
 18--->> ARCHIVOS : FILES : TXT :
+
 #para almacenar datos en bloc de notas o notepad.
 f=open("new.txt",'r')   # donde open("nombredelbloc.txt",'r') el 'r' es para leer el documento, 'w' para crear un nuevo documento y escribir, y 'a' para sobre escribir al final o como un append
 f1=f.readlines()      # lee todas la lineas y readline() lee una solo linea
@@ -477,44 +543,103 @@ file = open('review.txt','r',encoding='utf-8')
 #print(text)
 
 
-20--->>>
-#1.list(map(funcion,parametros)) #bien para iterar colecciones.
+20--->>> USE map : filter : reduce :
+
+### 1.list(map(funcion,parametros)) # bien para iterar colecciones.
+
+# example 1:
 
 def myfunc(a, b):
- return a + b
-x = map(myfunc, ('apple', 'banana', 'cherry'), ('orange', 'lemon',
-'pineapple'))
+        return a + b
+
+x = list(map(myfunc, ('apple', 'banana', 'cherry'), ('orange', 'lemon', 'pineapple')))
 print (x)
-print (list(x))
+
+# output: ['appleorange', 'bananalemon', 'cherrypineapple']
 
 
-#2.list(filter(funcion,parametros)) #igual que map pero esta tiene una condiccion con elemtos filtrados
+# example 2:
 
-def multiple(numero): # Primero declaramos una función condicional
- if numero % 5 == 0: # Comprobamos si un numero es múltiple de cinco
- return True # Sólo devolvemos True si lo es
+def number_to_time(number):
+        hours = number // 3600
+        number = number % 3600
+        minutes = number// 60
+        seconds = number % 60
+        return "{:02d}:{:02d}:{:02d}".format(hours,minutes,seconds)
+
+numbers = [125, 7243, 72, 991, 11207, 6]
+time = list(map(number_to_time, numbers))
+print(time)
+
+# output: ['00:02:05', '02:00:43', '00:01:12', '00:16:31', '03:06:47', '00:00:06']
+
+
+### 2.list(filter(funcion,parametros)) #igual que map pero esta tiene una condiccion con elementos filtrados
+
+
+# example 1:
+
+def multiplo_5(numero):
+        if numero % 5 == 0:
+                return True
+        
 numeros = [2, 5, 10, 23, 50, 33]
-filter(multiple, numeros)
+
+x = list(filter(multiplo_5, numeros))
+print(x)
+
+# output: [5, 10, 50]
+
+# example 2:
+
+names = ['Carlos', 'David', 'Alexander', 'Fernando', 'Amelia']
+
+request = list(filter(lambda x: x[0].lower() == 'a', names))
+print(request)
+
+# output: ['Alexander', 'Amelia']
 
 
-#3.reduce(funcion, colección, inicial)
+### 3. reduce(funcion, colección, inicial)
 
+# example 1:
+
+from functools import reduce
 def add(a, b):
- return a + b
-print(reduce(add, [1, 2, 3, 4]), 0) # 10
+        return a + b
+
+print(reduce(add, [1, 2, 3, 4, 5]))
+
+output : 15
+
+# example 2:
+
+from functools import reduce
+def concatenate(a, b):
+        return a + b
+
+print(reduce(concatenate, ['a', 'b', 'c', 'd', 'e']))
+
+# output: 'abcde'
 
 
-#4.funcion lambda como un def pero menos presiso
+### 4.funcion lambda como un def pero menos especifico
+
+# example 1:
 
 doblar = lambda num: num*2
-doblar(2)
+print(doblar(2)) # 2**2 = 4
 
+# example 2:
 
 a=[1,2,3,4,5,6,7,8,9,10]
-res=list(filter(lambda x:x%3==0, a))
+res=list(filter(lambda x: x % 3 == 0, a))
 print(res)
 
+# output: [3, 6, 9]
+
 21--->> para crear interfaces graficas o GUI
+
 #eval es un operador que me permite evaluar un signo en un string
 from tkinter import Tk  
 
@@ -522,6 +647,7 @@ ventana =Tk()
 ventana.title("hola")
 ventana.mainloop()
 #con esto nos saldra una pequeña ventana
+
 22--->>>
 #use break and continue, break rompe la iteracion de un for o while 
 #Al aparecer un Continue en Python, este regresa al comienzo del bucle, 
@@ -592,6 +718,13 @@ x.split(?,?)
 'aaa, bbb, cccc'
 >>> "@@".join(xs)
 'aaa@@bbb@@cccc'
+
+## Si es una cadena pegada e.g: 'abcd', para separarla simplemente usaremos:
+
+characters = list('0123456789abcdefghijklmnopqrstuvwxyz')
+
+# Salida: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+
 24-->>
 para generar un password sin vita del usuario usamos:
 import getpass
@@ -753,11 +886,18 @@ fat.close()
 
 35 ----------->>> USO DE ITERTOOLS :
 import itertools
-itertools.permutations(iterable,longitud)
----PERMUTATIONS : MODIFICA EL ORDEN DE LOS ELEMENTOS.(SÍ IMPORTA EL ORDEN). DATO:[2,6,13] SALIDA: [2,6,13], [2,13,6], [6,2,13], [6,13,2], [13,2,6], [13,6,2].
 
-itertools.combinations(iterable,longitud)
+---VARIACIONES - PERMUTACIONES : MODIFICA EL ORDEN DE LOS ELEMENTOS.(SÍ IMPORTA EL ORDEN). DATO:[2,6,13] SALIDA: [2,6,13], [2,13,6], [6,2,13], [6,13,2], [13,2,6], [13,6,2].
+itertools.permutations(iterable,longitud)
+
+--VARIACIONES - PERMUTACIONES CON REPETICIONES:
+itertools.product([1,2,3,4], repeat=2)
+
 ---COMBINATIONS : COMBINA TODOS LOS ELEMENTOS, NO SE REPITEN CONJUNTOS.(NO IMPORTA EL ORDEN). DATO:[2,6,13] SALIDA: [2,6], [2,13], [6,13].
+itertools.combinations(iterable,longitud)
+
+--COMBINACIONES CON REPETICIONES:
+itertools.combinations_with_replacement([1, 2, 3, 4, 5, 6], 2)
 
 36 ------------------------->>> CLASES - ENCAPSULAMIENTO - HERENCIA - POLIMORFISMO :
 
@@ -827,7 +967,7 @@ yo = clase2()
 
 //RECUERDA QUE SOLO LLAMA A SU PADRE NO AL ABUELO, SI QUEREMOS LLAMAR AL ABUELO DEBEMOS HACER LO MISMO EN LA CLASE PADRE.
 
-36.2 ---------------------->>> CLASSMETHOD : STATICMETHOD :
+36.2 ---------------------->>> CLASSMETHOD : STATICMETHOD : PROPERTY : ATTRIBUT.SETTER
 
 //CLASSMETHOD : puede usar las instancias de la clase (atributos, metodos).
 //STATICMETHOD : no puede usar (atributos, metodos) de la clase, esta por si sola en la clase, como una funcion más.
@@ -869,6 +1009,41 @@ class Math:
 print(Math.pow(5,3))  # 125
 print(Math.factorial(5)) # 120
 
+
+## gets and sets:
+
+class People:
+        def __init__(self,name,age,sex):
+                self.__name = name
+                self.__age = age
+                self.__sex = sex
+
+        @property
+        def Name(self):
+                return self.__name
+        
+        @Name.setter
+        def Name(self, name):
+                self.__name = name
+                
+        @staticmethod
+        def greetings(name):
+                print('Hi, im ',name)
+
+        
+he = People('Pedro',19,'M')
+print(he.Name)
+
+he.Name = 'Claudio'
+print(he.Name)
+
+People.greetings(he.Name)
+
+# OUTPUT:
+ 
+Pedro
+Claudio
+Hi, im  Claudio
 
 37 ------------------------>>> USO DEL MAP :
 
@@ -1145,6 +1320,32 @@ print(A)
 # np.linalg. etc:
 
 funciones de algebra linear.
+
+# MESHGRID:
+
+import numpy as np
+x, y = np.arange(-5,6,1), np.arange(-3,4,1)
+combination = np.meshgrid(x,y)
+print(combination)
+
+# output: 
+
+[array([[-5, -4, -3, -2, -1,  0,  1,  2,  3,  4,  5],
+        [-5, -4, -3, -2, -1,  0,  1,  2,  3,  4,  5],
+        [-5, -4, -3, -2, -1,  0,  1,  2,  3,  4,  5],
+        [-5, -4, -3, -2, -1,  0,  1,  2,  3,  4,  5],
+        [-5, -4, -3, -2, -1,  0,  1,  2,  3,  4,  5],
+        [-5, -4, -3, -2, -1,  0,  1,  2,  3,  4,  5],
+        [-5, -4, -3, -2, -1,  0,  1,  2,  3,  4,  5]]),
+ array([[-3, -3, -3, -3, -3, -3, -3, -3, -3, -3, -3],
+        [-2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2],
+        [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+        [ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+        [ 1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+        [ 2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2],
+        [ 3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3]])]
+
+
 
 40 ------------------->>> USO DE * Y ** EN PYTHON PARA PARAMETROS : SOBRECARGA DE FUNCIONES 2.0 :
 
@@ -1492,7 +1693,7 @@ plt.show()
 
 - EJEMPLO 2 :
 
-43 ---------------->>>>  OPERADORES EN PYTHON
+43 ---------------->>>>  OPERADORES DE CLASE EN PYTHON : OPERATORS
 
 
 class Backpack():
@@ -1541,6 +1742,23 @@ print(Mochila[2])
 print(len(Mochila))
 Mochila.store()
 
+
+## Imprime el Objeto y destructor del objeto.
+
+class Data:
+        def __init__(self, store):
+                
+                self.store = store
+                
+        def __repr__(self):
+                return f' Your data {self.store}'
+
+        def __del__(self):
+                print('the Object was deleted')
+
+inventary = Data([1,2,3])
+print(inventary)
+del(inventary)
 
 44 ---------------->> Use " * " :
 
@@ -1669,12 +1887,12 @@ factory = SG.SvgPathImage
 img = qrcode.make('hi, hello, hola, etc.', image_factory=factory)
 img.save('D:/my_qrcode.svg')
 
-49 ----------------->> Open Images:
+49 ----------------->> Open Images: images:
 
 # 1 option:
 from PIL import Image
 data = Image.open('my_cat.png')
-plt.show()
+data.show()
 
 # 2 option:
 import matplotlib.pyplot as plt
@@ -1692,6 +1910,14 @@ img = Image.open('my_cat.png').resize((28,28)) # 28x28 pixels
 from PIL import Image
 img = Image.open('my_cat.png')
 new_img = img.convert('L')  # 'L' = (8-bit pixels, black and white)
+
+# write image:
+import pyautogui
+import PIL.Image as Image
+
+screen = pyautogui.screenshot()
+img = Image._show(screen)
+
 
 50 ----------------->> Windown rotate or controller:
 
@@ -1809,4 +2035,208 @@ print(sustraer(5,3)) # 2
 print(sustraer(2,9)) # 7
 
 
-54 -------------->>
+54 -------------->> Crear un gif : creat gif :
+
+import imageio
+import os
+
+images = []
+filenames = os.listdir()  # lista de todos los elementos en tu directorio actual
+
+for filename in filenames:
+    images.append(imageio.imread(filename))
+
+imageio.mimsave('my_animates.gif', images)
+
+
+# example 2:
+
+import numpy as np
+import imageio
+import matplotlib.pyplot as plt
+import os
+import shutil
+from matplotlib.path import Path
+import matplotlib.patches as patches
+os.mkdir('images_plt')
+from matplotlib.patches import PathPatch
+
+
+x = np.array([1,1,0,-1,-1])
+y = np.array([0,1,1, 1, 0])
+
+filenames = []
+
+def draw_vectors(vectors, colors='red', xxlim=-2, xylim=2, yxlim=-1, yylim=2, title='', pos=0):
+  fig = plt.figure()
+  ax = fig.add_subplot(111)
+
+  if pos == 0:
+    ax.add_patch(
+     patches.Rectangle(
+        (0.03, 0.03),
+        1,1,
+        facecolor = 'gold',
+     ))
+  elif pos == 1:
+    path = Path([[0,0],[0,1],[1,2],[1,1],[0,0]])
+    patch = PathPatch(path, facecolor='gold')
+    ax.add_patch(patch)
+  elif pos == 2:
+    pass
+  elif pos == 3:
+    path = Path([[0,0],[0,1],[-1,2],[-1,1],[0,0]])
+    patch = PathPatch(path, facecolor='gold')
+    ax.add_patch(patch) 
+  else:
+    ax.add_patch(
+     patches.Rectangle(
+        (-0.025, 0.03),
+        -1,1,
+        facecolor = 'gold',
+     ))    
+  
+
+  for i,v in enumerate(vectors):
+    try:
+      ax.quiver([0],[0],[v[0]], [v[1]], color=colors[i], angles='xy', scale_units='xy', scale=1, alpha=1)
+    except:
+      ax.quiver([0],[0],[v[0]], [v[1]], color=colors, angles='xy', scale_units='xy', scale=1, alpha=1)
+  
+  ax.axvline(x=0,c='gray',zorder=0) # zorder for background
+  ax.axhline(y=0,c='gray',zorder=0)
+
+  ax.set_xlim(xxlim,xylim)
+  ax.set_ylim(yxlim,yylim)
+
+  plt.title(title)
+
+  plt.grid()
+  path = 'images_plt/place_vector' + str(pos+1) + '.png'
+  filenames.append(path)
+  plt.savefig(path)
+
+tl = ['Determinant = 1 & Area = 1', 'determinant = 1 & Area = 1', 'determinant = 0 & Area = 0', 'determinant = -1 & Area = 1', 'determinant = -1 & Area = 1',]
+for i in range(x.shape[0]):
+    draw_vectors([[0,1] , [x[i],y[i]]],colors=['green','red'],pos=i,title=tl[i])
+
+images = []
+for filename in filenames:
+  for _ in range(4):
+    images.append(imageio.imread(filename))
+
+imageio.mimsave('determinant_negative.gif', images)
+shutil.rmtree('images_plt') 
+
+
+55 -------------->> Type Hinting : tipo de parametro de funciones y salida :
+
+# 1 Example (function where the parameter must be an integer(int) and return a string(str)):
+ 
+def function_age(age : int) -> str:
+        return f'you age is: {age}'
+
+print(type(function_age(15)))   # <class 'str'>
+
+# 2 Example:
+
+def input_a(a : int) -> str:
+        return a * 10
+
+def print_a(a : str):
+        return f'the element is: {a}'
+
+print(print_a(input_a(3))) # the element is: 30
+
+56 -------------->> pytube : youtube python :
+
+import pytube # pip install pytube
+
+url = 'https://www.youtube.com/watch?v=UteUqDoCe2s'
+resolution = '720p'   # Video resolution i.e. "720p", "480p", "360p", "240p", "144p"
+
+video = pytube.YouTube(url)
+stream = video.streams.get_by_resolution('720p') # get video, audio, and set the resolution.
+stream.download()
+
+# other form:
+
+import pytube
+
+url = 'https://www.youtube.com/watch?v=UteUqDoCe2s'
+
+video = pytube.YouTube(url)
+stream = video.streams.first() # get video and audio with low quality, that is to say, by default.
+
+# stream = video.streams.get_lowest_resolutiont() # get video and audio with low quality.
+# stream = video.streams.get_highest_resolution() # get video and audio with maxime quality.
+
+stream.download()
+
+# Extra:
+
+video = pytube.YouTube(url)
+
+video.title # Title of the video
+video.video_id # Id 
+video.age_restricted # Age or when was published.
+
+resolution = 18     # 18, 22, 137, 313. (low, medium, high, very high)
+stream = video.streams.get_by_itag(resolution) # get only video in mp4.
+
+stream = video.streams.get_audio_only() # get only audio in mp4.
+
+from pytube import YouTube
+video = YouTube('https://www.youtube.com/watch?v=UteUqDoCe2s')
+stream = video.streams.filter(only_audio=True).first()
+stream.download()
+
+from pytube import YouTube
+video = YouTube('https://www.youtube.com/watch?v=UteUqDoCe2s')
+stream = video.streams.filter(only_audio=True).all()
+stream[0].download()
+
+
+stream = video.streams.all() # get all information about the video
+print(list(stream))
+
+stream.default_filename # the filename of the video, e.g: 'matematics.mp4'
+
+
+# get audio and conver to mp3:
+
+from pytube import YouTube
+from moviepy.editor import VideoFileClip
+import os
+
+video = YouTube('https://www.youtube.com/watch?v=UteUqDoCe2s')
+stream = video.streams.get_lowest_resolution() 	    # simitar to: "video.streams.first()"
+stream.download()
+
+filename = stream.default_filename
+
+convert = VideoFileClip(filename)
+convert.audio.write_audiofile(filename[:-4] + '.mp3')  # 'matematics.mp4' => 'matematics' + '.mp3'
+convert.close()
+
+os.remove(filename) # remove the video mp4.
+
+
+# if apper the error:
+# self.fps = infos['video_fps']
+# KeyError: 'video_fps'
+# is because you downloaded a video without frames, the solution for this problem is download the video with audio and video.
+# "video.streams.get_lowest_resolution()", or "video.streams.first()", "stream = video.streams.all();  stream[0].download()", "video.streams.filter().first()", etc.
+
+
+# playlist:
+
+playlist = pytube.Playlist(url)
+resolution = '360p'
+
+for ulr in in playlist:
+	video = pytube.YouTube(url)
+	stream = video.streams.get_by_resolution(resolution)
+	stream.download()
+
+57 -------------->>
