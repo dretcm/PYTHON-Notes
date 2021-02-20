@@ -1,3 +1,4 @@
+
 1 -------------->>> Open Camera and configuration:
 
 import cv2
@@ -20,4 +21,4 @@ while True:
 cap.release() # finish capture
 cv2.destroyAllWindows()
 
-2 -------------->>>
+2 -------------->>> 
