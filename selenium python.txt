@@ -3,7 +3,37 @@ SELENIUM
 
 Page: https://selenium-python.readthedocs.io/
 
-1 --------------->>> FACEBOOK OPEN ACCOUNT :
+1 --------------->>> download webdriver:
+
+# you choose the version according you webdriver requirements.
+
+from webdriver_manager.chrome import ChromeDriverManager
+ChromeDriverManager(version="87.0.4280.88").install()
+
+# or
+
+from webdriver_manager.chrome import ChromeDriverManager
+driver = ChromeDriverManager(version="87.0.4280.88",path='D:\\CODIGOS\\2021\\app\\')
+driver.install()
+
+# or
+
+# https://chromedriver.chromium.org/downloads
+
+# once time downloaded the webdriver we can use webdriver, example:
+
+from selenium import webdriver
+import time
+
+browser = webdriver.Chrome(r"C:\Users\USUARIO\.wdm\drivers\chromedriver\win32\87.0.4280.88\chromedriver.exe")
+# r'bal blabblabla' -> r is a letter that delete the text especial, that is to say, r is for just text.
+browser.get(url)
+
+time.sleep(10)
+
+browser.close()
+
+2 --------------->>> FACEBOOK OPEN ACCOUNT :
 
 from selenium import webdriver 
 import time
@@ -26,4 +56,4 @@ time.sleep(35) # 10 secons
 
 browser.close()
 
-2 --------------->>>
+3 --------------->>>

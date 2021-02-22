@@ -43,6 +43,7 @@ class Calculadora:
 	vil=2
 	def __init__(self):
 		self.app = QtWidgets.QApplication([])
+		self.app.setApplicationDisplayName('HOLA GENTE') # change the title of the window
 		self.dig = uic.loadUi("primer.ui")
 
 		self.dig.boton1.clicked.connect(self.suma)
@@ -101,8 +102,10 @@ def funcion():
 
 dig.button_1.clicked.connect(funcion)
 
-self.dig.button_2.setDisabled(True) # desactiva boton
 
+self.dig.button_2.setEnabled(True) # activa boton
+
+self.dig.button_2.setEnabled(False) # desactiva boton
 
 4 -------------->>>> LISTAS CON ENTRADA O ListWidgets ():
 
@@ -136,36 +139,23 @@ QMessageBox(None,"title","message")
 
 from PyQt5.QtWidgets import QMessageBox
 
+app = QtWidgets.QApplication([])
 
-class MyApp(QWidget):
+def show(title, text):
+   msgBox = QMessageBox()
+   msgBox.setIcon(QMessageBox.Warning)  # we can changue by QMessageBox.Information
 
-    def __init__(self):
-        super().__init__()
+   msgBox.setText(title)
+   msgBox.setWindowTitle(text)
 
-        self.initUI()
+   msgBox.setStandardButtons(QMessageBox.Ok)
 
-    def initUI(self):
+   msgBox.exec()
 
-        self.setWindowTitle('QMessageBox')
-        self.setGeometry(300, 300, 300, 200)
-        self.show()
+show('Error','Ingrese bien su nombre por favor.')
 
-    def closeEvent(self, event):
+app.exec()
 
-        reply = QMessageBox.question(self, 'Message', 'Are you sure to quit?',
-                                     QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
-
-        if reply == QMessageBox.Yes:
-            event.accept()
-        else:
-            event.ignore()
-
-
-if __name__ == '__main__':
-
-    app = QApplication(sys.argv)
-    ex = MyApp()
-    sys.exit(app.exec_())
 
 6 -------------->>>> PARA INSERTAR DATOS DESDE SQLITE3 HASTA UNA TABLEWIDGET :
 
@@ -221,7 +211,7 @@ border-radius:60px;   //para que cambie de foram a redodne y pueves ver sus resp
 https://www.youtube.com/watch?v=TRKebElniyo&t=799s  //para insertar imagenes.
 
 
-9 ------------------->>> MOSTRAR IMAGENES :
+9 ------------------->>> MOSTRAR IMAGENES : background :
 
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import *
@@ -296,9 +286,12 @@ app.exec()
 self.dig.textBrowser.verticalScrollBar().setValue(self.dig.textBrowser.verticalScrollBar().maximum()) # max
 self.dig.textBrowser.verticalScrollBar().setValue(self.dig.textBrowser.verticalScrollBar().minimum()) # min
 
-12 ------------>>> Titulo de ventana:
+12 ------------>>> Titulo de ventana: Icono de la ventana :
 
 self.PyQt5.QtWidgets.setWindowTitle('my window app')
+
+from PyQt5.QtGui import QIcon
+self.PyQt5.QtWidgets.setWindowIcon(QIcon('cat_and_dogs.png'))
 
 13 ------------>>> Negrita in text_Browser:
 
@@ -321,4 +314,109 @@ self.nickname = '<b><font color = "red">'+name+'</font></b>'
 self.app = QtWidgets.QApplication([])
 self.app.closeAllWindows()
 
-15 ------------>>>
+15 ------------>>> Combo box: ComboBox :
+
+from PyQt5 import QtWidgets, uic
+
+app = QtWidgets.QApplication([])
+dig =uic.loadUi("interface_yt.ui")
+
+items = ['mp4-720p', 'mp4-480p', 'mp4-360p','mp3']
+
+for i in items:
+ dig.comboBox.addItem(i)   # add items
+
+dig.comboBox.setStyleSheet('font: 75 11pt "Arial";')  # font
+
+text = str(dig.comboBox.currentText()) # get item selected
+
+def run(txt):
+        print(txt)
+
+dig.comboBox.activated[str].connect(run) # print text when it was selected
+
+
+dig.show()
+app.exec()
+
+
+16 ------------>>> checkBox:
+
+dig.checkBox.isChecked()  # Return the status of the check box. (True/False)
+
+17 ------------>>> Progress Bar :
+
+from PyQt5.QtWidgets import QProgressBar
+
+app = QtWidgets.QApplication([])
+dig =uic.loadUi("interface_yt.ui")
+
+dig.progressBar.setMaximum(0)   # max and min = 0 for bar [ ///    ] => [   ///  ] => [     ///] => [///   ] => etc.
+dig.progressBar.setMinimum(0)
+
+dig.progressBar.setVisible(True) # Fasle for hiding the bar.
+
+dig.show()
+app.exec()
+
+18 ------------>>> QtCore : QThread : Threading 
+
+# para que no se congele las ventanas, y lleve las tareas a un segundo plano.
+
+from urllib.request import urlopen
+from PyQt5.QtCore import QThread  # this
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton
+
+class Downloader(QThread):
+    def __init__(self, url, filename):
+        super().__init__()
+        self._url = url
+        self._filename = filename
+    def run(self):
+        # Abrir la dirección de URL.
+        with urlopen(self._url) as r:
+            with open(self._filename, "wb") as f:
+                # Leer el contenido y escribirlo en un nuevo archivo.
+                f.write(r.read())
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Ejemplo de descarga de archivo")
+        self.resize(400, 300)
+        self.label = QLabel("Presione el botón para iniciar la descarga.",
+            self)
+        self.label.setGeometry(20, 20, 200, 25)
+        self.button = QPushButton("Iniciar descarga", self)
+        self.button.move(20, 60)
+        self.button.pressed.connect(self.initDownload)
+    
+    def initDownload(self):
+        self.label.setText("Descargando archivo...")
+        # Deshabilitar el botón mientras se descarga el archivo.
+        self.button.setEnabled(False)
+        # Ejecutar la descarga en un nuevo hilo.
+        self.downloader = Downloader(       # object
+            "https://www.python.org/ftp/python/3.7.2/python-3.7.2.exe",
+            "python-3.7.2.exe"
+        )
+        # Qt invocará el método `downloadFinished()` cuando el hilo 
+        # haya terminado.
+        self.downloader.finished.connect(self.downloadFinished)  # important
+        self.downloader.start()
+    
+    def downloadFinished(self):
+        self.label.setText("¡El archivo se ha descargado!")
+        # Restablecer el botón.
+        self.button.setEnabled(True)
+        # Eliminar el hilo una vez que fue utilizado.
+        del self.downloader
+if __name__ == "__main__":
+    app = QApplication([])
+    window = MainWindow()
+    window.show()
+    app.exec_()
+
+# more about this, " https://recursospython.com/guias-y-manuales/tareas-en-segundo-plano-con-pyqt/ ".
+
+19 ------------>>> 

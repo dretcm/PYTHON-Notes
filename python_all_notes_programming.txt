@@ -112,7 +112,7 @@ print(dic1[2])
 ga.close()
 
 
-------------------->>> BORRA TODOS LOS ESPACIOS DE UNA CADENA :
+------------------->>> BORRA TODOS LOS ESPACIOS DE UNA CADENA : ESPACIO :
 
 palabra = '   HOLA   '
 palabra.strip(" ") //HOLA
@@ -975,7 +975,7 @@ yo = clase2()
 class Poblacion:
        people  = 100     // ATRIBUTOS
        
-       @classmethod 
+       @class 
        def quantity_of_people(cls):
               cls.decorador()
               return cls.people
@@ -1787,11 +1787,26 @@ c = {**a,**b}  # {'a': 1, 'b': 2, 'c': 3, 'd': 4}
 
 45 ---------------->> PyAutoGui :
 
+// escribir por teclado automatico:
+
 import pyautogui, time
 time.sleep(5)
 for word in f:
 	pyautogui.typewrite("mensaje spam")
-	pyautogui.press("enter")     
+	pyautogui.press("enter")
+
+// advertencia o warning:
+
+import pyautogui
+def showDialog(title='Error!', 
+    text='''
+    POSIBLES ERRORES:
+    \n* Ingreso mal el url o link de YT.
+    \n* Hubo un error a la hora de descargar o convertir un archivo.
+    \n* Cierre la app o intentelo de nuevo.
+    '''):
+
+    pyautogui.alert(text, title, button='OK')
 
 46 ----------------->> DOCS : DOCX : WORD
 
@@ -1992,7 +2007,7 @@ values = list(split_test('hola gente'))
 print(values)
 
 
-52 -------------->> os para cmd
+52 -------------->> os para cmd : use os : import os
 
 import os
 latencia = list(os.popen('ping google.com'))
@@ -2000,6 +2015,15 @@ ip_pc = list(os.popen('ipconfig'))
 print(latencia, ip_pc)
 
 # y otros comandos más que se te imaginen en cmd
+
+# get directory actual:
+
+## 1 option: os.path.dirname(os.path.abspath(__file__))
+## 2 option: os.path.abspath(os.getcwd())
+
+# get all elements in this directory:
+
+os.listdir()
  
 53 -------------->> decoradores : decorators
 
@@ -2153,10 +2177,10 @@ print(print_a(input_a(3))) # the element is: 30
 import pytube # pip install pytube
 
 url = 'https://www.youtube.com/watch?v=UteUqDoCe2s'
-resolution = '720p'   # Video resolution i.e. "720p", "480p", "360p", "240p", "144p"
+resolution = '720p'   # Video resolution i.e. "720p", "480p", "360p";  without audio: "240p", "144p".
 
 video = pytube.YouTube(url)
-stream = video.streams.get_by_resolution('720p') # get video, audio, and set the resolution.
+stream = video.streams.filter(resolution = resolution).first() # get video, audio, and set the resolution.
 stream.download()
 
 # other form:
@@ -2238,5 +2262,12 @@ for ulr in in playlist:
 	video = pytube.YouTube(url)
 	stream = video.streams.get_by_resolution(resolution)
 	stream.download()
+
+# download:
+
+video = pytube.YouTube(url) # this script is in '..\app\main.py'
+stream = video.streams.first()
+stream.download(outpath = r'..\app\youtube_downloads', filename='hola.mp4') # also we can set the path of the installing, or create a folder as youtube_donwloads.
+# finename = name that we want, but that finish in '.mp4'.
 
 57 -------------->>

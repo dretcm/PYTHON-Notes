@@ -5,6 +5,8 @@
 information about pip: https://www.neoguias.com/como-instalar-pip-python/#Como_instalar_PIP_en_Windows
 good video for this guide: https://www.youtube.com/watch?v=APOPm01BVrk
 
+# and for .exe = https://nitratine.net/blog/post/issues-when-using-auto-py-to-exe/
+
 1 ----------------->>>>> virtual environments:
 
 * open cmd and go to the path of preference for the project, e.g:
@@ -91,4 +93,41 @@ pip uninstall -y [numpy, pandas, etc]
 
 pip uninstall -y -r requirements.txt
 
-7 ----------------->>>
+7 ----------------->>> pyinstaller:
+
+## first step:
+#in cmd:
+
+>activate main
+>pip install pyinstaller
+
+## second step:
+
+# -F or --onefile : create a file for the app
+# -w : no console
+# -i : set the icon
+
+>pyinstaller -w -F -i path\you_image.ico path\you_script.py
+
+# or
+
+>pyinstaller --onefile -w -i path\you_image.ico path\you_script.py
+
+# example:
+
+>pyinstaller --onefile -w -i D:\CODIGOS\2021\app\ahora\yasu.ico D:\CODIGOS\2021\app\ahora\crear.py
+
+pyinstaller --noconfirm --onefile --console --icon "D:/CODIGOS/2021/app/ahora/yasu.ico" --add-data "D:/CODIGOS/2021/app/ahora/youtube.py;." --add-data "D:/CODIGOS/2021/app/ahora/interface_yt.ui;." --add-data "D:/CODIGOS/2021/app/ahora/env;env/"  "D:/CODIGOS/2021/app/ahora/main.py"
+
+## other form will be:
+
+> python -m pip install auto-py-to-exe
+
+# or
+> pip install auto-py-to-exe
+
+# and type in cmd or shell_
+
+auto-py-to-exe
+
+8 ----------------->>>
