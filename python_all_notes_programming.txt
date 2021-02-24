@@ -2007,7 +2007,7 @@ values = list(split_test('hola gente'))
 print(values)
 
 
-52 -------------->> os para cmd : use os : import os
+52 -------------->> os para cmd : use os : import os : use subprocess :
 
 import os
 latencia = list(os.popen('ping google.com'))
@@ -2024,6 +2024,26 @@ print(latencia, ip_pc)
 # get all elements in this directory:
 
 os.listdir()
+
+## subprocess :
+
+# run a line
+import subprocess
+def cmd(commando):
+    subprocess.run(commando, shell=True)
+
+# examples:
+# Cambiar el título de la ventada de la consola
+cmd('TITLE Título de la ventana')
+# Ejecutar cmd externo
+cmd('myscript.cmd parametro1 parametro2')
+
+# Al usar shell=Truese pasan los parametros como texto
+
+def cmd(commando):
+    resultado = subprocess.run(commando, shell=True)
+    # Comprobar resultado, si es diferente de 0 lanza una excepción
+    resultado.check_returncode()
  
 53 -------------->> decoradores : decorators
 
