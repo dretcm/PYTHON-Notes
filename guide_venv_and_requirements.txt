@@ -21,6 +21,10 @@ C:\users\test\project>python -m venv project_test_venv
 
 (base) C:\users\test\project>project_test_venv\scripts\activate.bat
 
+# or 'conda activate' or more espesific 'conda activate [you environment]'
+
+C:\users\test\project>conda activate [you environment]
+
 * and if we put pip list we will see the current modules
 
 (project_test_venv) (base) project_test_venve>pip list
@@ -34,6 +38,14 @@ setuptools 41.2.0
 
 pip install numpy
 pip install keras
+
+1.2 --------------->>>> desactivate virtual environment:
+
+# 'deactivate' or 'conda deactivate' according you env:
+
+(project_test_venv) (base) project_test_venve>deactivate
+
+(project_test_venv) (base) project_test_venve>conda deactivate
 
 2 ----------------->>>> virtual environments with all packages of system
 
@@ -49,6 +61,12 @@ C:\users\test\project>python -m venv project_venv --system-site-packages
 numpy==1.20.0
 pandas==1.2.1
 --------------------------------------------
+
+# we go to our path in cmd and activate our virtual env and install the modules:
+
+C:\users\test\project>project_test_venv\scripts\activate.bat
+
+(base) C:\users\test\project>pip install -r requirements.txt
 
 4 ----------------->>>>> pip list
 
@@ -68,6 +86,10 @@ etc..
 * and then we go to put our project_test_venv\scripts...
 
 (base) C:\users\test\project>project_test_venv\scripts\activate.bat
+
+* and to desactivate use:
+
+(base) C:\users\test\project>deactivate
 
 5 ----------------->>>>> copy all modules in the path:
 
@@ -128,6 +150,27 @@ pyinstaller --noconfirm --onefile --console --icon "D:/CODIGOS/2021/app/ahora/ya
 
 # and type in cmd or shell_
 
-auto-py-to-exe
+>auto-py-to-exe
 
-8 ----------------->>>
+8 ----------------->>> # Call environments from file.batch : Use call :
+
+call activate [my_env]
+python my_script.py
+call conda deactivate
+
+# example:
+
+echo BEGIN PROGRAM ...
+
+cd D:codigos\2021\app\ahora
+D:
+
+call env\scripts\activate.bat
+
+python main.py
+
+call deactivate
+
+echo FINISH
+
+9 ----------------->>>
