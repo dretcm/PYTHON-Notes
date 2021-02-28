@@ -145,8 +145,8 @@ def show(title, text):
    msgBox = QMessageBox()
    msgBox.setIcon(QMessageBox.Warning)  # we can changue by QMessageBox.Information
 
-   msgBox.setText(title)
-   msgBox.setWindowTitle(text)
+   msgBox.setText(text)
+   msgBox.setWindowTitle(title)
 
    msgBox.setStandardButtons(QMessageBox.Ok)
 
@@ -420,3 +420,78 @@ if __name__ == "__main__":
 # more about this, " https://recursospython.com/guias-y-manuales/tareas-en-segundo-plano-con-pyqt/ ".
 
 19 ------------>>> 
+
+--------------------------------------------------------- PYQT5 (REMASTER)------------------------------------------------------------
+
+more: https://codetorial.net/en/pyqt5/index.html
+more: https://zetcode.com/pyqt/qlistwidget/
+
+1 ------------->>> LineEdit : Entry :
+
+from PyQt5.QtWidgets import QWidget, QApplication, QLineEdit
+
+class MyList(QWidget):
+    def __init__(self):
+        super().__init__()
+
+        self.initUI()
+
+    def initUI(self):
+
+        self.entry = QLineEdit(self)
+
+        self.show()
+
+
+app = QApplication(sys.argv)
+ex = MyList()
+sys.exit(app.exec_())
+
+2 ------------->>> QListWidget : List :
+
+# example 1:
+
+class Example(QWidget):
+
+    def __init__(self):
+        super().__init__()
+
+        self.initUI()
+
+    def initUI(self):
+
+        vbox = QVBoxLayout(self)
+
+        listWidget = QListWidget()
+            
+        listWidget.addItem("sparrow") 
+        listWidget.addItem("robin")
+        listWidget.addItem("crow")
+        listWidget.addItem("raven")
+        listWidget.addItem("woodpecker")
+        listWidget.addItem("hummingbird")
+            
+        listWidget.itemDoubleClicked.connect(self.onClicked)
+        
+        vbox.addWidget(listWidget)
+        self.setLayout(vbox)
+
+        self.setGeometry(300, 300, 350, 250)
+        self.setWindowTitle('QListWidget')
+        self.show()
+
+    def onClicked(self, item):
+
+        QMessageBox.information(self, "Info", item.text())
+
+# pop a item:
+
+QListWidget.takeItem( index )
+
+
+3 ------------->>>
+4 ------------->>>
+5 ------------->>>
+6 ------------->>>
+7 ------------->>>
+8 ------------->>>

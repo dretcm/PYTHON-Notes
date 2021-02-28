@@ -39,13 +39,28 @@ setuptools 41.2.0
 pip install numpy
 pip install keras
 
-1.2 --------------->>>> desactivate virtual environment:
+1.2 --------------->>>> activate and desactivate virtual environment : pip update :
+
+# file wherwe you create your environment
+
+C:\users\test\project>project_test_venv\scripts\activate.bat
+
+
+# or 'conda activate' or more espesific 'conda activate [you environment]'
+
+C:\users\usuarios>conda activate [you environment]
+
+
+# and update you pip, if later happens a mistake as "Why Anaconda\Scripts\pip-script.py is not present " use "easy_install pip".
+
+(base) C:\users\usuarios>pip install --upgrade pip
+
 
 # 'deactivate' or 'conda deactivate' according you env:
 
-(project_test_venv) (base) project_test_venve>deactivate
+(base) C:\users\usuarios>deactivate
 
-(project_test_venv) (base) project_test_venve>conda deactivate
+(base) C:\users\usuarios>conda deactivate
 
 2 ----------------->>>> virtual environments with all packages of system
 

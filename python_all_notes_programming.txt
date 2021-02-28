@@ -1045,6 +1045,55 @@ Pedro
 Claudio
 Hi, im  Claudio
 
+# EXAMPLE OF STATIC AND RETURN OTHER CALSSES:
+
+class Fish:
+        def __init__(self):
+                self.animal = 'fish'
+        def go(self):
+                print(' Im a fish, i love the water and sun.')
+
+class Bird:
+        def __init__(self):
+                self.animal = 'bird'
+        def go(self):
+                print(' The air is strong today, im air´s rat.')
+
+class Specie:
+        def __init__(self, animal):
+                self.animal = animal
+        
+        @staticmethod
+        def classify(animal):
+                animal = animal.lower()
+                if animal == 'fish':
+                        return Fish()
+                elif animal == 'bird':
+                        return Bird()
+                else:
+                        return Specie(animal)
+                
+        def go(self):
+                print(f' Not exist the animal: {self.animal}')
+                
+
+obj = Specie.classify('Fish')
+obj.go()
+
+obj = Specie.classify('BIRD')
+obj.go()
+
+obj = Specie.classify('GODZILLA')
+obj.go()
+
+# OUTPUT:
+
+'''
+ Im a fish, i love the water and sun.
+ The air is strong today, im air´s rat.
+ Not exist the animal: godzilla
+'''
+
 37 ------------------------>>> USO DEL MAP :
 
 MAP() : ITERA A CADA VALOR ENVIADO POR UNA FUNCION, PRIMERO VA LA FUNCION DESPUES EL ELEMENTO A ITERAR: (FUNCION, ITERACION(LIST,DIC,TUPLE,ETC)).
@@ -1345,6 +1394,60 @@ print(combination)
         [ 2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2],
         [ 3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  3]])]
 
+# matrix invocation:
+
+import numpy as np
+arr = np.array([[0,-1], [1, 0]])
+matrix1 = np.matrix(arr)
+
+matrix2 = np.matrix('0 -1; 1 0')
+
+matrix3 = np.matrix('0 ,-1; 1 ,0')
+
+print(matrix1)
+print(matrix2)
+print(matrix3)
+
+# output:
+'''
+[[ 0 -1]
+ [ 1  0]]
+[[ 0 -1]
+ [ 1  0]]
+[[ 0 -1]
+ [ 1  0]]
+'''
+
+# agregar y quitar items a un array:
+# more:https://www.analyticslane.com/2019/11/27/numpy-basico-como-anadir-elementos-en-arrays-de-numpy-con-np-append/#:~:text=append()%20es%20uno%20de,append()%20.
+
+import numpy as np
+a = np.array([1,2,3,4,5])
+b = np.array([1,2,3,4,5])
+
+a = np.append(a, [6], axis=0) # agregar
+b = np.append(b, [6], axis=0)
+
+a = a[:-1]  # quitar
+b = b[:-1]
+
+val = a + b
+
+print(val)
+
+# equivalent
+
+import numpy as np
+a = np.array([1,2,3,4,5])
+b = np.array([1,2,3,4,5])
+
+a = np.append(a, 6, axis=None)
+b = np.append(b, 6, axis=None)
+
+a = a[:-1]
+b = b[:-1]
+val = a + b
+print(val)
 
 
 40 ------------------->>> USO DE * Y ** EN PYTHON PARA PARAMETROS : SOBRECARGA DE FUNCIONES 2.0 :
@@ -2009,23 +2112,32 @@ print(values)
 
 52 -------------->> os para cmd : use os : import os : use subprocess :
 
+# send and receive message temporary:
 import os
 latencia = list(os.popen('ping google.com'))
 ip_pc = list(os.popen('ipconfig'))
 print(latencia, ip_pc)
 
-# y otros comandos más que se te imaginen en cmd
+# send message:
+
+import os
+os.system('ping google.com')
 
 # get directory actual:
 
-## 1 option: os.path.dirname(os.path.abspath(__file__))
-## 2 option: os.path.abspath(os.getcwd())
+1 option: os.path.dirname(os.path.abspath(__file__))
+2 option: os.path.abspath(os.getcwd())
 
 # get all elements in this directory:
 
 os.listdir()
 
-## subprocess :
+# join two paths:
+
+path = os.path.join(os.path.dirname(os.path.abspath(__file__)), NOMBRE_ARCHIVO) 
+path = os.path.abspath(__file__)) + '\\' + NOMBRE_ARCHIVO
+
+## subprocess : SUBPROCESS :
 
 # run a line
 import subprocess
@@ -2033,9 +2145,8 @@ def cmd(commando):
     subprocess.run(commando, shell=True)
 
 # examples:
-# Cambiar el título de la ventada de la consola
 cmd('TITLE Título de la ventana')
-# Ejecutar cmd externo
+
 cmd('myscript.cmd parametro1 parametro2')
 
 # Al usar shell=Truese pasan los parametros como texto
@@ -2290,4 +2401,41 @@ stream = video.streams.first()
 stream.download(outpath = r'..\app\youtube_downloads', filename='hola.mp4') # also we can set the path of the installing, or create a folder as youtube_donwloads.
 # finename = name that we want, but that finish in '.mp4'.
 
-57 -------------->>
+57 -------------->> voice to text : voice reproduce of text :
+
+# vocie to text:
+
+import speech_recognition as sr
+r = sr.Recognizer() 
+
+while True:
+    with sr.Microphone() as source:
+        print('Speak Anything : ')
+        audio = r.listen(source)
+    try:
+        text = r.recognize_google(audio)
+        print('You said: {}'.format(text))
+    except:
+        print('Sorry could not hear')
+
+
+# voice reproduce of text :
+
+from gtts import gTTS
+from playsound import playsound
+import os
+
+NOMBRE_ARCHIVO = "voz.mp3"
+
+message = input('you text: ')
+tts = gTTS(message, lang='es') # (message, lang='es-us') 'es-us': 'Spanish (United States)'
+
+tts.save(NOMBRE_ARCHIVO)
+
+playsound(NOMBRE_ARCHIVO)
+os.system(f'DEL /F /A {NOMBRE_ARCHIVO}')
+
+# path = os.path.join(os.path.dirname(os.path.abspath(__file__)), NOMBRE_ARCHIVO) # os.path.abspath(__file__)) + '\\' + NOMBRE_ARCHIVO
+# os.remove(path)
+
+58 -------------->>
