@@ -152,8 +152,8 @@ a = 3
 b = 5
 print(a+b)
 
-2 ---------> 
-#en listas:
+2 ---------> listas : list :
+
 lista.append(añade_elemento) # para añadir elementos a las listas.
 lista.extend([x,y,z]) # para exterder a la lista con elementos puestos.
 lista.insert(poscicion,valor) # para colocar un elemento " y "en la posicion "x".
@@ -162,6 +162,7 @@ lista.pop(posicion_a_eliminar) # para eliminar cierto elemto en la poscicion "x"
 lista.remove(valor_a_eliminar)
 lista.index(palabra_a_buscar) #te devuelve la poscicion.
 lista.sort() # ordena la lista.
+
 # para hacer las famosas matrices primero crearemos " matriz " que sera la principal, luego en los " for "  agregaremos mas listas " matriz1 "para que estas sean rows o filas
 # ejemplo:
 
@@ -180,6 +181,26 @@ for i in range(r):
 # osea si queremos ordenar algo, agregar, eliminar, usaremos listas(list(x)), si queremos solo saber que elementos hay sin repetirce usaremos "set(x)", si queremos
 # que tengan claves con valores usaremos "dict(zip(lista1,lista2))" donde veremos una mejor explicación en el punto 8, y "set" para convertirlos en conjuntos, tambien me olvidaba de las tuplas
 # que son "tuple(x)"que como que las convierten a constantes o algo así.
+
+
+# List Comprehension : Listas Comprimidas:
+
+# example 1:
+elements = [x for x in range(10)]  # output: [0,1,2,3,4,5,6,7,8,9]
+
+# example 2:
+elements = [x for x in range(1,11) if x%2==0]  # output: [2,4,6,8,10]  # pair
+elements = [x for x in range(1,11) if x%2==1]  # output: [1,3,5,7,9] # odd
+elements = [0 if x<5 else x for x in range(10)]  # output: [0,0,0,0,0,5,6,7,8,9]
+elements = [y for x in range(1,4) for y in range(x)]  # output: [0,0,1,0,1,2]
+
+# example 3:
+elements = [word for word in input('Enter name: ')]  # output: [p,e,d,r,o]
+elements = [int(n) for n in input('Enter numbers(1,2,3,4,...): ').split(',')]  # output: [21,4,7,9,43]
+
+# example 4:
+elements = [[i,j] for i in range(10) for j in range(10)]  # output: [[0,0],[0,1],[0,2].......[9,8],[9,9]]
+elements = [[i*j for j in range(10)] for i in range(10)]  # output: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],...., [0, 9, 18, 27, 36, 45, 54, 63, 72, 81]]
 
 3-->>
 
@@ -208,12 +229,12 @@ print(f)
                        
 print(list(filter(lambda x:x%2==1,[1,2,3,4,5,6,7,8,9,10])))
 
-3.5 ----------->> lambda examples and list.sort(key) - sorted(key):
+3.5 ----------->> lambda examples and list.sort(key) : sorted(key) :
 
 a = 3
 function = lambda x: x*10
 
-print(function(a))
+print(function(a)) # 30
 
 a = 3
 b = 2
@@ -239,7 +260,34 @@ print(names)
 # para genera numeros aleatorios se debe usar
 import random
 val=random.randint(minimo,maximo)
+val = random.randrange(minimo,maximo) # 2 option
 # en minimo y maximo van los limites
+
+# escoje un elemento aleatoriamente.
+random.choice([1,2,3,4,5,'a','z']) # output: 3 o 'a' o etc.
+
+# escoje un numero de elementos aleatoriamente donde se pueden volver a repetir.
+# 'k' vendria a ser el numero de elementos.
+random.choices([1,2,3,4,5,'a','z'], k=3)  # output: [3,'z',1] o ['a',5,5] o [4,4,2], etc.
+
+# escoje un numero de elementos aleatoriamente donde se NO pueden volver a repetir.
+random.choices([1,2,3,4,5,'a','z'], k=3)  # output: [3,'z',1] o ['a','z',5] o [4,1,2], etc.
+
+# revuelve, desacomoda, desordena, sacude nuesta lista.
+random.shuffle([1,2,3,4,5,'a','z']) # output: ['a', 4, 2, 3, 5, 'z', 1]
+
+# numero aleatorio entre el rango de [0-1]:
+random.random() # output: 0.1463594498552807
+
+# seed o semilla, para manejar la estancia de nuestro random.
+
+random.seed(0) # tambien puede ser (1),(2)..(144).
+
+# Random float:  2.5 <= x < 10.0
+random.uniform(2.5, 10.0) # output: 3.1800146073117523
+
+# randrange tipo for.
+randrange(0, 101, 2)   # output: 26
 
 5--->>
 # para ordenar una lista se usa el comando "lista.sort()" y para invertirla o verla al revez seria "lista.sort(reverse=True)".
