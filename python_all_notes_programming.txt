@@ -323,15 +323,23 @@ from modulos_creados import suma_total
 # para " CLASES Y OBJETOS " o para acostumbrarce " CLASS AND OBJECTS " ejemplos:
 
 class Humano:
+     especie = 'Humano'     # atributo publico en la clase, se puede llamar dentro(self.especie) y fuera de la clase(objeto.especie).
+     __dni = 12345678       # atributo privado, solo se podra llamar dentro de la clase.
      def __init__(self,edad):
          self.edad=edad     # donde self viene a reflejar como un objeto a ingresar como el input ya veran más abajo y edad y self viene a ser como parametro y etc tú te entiendes.
-         print(" hola esta es una clase")
+         self.__nombre = input('ingresa tu nombre: ')  # atributo privado.
+         print(f" hola esta es una clase {self.especie}, mi nombre es {self.__nombre}.")
      def hablar(self,mensaje):
          print(mensaje)
-alexander = Humano(18)                # donde 18 se envia como parametro a edad y Humano() se esta guardando como plantilla en alexander(self)
+
+alexander = Humano(18)                # donde 18 se envia como parametro a la clase Humano() se esta guardando como plantilla en alexander(self)
 print("tengo: ",alexander.edad)       # aqui manda a imprimir
 alexander.hablar("hola gente")        # donde aqui mando a llamar a la funcion " hablar"
+print(alexander.especie)  # output: 'Humano'
+print(alexander.__dni) # saldria un error, ya que self.__dni es un atributo privado
+
 # tambien puedo crear mas clases
+
 class Dotero(Humano):                 # donde agregamos"(Humano)" para que esta nueva clase reconosca a "Humano" y no cree otro def __init__(self,edad):, y ya no mande a llarmar con " alexander = Humano(18) " sino con " alexander = Dotero(18) ".
       def poscicion(self,juego):
           print(" jugare poscicion: ",juego)
@@ -2438,4 +2446,175 @@ os.system(f'DEL /F /A {NOMBRE_ARCHIVO}')
 # path = os.path.join(os.path.dirname(os.path.abspath(__file__)), NOMBRE_ARCHIVO) # os.path.abspath(__file__)) + '\\' + NOMBRE_ARCHIVO
 # os.remove(path)
 
-58 -------------->>
+58 -------------->> Web Scraping : requests and bs4 (BeautifulSoup) :
+
+# example 1:
+
+from bs4 import BeautifulSoup
+import requests
+
+url = 'https://definicion.de/resena/'
+page = requests.get(url)
+html = page.content   # all text in html <body font ><br><p>hola</p>< ....
+
+
+soup = BeautifulSoup(html, 'html.parser') # we'll analyze with html.parce
+
+text = soup.find_all('p') # get just the text, in html everything between <p> </p> will be text.
+
+for line in text:
+        print(line.get_text())
+
+59 -------------->> Threading : threading :
+
+# example 1:
+
+from threading import Thread
+import random
+
+def A_print():
+        while 1:
+                n = random.randint(0,10)
+                if n == 1:
+                        print('A')
+                        
+def B_print():
+        while 1:
+                n = random.randint(0,10)
+                if n == 10:
+                        print('B')
+
+
+a_function = Thread(target = A_print)
+b_function = Thread(target = B_print)
+
+a_function.start()
+b_function.start()
+
+name = input('Enter name: ')
+
+print('YOU NAME IS: ', name)
+
+# output:
+
+A
+B
+A
+Enter name:B
+A
+B
+B
+YOU NAME IS:  alexander
+B
+A
+B
+.
+.
+.
+A
+B
+B
+A
+...
+
+# example 2:
+
+from threading import Thread
+
+class Read(Thread):
+        # function especial for threading, it will start with 'obj.start' of class father Threading.
+        def run(self):
+                for i in range(10):
+                        print(f'=.= Reading the line {i+1}')
+                        
+class Speak(Thread):
+        def run(self):
+                for _ in range(10):
+                        print(' Speaking =0=')
+
+
+mind = Read()
+mouth = Speak()
+
+mind.start()  # it will start the function 'run' in a second plane.
+mouth.start()
+
+mind.join() # until that the function 'run' no finished, not could continue. 
+mouth.join()
+
+print('finish')
+
+output:
+
+=.= Reading the line 1
+=.= Reading the line 2
+ Speaking =0=
+ Speaking =0=
+=.= Reading the line 3
+ Speaking =0=
+ Speaking =0=
+=.= Reading the line 4
+ Speaking =0=
+=.= Reading the line 5
+ Speaking =0=
+=.= Reading the line 6
+=.= Reading the line 7
+ Speaking =0=
+ Speaking =0=
+ Speaking =0=
+ Speaking =0=
+=.= Reading the line 8
+=.= Reading the line 9
+=.= Reading the line 10
+finish
+
+# Example 3 (without 'obj.join'):
+
+from threading import Thread
+
+class Read(Thread):
+        def run(self):
+                for i in range(10):
+                        print(f'=.= Reading the line {i+1}')
+                        
+class Speak(Thread):
+        def run(self):
+                for _ in range(10):
+                        print(' Speaking =0=')
+
+mind = Read()
+mouth = Speak()
+
+mind.start()
+mouth.start()
+
+## mind.join()
+## mouth.join()
+
+print('finish')
+
+# output:
+
+=.= Reading the line 1
+=.= Reading the line 2
+=.= Reading the line 3
+finish
+=.= Reading the line 4
+ Speaking =0=
+=.= Reading the line 5
+ Speaking =0=
+=.= Reading the line 6
+ Speaking =0=
+=.= Reading the line 7
+ Speaking =0=
+=.= Reading the line 8
+ Speaking =0=
+=.= Reading the line 9
+ Speaking =0=
+=.= Reading the line 10
+ Speaking =0=
+ Speaking =0=
+ Speaking =0=
+ Speaking =0=
+
+60 -------------->>
