@@ -2457,7 +2457,7 @@ stream = video.streams.first()
 stream.download(outpath = r'..\app\youtube_downloads', filename='hola.mp4') # also we can set the path of the installing, or create a folder as youtube_donwloads.
 # finename = name that we want, but that finish in '.mp4'.
 
-57 -------------->> voice to text : voice reproduce of text :
+57 -------------->> voice to text : voice reproduce of text : winsound :
 
 # vocie to text:
 
@@ -2493,6 +2493,14 @@ os.system(f'DEL /F /A {NOMBRE_ARCHIVO}')
 
 # path = os.path.join(os.path.dirname(os.path.abspath(__file__)), NOMBRE_ARCHIVO) # os.path.abspath(__file__)) + '\\' + NOMBRE_ARCHIVO
 # os.remove(path)
+
+# beep sound:
+
+import winsound
+fre = 2500
+dur = 5000
+winsound.Beep(fre,dur)
+winsound.Beep(fre,dur)
 
 58 -------------->> Web Scraping : requests and bs4 (BeautifulSoup) :
 
