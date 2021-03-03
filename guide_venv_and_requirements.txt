@@ -188,4 +188,11 @@ call deactivate
 
 echo FINISH
 
-9 ----------------->>>
+9 ----------------->>> Create .exe of script without pyinstaller : .pyw
+
+# source: https://www.youtube.com/watch?v=5ykxJjXeAjM
+
+# 1. save the script as [name script].pyw
+# 2. click the script.pyw and enjoy it.
+
+10 ----------------->>> 
