@@ -2400,7 +2400,9 @@ stream = video.streams.get_audio_only() # get only audio in mp4.
 from pytube import YouTube
 video = YouTube('https://www.youtube.com/watch?v=UteUqDoCe2s')
 stream = video.streams.filter(only_audio=True).first()
+stream2 = video.streams.filter(only_video=True).first()
 stream.download()
+stream2.download()
 
 from pytube import YouTube
 video = YouTube('https://www.youtube.com/watch?v=UteUqDoCe2s')
@@ -2454,7 +2456,7 @@ for ulr in in playlist:
 
 video = pytube.YouTube(url) # this script is in '..\app\main.py'
 stream = video.streams.first()
-stream.download(outpath = r'..\app\youtube_downloads', filename='hola.mp4') # also we can set the path of the installing, or create a folder as youtube_donwloads.
+stream.download(output_path = r'..\app\youtube_downloads', filename='hola.mp4') # also we can set the path of the installing, or create a folder as youtube_donwloads.
 # finename = name that we want, but that finish in '.mp4'.
 
 57 -------------->> voice to text : voice reproduce of text : winsound :
@@ -2501,6 +2503,39 @@ fre = 2500
 dur = 5000
 winsound.Beep(fre,dur)
 winsound.Beep(fre,dur)
+
+# recording audio :
+
+from playsound import playsound
+import os
+import speech_recognition as sr
+import time
+
+r = sr.Recognizer()
+
+NOMBRE_ARCHIVO = "voz.wav"
+path = os.path.join(os.path.dirname(os.path.abspath(__file__)), NOMBRE_ARCHIVO)
+
+with sr.Microphone() as source:
+        
+        print('Speak Anything : ')
+        
+        audio = r.listen(source)
+        data = audio.get_wav_data()
+        
+        with open(NOMBRE_ARCHIVO, "wb") as file:
+                file.write(data)
+                
+        print('finish')
+
+
+playsound(NOMBRE_ARCHIVO)
+
+time.sleep(10)
+
+os.remove(path)
+
+# 
 
 58 -------------->> Web Scraping : requests and bs4 (BeautifulSoup) :
 
@@ -2673,4 +2708,29 @@ finish
  Speaking =0=
  Speaking =0=
 
-60 -------------->>
+60 -------------->> concanate video and audio : ffmpeg :
+
+# first: 
+conda install -c menpo ffmpeg
+pip install ffmpeg-python
+
+# option 1:
+
+import ffmpeg
+
+input_video = ffmpeg.input('./test/test_video.mp4')
+input_audio = ffmpeg.input('./test/test_audio.mp4') # also can be mp3, wav, etc. 
+
+ffmpeg.concat(input_video, input_audio, v=1, a=1).output('./processed_folder/finished_video.mp4').run()
+
+# option 2:
+
+import subprocess
+videofile = "video.mp4"
+audiofile = "audio.mp4"
+outputfile = "output.mp4"
+codec = "copy"
+
+subprocess.run(f"ffmpeg -i {videofile} -i {audiofile} -c {codec} {outputfile}")
+
+61 -------------->>
