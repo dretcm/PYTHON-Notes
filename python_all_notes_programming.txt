@@ -2193,6 +2193,13 @@ os.listdir()
 path = os.path.join(os.path.dirname(os.path.abspath(__file__)), NOMBRE_ARCHIVO) 
 path = os.path.abspath(__file__)) + '\\' + NOMBRE_ARCHIVO
 
+# rename:
+
+import os 
+source = 'GeeksforGeeks/old.txt'
+dest = 'GeekforGeeks/new.txt'
+os.rename(source, dest) 
+
 ## subprocess : SUBPROCESS :
 
 # run a line
@@ -2456,8 +2463,8 @@ for ulr in in playlist:
 
 video = pytube.YouTube(url) # this script is in '..\app\main.py'
 stream = video.streams.first()
-stream.download(output_path = r'..\app\youtube_downloads', filename='hola.mp4') # also we can set the path of the installing, or create a folder as youtube_donwloads.
-# finename = name that we want, but that finish in '.mp4'.
+stream.download(output_path = r'..\app\youtube_downloads', filename='hola') # also we can set the path of the installing, or create a folder as youtube_donwloads.
+# finename = name that we want, by default is in format '.mp4'.
 
 57 -------------->> voice to text : voice reproduce of text : winsound :
 
@@ -2708,7 +2715,7 @@ finish
  Speaking =0=
  Speaking =0=
 
-60 -------------->> concanate video and audio : ffmpeg :
+60 -------------->> concanate video and audio : ffmpeg : convert video to audio :
 
 # first: 
 conda install -c menpo ffmpeg
@@ -2732,5 +2739,13 @@ outputfile = "output.mp4"
 codec = "copy"
 
 subprocess.run(f"ffmpeg -i {videofile} -i {audiofile} -c {codec} {outputfile}")
+
+# convert video to audio:
+
+import subprocess
+videofile = "video.mp4"
+outputfile = "output.mp3"
+
+subprocess.run(f"ffmpeg -i {videofile} {outputfile}")
 
 61 -------------->>
