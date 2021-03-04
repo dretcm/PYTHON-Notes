@@ -13,17 +13,15 @@ good video for this guide: https://www.youtube.com/watch?v=APOPm01BVrk
 
 C:\users> cd test\etc...
 
-* and put the next command line:
+* and put the next command line, first "conda activate base":
 
-C:\users\test\project>python -m venv project_test_venv
+C:\users\test\project>conda activate base
+
+(base) C:\users\test\project>python -m venv project_test_venv
 
 * and then we go to put our project_test_venv\scripts...
 
 (base) C:\users\test\project>project_test_venv\scripts\activate.bat
-
-# or 'conda activate' or more espesific 'conda activate [you environment]'
-
-C:\users\test\project>conda activate [you environment]
 
 * and if we put pip list we will see the current modules
 
