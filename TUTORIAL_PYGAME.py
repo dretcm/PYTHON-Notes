@@ -132,4 +132,11 @@ pygame.display.update()
 
 sleep(3)
 
+# also we can use for playing after of test.mp3:
+pygame.mixer.music.queue("test2.mp3")
+
+# loop music:
+
+pygame.mixer.music.play(loop=-1) # by default is '0', that is to say, that it just plays once.
+
 # (4) ------------------------------------ window, rename, size, quit ---------------------------------- # 
