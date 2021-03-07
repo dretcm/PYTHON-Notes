@@ -2092,6 +2092,13 @@ import PIL.Image as Image
 screen = pyautogui.screenshot()
 img = Image._show(screen)
 
+# save images:
+
+from PIL import Image
+path = 'c:/users/usuario/pictures/dog_aux.jpg'
+img = Image.open(path)
+img.save('c:/users/usuario/pictures/dog.png')
+
 
 50 ----------------->> Windown rotate or controller:
 
@@ -2542,7 +2549,32 @@ time.sleep(10)
 
 os.remove(path)
 
-# 
+# Pyttsx3 : send text to voice :
+
+# example 1:
+import pyttsx3
+
+speaker = pyttsx3.init()
+dialog = ['hola','its my voice bot','si sisi ta galan ese otaku']
+for phrase in dialog:
+        speaker.say(phrase)
+        speaker.runAndWait()
+
+# example 2(read pfd and play to voice(audiobook)):
+
+import pyttsx3
+import PyPDF2
+
+book = open('test.pdf', 'rb')
+pdfReader = PyPDF2.PdfFileReader(book)
+pages = pdfReader.numPages
+
+speaker = pyttsx3.init()
+for num in range(7, pages):
+        page = pdfReader.getPage(num)
+        text = page.extractText()
+        speaker.say(text)
+        speaker.runAndWait()
 
 58 -------------->> Web Scraping : requests and bs4 (BeautifulSoup) :
 
@@ -2563,7 +2595,7 @@ text = soup.find_all('p') # get just the text, in html everything between <p> </
 for line in text:
         print(line.get_text())
 
-59 -------------->> Threading : threading :
+59 -------------->> Threading : threading : Multiprocessing :
 
 # example 1:
 
@@ -2714,6 +2746,58 @@ finish
  Speaking =0=
  Speaking =0=
  Speaking =0=
+
+# MULTIPROCESSING :
+
+# Without multiprocessing, that is to say, Multithreading :
+
+* one process.
+* takes less memory.
+* quicker to start.
+* slower for a large amount of data.
+* memory is shared between threads.
+* one GIL(Global Interpreter Lock).
+
+import time
+begin = time.time()
+
+for i in range(1000):
+        accumulator = 1
+        for j in range(10000):
+                accumulator *= j
+
+total = time.time() - begin
+print(f'It took {total} seconds.') # output: It took 0.8749325275421143 seconds.
+
+# Using multiprocessing :
+
+* multiple processes.
+* takes more memory
+* quicker to start.
+* slower to start.
+* faster for a large amount of data.
+* memory is not automatically shared between process.
+* a GIL(Global Interpreter Lock) for each process.
+
+from multiprocessing import Pool
+import time
+
+def test(n):
+        accumulator = 1
+        for i in range(10000):
+                accumulator *= i
+        return accumulator
+
+if __name__ == "__main__":
+        begin = time.time()
+
+        process = Pool()
+        result = process.map(test, range(1000))
+        process.close()
+        process.join()
+
+        total = time.time() - begin
+        print(f'It took {total} seconds.') # output: It took 0.402921199798584 seconds.
 
 60 -------------->> concanate video and audio : ffmpeg : convert video to audio :
 
