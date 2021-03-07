@@ -107,5 +107,37 @@ while True:
         pygame.display.update() # this function will apply the display resfresh
         clock.tick(60)
         
-# (3) ------------------------------------ window, rename, size, quit ---------------------------------- #       
+# (3) ------------------------------------ full screen window, audio ---------------------------------- #  
+# example of programming hero (Halloween XD).
+import pygame
+from time import sleep
+
+pygame.init()
+window = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+
+pygame.mixer.init()
+pygame.mixer.music.load('ratsasan.mp3')
+pygame.mixer.music.play()
+
+sleep(2)
+
+pygame.mixer.music.load('scary.mp3')
+
+image = pygame.image.load('scr.jpg')
+window.blit(image, (0,0))
+
+pygame.mixer.music.play()
+
+pygame.display.update()
+
+sleep(3)
+
+# also we can use for playing after of test.mp3:
+pygame.mixer.music.queue("test2.mp3")
+
+# loop music and begin of play:
+# by default is '0', that is to say, that it just plays once, -1 for loops.
+# "start" is the time in seconds to start, be default is 0, i mean, at the begining of song.
+pygame.mixer.music.play(loop=-1, start=35)
+
 # (4) ------------------------------------ window, rename, size, quit ---------------------------------- # 
