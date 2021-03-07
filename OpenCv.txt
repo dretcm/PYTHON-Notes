@@ -1,5 +1,94 @@
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------- GUIDE OpenCv -------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-1 -------------->>> Open Camera and configuration:
+1 -------------->>> Images (display, resize, rotate, save, flip, shape):
+
+# read images:
+
+import cv2
+path = 'c:/users/usuario/pictures/dog_aux.jpg'
+
+# -1 : cv2.IMREAD_COLOR : loads a color image(its by default).
+# 0 : cv2.IMREAD_GRAYSCALE : loads a image in grayscale mode.
+# 1 : cv2.IMREAD_UNCHANGED : loads imgage as such including alpha channel.
+
+img = cv2.imread(path, -1)
+
+cv2.imshow('Image', img) # (title, tensor)
+cv2.waitKey(0)   # 0 : infinity time, until to press whatever key; 1000 : is equivalent to 10 seconds; 5000 : to 5 seconds, etc.
+cv2.destroyAllWindows()
+
+# resize images:
+
+import cv2
+path = 'c:/users/usuario/pictures/dog_aux.jpg'
+
+img = cv2.imread(path, 1)
+img = cv2.resize(img, (400, 400))  # (tensor, (width, height))
+
+cv2.imshow('Image', img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+## the above is equivalent to:
+
+import cv2
+path = 'c:/users/usuario/pictures/dog_aux.jpg'
+
+img = cv2.imread(path, 1)
+img = cv2.resize(img, (0,0), fx=0.1, fy =0.4)  # (tensor, (width, height), coor x, coor y)
+
+cv2.imshow('Image', img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+# rotate images and save images:
+
+import cv2
+path = 'c:/users/usuario/pictures/dog_aux.jpg'
+
+img = cv2.imread(path, 1)
+img = cv2.resize(img, (400, 400))
+
+# cv2.ROTATE_90_CLOCKWISE
+# cv2.ROTATE_90_COUNTERCLOCKWISE
+# cv2.ROTATE_180
+
+img = cv2.rotate(img, cv2.cv2.ROTATE_90_CLOCKWISE)   # clockwise(en sentido horario)
+
+cv2.imwrite('new_img.jpg', img)   # save image (filename, tensor)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+# flip:
+# flipcode = 0: flip vertically
+# flipcode = 1: flip horizontally
+# flipcode = -1 : flip vertically and horizontally
+
+import cv2
+path = 'c:/users/usuario/pictures/dog_aux.jpg'
+
+img = cv2.imread(path)
+img = cv2.flip(img, -1)
+
+cv2.imshow('Image', img)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+# shape:
+
+import cv2
+path = 'c:/users/usuario/pictures/dog_aux.jpg'
+img = cv2.imread(path)
+
+print(img.shape) # output: (1200, 900, 3)
+
+2 --------------->>>
+
+10 -------------->>> Open Camera and configuration:
 
 import cv2
 
@@ -21,4 +110,4 @@ while True:
 cap.release() # finish capture
 cv2.destroyAllWindows()
 
-2 -------------->>> 
+20 -------------->>> 
