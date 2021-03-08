@@ -20,6 +20,19 @@ while True:
                         
         pygame.display.update() # makes that display update according above process
         clock.tick(60)  # for the 60 fps
+               
+# FULLSCREEN and gets:
+
+import pygame
+
+clock = pygame.time.Clock() 
+pygame.init()
+
+pygame.display.set_caption('My Pygame Window ')
+screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+
+width = pygame.display.get_surface().get_width()  # example 1380
+height = pygame.display.get_surface().get_height() # 768
 
 # (2) ----------------------------- load image, fill background, inputs, physics, collisions --------------------------- #
 
