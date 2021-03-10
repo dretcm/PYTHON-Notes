@@ -1903,6 +1903,41 @@ plt.subplot(221)
 # equivalent but more general
 ax1=plt.subplot(2, 2, 1)
 
+
+# advance example:
+
+fig, axs = plt.subplots(2, 3, sharex=True, sharey=True, figsize=(12,8)) # (rows, columns, figsize = (width, height))
+
+colors = ['red','blue']
+# v = vector, g = rotate, f = shear
+
+for i, elements in enumerate([first_path, second_path]):
+  cade = ''
+  for j, element in enumerate(elements):
+    x = elements[element]
+    for c,e in enumerate([x[:,0], x[:,1]]):
+      axs[i,j].quiver([0], [0], [e[0]], [e[1]], angles='xy', scale_units='xy', scale=1, alpha=1, color = colors[c])
+
+    if element =='rotate 90°':
+      cade += '(G)'
+    elif element =='shear':
+      cade +='(F)'
+    else:
+      cade +='(v)'
+
+    axs[i,j].set_title(element)
+    axs[i,j].set_ylabel(cade)
+
+    plt.xlim(-1.5,1.5)
+    plt.ylim(-1.5,1.5)
+    axs[i,j].axvline(x=0,c='gray',zorder=0)
+    axs[i,j].axhline(y=0,c='gray',zorder=0)
+    axs[i,j].grid()
+
+
+plt.tight_layout() # more extent
+plt.show()
+
 43 ---------------->>>>  OPERADORES DE CLASE EN PYTHON : OPERATORS
 
 
