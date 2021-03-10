@@ -20,6 +20,19 @@ while True:
                         
         pygame.display.update() # makes that display update according above process
         clock.tick(60)  # for the 60 fps
+               
+# FULLSCREEN and gets:
+
+import pygame
+
+clock = pygame.time.Clock() 
+pygame.init()
+
+pygame.display.set_caption('My Pygame Window ')
+screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+
+width = pygame.display.get_surface().get_width()  # example 1380
+height = pygame.display.get_surface().get_height() # 768
 
 # (2) ----------------------------- load image, fill background, inputs, physics, collisions --------------------------- #
 
@@ -49,6 +62,7 @@ test_rect = pygame.Rect(100, 100, 100, 50) # rectangular collider with size test
 
 while True:
         screen.fill((146, 244, 255)) # fill background with the colors RGB (0-255)(black-white)
+        # screen.fill((0, 0, 0)) # for clear the screen in black
         
         screen.blit(player_image, player_location) # put the image in the surface (image loaded, image´s position)
         # the axis(X,Y) is inverted.
