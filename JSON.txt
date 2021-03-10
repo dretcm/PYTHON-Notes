@@ -1,15 +1,108 @@
 Creamos un txt, y lo guardamos con "nombre.json"   y ya tendremos un data base de json
 
+1 -----------> JSON : json :
 
-1 -----------> DATOS ABRIR :
+# json can read and save elements type:
+PYTHON			JSON
+dict	 		object
+list, tuple		array
+str			string
+int, long, float	number
+True			true
+False			false
+None			null
 
-def principal():
-	with open("dataalex.json","r") as file:
-		data = json.load(file)
-		print(data)
+# load(): take a file .json as parameter of you directory.
+# loads(): it take a string as parameter, the string can be int, char, list, dict, etc.
+# dump(): save a (int, char, list, dict, etc.) in a file.json in your disk.
+# dumps(): save a ((int, char, list, dict, etc.) or string as loads) in your temporary memory.
 
-parecido a un: 
+# open data with "load":
+
+with open("dataalex.json","r") as file:
+	data = json.load(file)
+	print(data)
+
+## equivalent to: 
 
 file = open("dataalex.json","r")
 data=json.load(file)
 print(data)
+
+# open data with "loads":
+
+import json
+json_string = """
+{
+    "researcher": {
+        "name": "Ford Prefect",
+        "species": "Betelgeusian",
+        "relatives": [
+            {
+                "name": "Zaphod Beeblebrox",
+                "species": "Betelgeusian"
+            }
+        ]
+    }
+}
+"""
+data = json.loads(json_string)
+print(data)
+
+# save data in disk with "dump":
+
+import json
+data = ['Fernando', 13, 'HGF', 1052315161]
+
+with open('test.json','w') as f:
+        json.dump(data, f)
+
+# save in memory with "dumps":
+
+import json
+data = ['Fernando', 13, 'HGF', 1052315161]
+
+js = json.dumps(data) # save data in memory
+
+with open('test2.json','w') as  f:
+        f.write(js)
+
+
+# dumps and loads:
+
+import json
+
+json_string = """
+{
+    "researcher": {
+        "name": "Ford Prefect",
+        "species": "Betelgeusian",
+        "relatives": [
+            {
+                "name": "Zaphod Beeblebrox",
+                "species": "Betelgeusian"
+            }
+        ]
+    }
+}
+"""
+aux = json.dumps(json_string)
+data = json.loads(aux)
+print(data)
+
+# output:
+
+{
+    "researcher": {
+        "name": "Ford Prefect",
+        "species": "Betelgeusian",
+        "relatives": [
+            {
+                "name": "Zaphod Beeblebrox",
+                "species": "Betelgeusian"
+            }
+        ]
+    }
+}
+
+2 ------------>
