@@ -62,6 +62,7 @@ test_rect = pygame.Rect(100, 100, 100, 50) # rectangular collider with size test
 
 while True:
         screen.fill((146, 244, 255)) # fill background with the colors RGB (0-255)(black-white)
+        # screen.fill((0, 0, 0)) # for clear the screen in black
         
         screen.blit(player_image, player_location) # put the image in the surface (image loaded, image´s position)
         # the axis(X,Y) is inverted.
