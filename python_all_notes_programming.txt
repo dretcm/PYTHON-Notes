@@ -1535,6 +1535,16 @@ val = a + b
 print(val)
 
 
+# sin and cos:
+
+np.cos(np.radians(45)) # cos in radians
+np.sin(np.radians(45))
+
+# arr.flatten():
+
+a = np.array([[0,1],[2,3]]) # 2x2
+print(a.flatten()) # [0,1,2,3] # 4x1
+
 40 ------------------->>> USO DE * Y ** EN PYTHON PARA PARAMETROS : SOBRECARGA DE FUNCIONES 2.0 :
 
 // viene a ser como una sobrecarga de funciones o mejor llamado como un " parametro dinamico ":
@@ -1935,7 +1945,102 @@ for i, elements in enumerate([first_path, second_path]):
     axs[i,j].grid()
 
 
-plt.tight_layout() # more extent
+plt.tight_layout() # more extent, the spacing between the plots(by default is  1.8).
+# plt.tight_layout(h_pad=0.2, w_pad=0.2) # the spacing vertical and horizontal.
+plt.show()
+
+# save fig:
+
+import matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+
+y = [2,4,6,8,10,12,14,16,18,20]
+x = np.arange(10)
+
+fig = plt.figure(figsize=(10,6))  # (width, height)
+ax = plt.subplot(111) # plt.subplot(1,1,1)
+ax.plot(x, y, label='$y = numbers')
+plt.title('Legend inside')
+ax.legend()
+plt.show()
+
+fig.savefig('plot.png')
+
+# figure 3d example:
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+z = np.random.randint(100, size =(50))
+x = np.random.randint(80, size =(50))
+y = np.random.randint(60, size =(50))
+
+#until = 360 # 360 range color
+#c = np.arange(0,until)
+#colors = (c)
+
+fig = plt.figure(figsize = (10, 6))
+ax = plt.axes(projection ="3d")
+
+ax.scatter3D(x, y, z, c =(x+y+z),cmap=plt.get_cmap('hsv')) # camp: para color mas chingon, (x,y,z) forman un color mediante numeros.
+
+plt.title("simple 3D scatter plot")
+plt.show()
+
+# other example:
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+fig = plt.figure(figsize=(10,6))
+ax = fig.gca(projection='3d')
+
+
+ax.quiver([0], [0], [0], [1], [1], [1], length=0.05, normalize=True, color='gray')
+      
+ax.text2D(0, 1, 'hola', transform=ax.transAxes)
+ax.grid()
+plt.show()
+
+# figure and bar description:
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+z = 4 * np.tan(np.random.randint(10, size =(500))) + np.random.randint(100, size =(500))
+x = 4 * np.cos(z) + np.random.normal(size = 500)
+y = 4 * np.sin(z) + 4 * np.random.normal(size = 500)
+ 
+fig = plt.figure(figsize = (16, 9))
+ax = plt.axes(projection ="3d")
+   
+# Add x, y gridlines 
+ax.grid(b = True, color ='grey', 
+        linestyle ='-.', linewidth = 0.3, 
+        alpha = 0.2) 
+ 
+# Creating color map
+my_cmap = plt.get_cmap('hsv')
+ 
+# Creating plot
+sctt = ax.scatter3D(x, y, z,
+                    alpha = 0.8,
+                    c = (x + y + z), 
+                    cmap = my_cmap, 
+                    marker ='^')
+ 
+plt.title("simple 3D scatter plot")
+ax.set_xlabel('X-axis', fontweight ='bold') 
+ax.set_ylabel('Y-axis', fontweight ='bold') 
+ax.set_zlabel('Z-axis', fontweight ='bold')
+
+#ax.set_xlim(0,1)
+#ax.set_ylim(0,1)
+#ax.set_zlim(0,1)
+
+fig.colorbar(sctt, ax = ax, shrink = 0.5, aspect = 5)
 plt.show()
 
 43 ---------------->>>>  OPERADORES DE CLASE EN PYTHON : OPERATORS
@@ -2432,6 +2537,32 @@ import os
 source = 'GeeksforGeeks/old.txt'
 dest = 'GeekforGeeks/new.txt'
 os.rename(source, dest) 
+
+# exists file or path:
+
+import os
+fileName = r"C:\Test\test.txt"
+os.path.exists(fileName) # true or false according you disk
+fileName = r"C:\Test"
+os.path.exists(fileName)
+
+import os
+fileName = r"C:\Test\test.txt"
+os.path.isfile(fileName)
+
+# remove path:
+
+path = 'D:\images' # it also can be 'D:\images\img.png'
+os.remove(path)
+
+os.system(f'DEL /F /A {path}')
+
+# make a folder:
+
+path = 'D:\images'
+os.mkdir(path)
+os.system(f'MKDIR {path}')
+os.system(f'MD {path}')
 
 ## subprocess : SUBPROCESS :
 
