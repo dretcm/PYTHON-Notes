@@ -929,11 +929,26 @@ c.execute("INSERT INTO shop SELECT code,product,price,realprice FROM t_pasar")
 c.execute("DROP TABLE t_pasar")
 con.commit()
 con.close()
-32----->>
+
+32----->> use string : import string
+
 ##para usar más en letras o strings:
 import string
 usando los comandos q contiene string podremos sacar
 todos los numeros, tolas las letras mayusculas o minuscula, cambiar a cada letra mayuscula en cada palabra al iniciar, etc.
+
+import string
+
+print(string.ascii_letters) # abc....yzABC...YZ
+print(string.ascii_lowercase) # abc...yz
+print(string.ascii_uppercase) # ABC...YZ
+print(string.digits) # 0123...9
+print(string.hexdigits) # 0123456789abcdefABCDEF # hexagesimal
+print(string.octdigits) # 01234567
+print(string.printable) # 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
+print(string.punctuation) # !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
+print(string.whitespace) # rectangulo vertical y fecha para arriba
+
 33------>>>>
 #forma para ingresar o printear algo:
 
@@ -1544,6 +1559,21 @@ np.sin(np.radians(45))
 
 a = np.array([[0,1],[2,3]]) # 2x2
 print(a.flatten()) # [0,1,2,3] # 4x1
+
+# map or functions in numpy : use vectorize :
+
+import numpy as np
+x = np.array([1, 2, 3, 4, 5])
+squarer = lambda t: t ** 2
+vfunc = np.vectorize(squarer)
+print(vfunc(x)) # Output : array([ 1,  4,  9, 16, 25])
+
+import numpy as np
+x = np.array([1, 2, 3, 4, 5])
+def squarer_and_sum(x):
+	return (x ** 2) + 1
+vfunc = np.vectorize(squarer_and_sum)
+print(vfunc(x)) # Output : array([ 2,  5,  10, 17, 27])
 
 40 ------------------->>> USO DE * Y ** EN PYTHON PARA PARAMETROS : SOBRECARGA DE FUNCIONES 2.0 :
 
@@ -2297,8 +2327,12 @@ from PIL import Image
 import numpy as np
 
 img = Image.open('dog_aux.jpg')
-array = np.array(img.getdata())
-print(array)
+array = np.array(img)
+print(array) # this image will have 3 channels.
+
+img = Image.open('dog_aux.jpg').convert('L') # convert image of RGB to GrayScale = (R+G+B)/3
+array = np.array(img)
+print(array) # this image will have one channel in gray scale.
 
 # properties image:
 
