@@ -166,8 +166,8 @@ pygame.init()
 
 screen = pygame.display.set_mode(WINDOW_SIZE)
 
-width = pygame.display.get_surface().get_width()
-height = pygame.display.get_surface().get_height()
+width = pygame.display.get_surface().get_width()  # get width of hte window
+height = pygame.display.get_surface().get_height() # get height of hte window
 
 bg = pygame.transform.scale(pygame.image.load('bg.png'), (width, height)) # (image, (width, height) to scale)
 
