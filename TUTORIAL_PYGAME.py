@@ -154,7 +154,7 @@ pygame.mixer.music.queue("test2.mp3")
 # "start" is the time in seconds to start, be default is 0, i mean, at the begining of song.
 pygame.mixer.music.play(loop=-1, start=35)
 
-# (4) ------------------------------------ transform images ---------------------------------- # 
+# (4) ------------------------------------ transform images, text  ---------------------------------- # 
 
 import pygame, sys
 from pygame.locals import *
@@ -171,8 +171,17 @@ height = pygame.display.get_surface().get_height() # get height of hte window
 
 bg = pygame.transform.scale(pygame.image.load('bg.png'), (width, height)) # (image, (width, height) to scale)
 
+# apple:
+score = 0
+
+def print_score(score):
+        font = pygame.font.Font(None,20) # font or text set
+        message = font.render('score: '+str(score), 1, (0,0,0)) # render(text, The antialias argument is a boolean: if true the characters will have smooth edges, color, background=None) 
+        return message
+
 while (True):
         screen.blit(bg, (0,0))
+        screen.blit(print_score(score),(450,10))
 
         for event in pygame.event.get():
                 if event.type == QUIT:
