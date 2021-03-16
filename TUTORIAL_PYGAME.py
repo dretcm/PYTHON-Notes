@@ -58,7 +58,7 @@ moving_right = False
 speed = 4  # horizontal speed of character
 
 player_rect  = pygame.Rect(player_location[0], player_location[1], player_image.get_width(), player_image.get_height()) # rectangular collider with size of player
-test_rect = pygame.Rect(100, 100, 100, 50) # rectangular collider with size test
+test_rect = pygame.Rect(100, 100, 100, 50) # Rect(left, top, width, height)
 
 while True:
         screen.fill((146, 244, 255)) # fill background with the colors RGB (0-255)(black-white)
@@ -154,4 +154,32 @@ pygame.mixer.music.queue("test2.mp3")
 # "start" is the time in seconds to start, be default is 0, i mean, at the begining of song.
 pygame.mixer.music.play(loop=-1, start=35)
 
-# (4) ------------------------------------ window, rename, size, quit ---------------------------------- # 
+# (4) ------------------------------------ transform images ---------------------------------- # 
+
+import pygame, sys
+from pygame.locals import *
+
+clock = pygame.time.Clock()
+WINDOW_SIZE = (600, 500)
+
+pygame.init()
+
+screen = pygame.display.set_mode(WINDOW_SIZE)
+
+width = pygame.display.get_surface().get_width()
+height = pygame.display.get_surface().get_height()
+
+bg = pygame.transform.scale(pygame.image.load('bg.png'), (width, height)) # (image, (width, height) to scale)
+
+while (True):
+        screen.blit(bg, (0,0))
+
+        for event in pygame.event.get():
+                if event.type == QUIT:
+                        pygame.quit()
+                        sys.exit()
+
+        pygame.display.update()
+        clock.tick(60)
+
+# (5) ------------------------------------ window, rename, size, quit ---------------------------------- # 
