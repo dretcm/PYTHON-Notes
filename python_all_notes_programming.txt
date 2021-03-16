@@ -3260,6 +3260,16 @@ outputfile = "output.mp3"
 
 subprocess.run(f"ffmpeg -i {videofile} {outputfile}")
 
+
+# compress large video:
+
+import subprocess
+videofile = "video.mp4"
+outputfile = "output.mp4"
+subprocess.run(f"ffmpeg -i {videofile} -c:v libx264 -b:v 1.5M -c:a libvo_aacenc -b:a 128K {outputfile}")  # of 1.37 GB to 17.2 MB
+## in cmd it will be> ffmpeg -i "video.mp4" -c:v libx264 -b:v 1.5M -c:a libvo_aacenc -b:a 128K "output.mp4"
+
+
 61 -------------->> zip file : zip-file : zipfile :
 
 # save zip-files:
@@ -3341,4 +3351,49 @@ with ZipFile('sample.zip', 'r') as zipObj:
                 if fileName.endswith('.pdf'):
                         zipObj.extract(member=fileName, path='folder_filterer')
 
-62 -------------->>
+62 -------------->> pip install progress : bar progress :
+
+# all types of bar(use this in for or define steps): https://warehouse-camo.ingress.cmh1.psfhosted.org/3201b627b24822c33240f8d6ceb4834c0c3e4c13/68747470733a2f2f7261772e6769746875622e636f6d2f7665726967616b2f70726f67726573732f6d61737465722f64656d6f2e676966
+Bar
+ChargingBar
+FillingSquaresBar
+FillingCirclesBar
+IncrementalBar
+PixelBar
+ShadyBar
+
+There are 5 predefined spinners(use this when we unknow number of steps or undefine steps(while)):
+
+Spinner
+PieSpinner
+MoonSpinner
+LineSpinner
+PixelSpinner
+
+from progress.bar import Bar  # 1 type of bar.
+
+bar = Bar('Processing', max=20)
+for i in range(20):
+    # Do some work
+    bar.next()
+bar.finish()
+
+
+# i prefer this:
+from progress.bar import ChargingBar
+
+with ChargingBar('Processing', max=20) as bar:  
+    for i in range(20):
+        # Do some work
+        bar.next()
+
+
+from progress.spinner import Spinner
+
+spinner = Spinner('Loading ')
+while state != 'FINISHED':
+    # Do some work
+    spinner.next()
+
+
+63 -------------->>
