@@ -154,7 +154,7 @@ pygame.mixer.music.queue("test2.mp3")
 # "start" is the time in seconds to start, be default is 0, i mean, at the begining of song.
 pygame.mixer.music.play(loop=-1, start=35)
 
-# (4) ------------------------------------ transform images, text  ---------------------------------- # 
+# (4) ------------------------------------ transform images, text, colliderect  ---------------------------------- # 
 
 import pygame, sys
 from pygame.locals import *
@@ -179,10 +179,25 @@ def print_score(score):
         message = font.render('score: '+str(score), 1, (0,0,0)) # render(text, The antialias argument is a boolean: if true the characters will have smooth edges, color, background=None) 
         return message
 
+snake = pygame.Rect(100, 30, 25, 25) # Rect(left, top, width, height)
+
+moving_left = False
+moving_right = False
+moving_up = False
+moving_down = False
+speed = 5
+
+# apple:
+score = 0
+apple = pygame.Rect(0, 0, 25, 25)
+
 while (True):
         screen.blit(bg, (0,0))
         screen.blit(print_score(score),(450,10))
-
+        
+        if  pygame.Rect.colliderect(snake, apple):
+                print('snake and apple are colliderecting.')
+                
         for event in pygame.event.get():
                 if event.type == QUIT:
                         pygame.quit()
