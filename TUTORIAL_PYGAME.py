@@ -58,7 +58,7 @@ moving_right = False
 speed = 4  # horizontal speed of character
 
 player_rect  = pygame.Rect(player_location[0], player_location[1], player_image.get_width(), player_image.get_height()) # rectangular collider with size of player
-test_rect = pygame.Rect(100, 100, 100, 50) # rectangular collider with size test
+test_rect = pygame.Rect(100, 100, 100, 50) # Rect(left, top, width, height)
 
 while True:
         screen.fill((146, 244, 255)) # fill background with the colors RGB (0-255)(black-white)
@@ -152,6 +152,93 @@ pygame.mixer.music.queue("test2.mp3")
 # loop music and begin of play:
 # by default is '0', that is to say, that it just plays once, -1 for loops.
 # "start" is the time in seconds to start, be default is 0, i mean, at the begining of song.
-pygame.mixer.music.play(loop=-1, start=35)
+pygame.mixer.music.play(loops=-1, start=35)
 
-# (4) ------------------------------------ window, rename, size, quit ---------------------------------- # 
+# (4) ------------------------------------ transform images, transparent images, text, colliderect  ---------------------------------- # 
+
+import pygame, sys
+from pygame.locals import *
+
+clock = pygame.time.Clock()
+WINDOW_SIZE = (600, 500)
+
+pygame.init()
+
+screen = pygame.display.set_mode(WINDOW_SIZE)
+
+width = pygame.display.get_surface().get_width()  # get width of hte window
+height = pygame.display.get_surface().get_height() # get height of hte window
+
+bg = pygame.transform.scale(pygame.image.load('bg.png'), (width, height)) # (image, (width, height) to scale)
+
+# apple:
+score = 0
+apple_img = pygame.transform.scale(pygame.image.load('apple.png'), (25, 25))
+apple_img.set_colorkey((255, 255, 255))  # color which will be transparent o equals to background
+
+apple = pygame.Rect(0, 0, 25, 25)
+state_apple = True
+
+def print_score(score):
+        font = pygame.font.Font(None,20) # font or text set
+        message = font.render('score: '+str(score), 1, (0,0,0)) # render(text, The antialias argument is a boolean: if true the characters will have smooth edges, color, background=None) 
+        return message
+
+snake = pygame.Rect(100, 30, 25, 25) # Rect(left, top, width, height)
+
+moving_left = False
+moving_right = False
+moving_up = False
+moving_down = False
+speed = 5
+
+# apple:
+score = 0
+apple = pygame.Rect(0, 0, 25, 25)
+
+while (True):
+        screen.blit(bg, (0,0))
+        screen.blit(print_score(score),(450,10))
+        
+        if  pygame.Rect.colliderect(snake, apple):
+                print('snake and apple are colliderecting.')
+                
+        for event in pygame.event.get():
+                if event.type == QUIT:
+                        pygame.quit()
+                        sys.exit()
+
+        pygame.display.update()
+        clock.tick(60)
+
+# (6) ------------------------------------ flip and rotate img ---------------------------------- # 
+
+img = pygame.image.load('character.png')
+img_flip = pygame.transform.flip(img, boolx,booly) # 1 boolx: horizontal flip; booly: vertical flip ;2 boolx and booly: horizontal and vertical flip
+
+angle = 180 # also can be 0,90,270, etc.
+img_rotate = pygame.transform.rotate(img, angle)
+
+
+# (7) ------------------------------------ button ---------------------------------- # 
+
+font = pygame.font.Font(None,70)
+
+button = pygame.Rect(150,300, 250,70)
+pygame.draw.rect(screen, (255,100,0), button)
+
+message = font.render('Play',1,(0,0,0))
+screen.blit(message, (160,310))
+                        
+pygame.display.update()
+                        
+for event in pygame.event.get():
+        if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+        if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1 and button.collidepoint(event.pos):
+                        print('you clicked the button')
+                        
+                        
+# (8) ------------------------------------ window, rename, size, quit ---------------------------------- # 
