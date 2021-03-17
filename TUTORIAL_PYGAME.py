@@ -220,4 +220,25 @@ angle = 180 # also can be 0,90,270, etc.
 img_rotate = pygame.transform.rotate(img, angle)
 
 
-# (6) ------------------------------------ window, rename, size, quit ---------------------------------- # 
+# (7) ------------------------------------ button ---------------------------------- # 
+
+font = pygame.font.Font(None,70)
+
+button = pygame.Rect(150,300, 250,70)
+pygame.draw.rect(screen, (255,100,0), button)
+
+message = font.render('Play',1,(0,0,0))
+screen.blit(message, (160,310))
+                        
+pygame.display.update()
+                        
+for event in pygame.event.get():
+        if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+        if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1 and button.collidepoint(event.pos):
+                        print('you clicked the button')
+                        
+                        
+# (8) ------------------------------------ window, rename, size, quit ---------------------------------- # 
