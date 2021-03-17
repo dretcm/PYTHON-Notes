@@ -211,4 +211,13 @@ while (True):
         pygame.display.update()
         clock.tick(60)
 
-# (5) ------------------------------------ window, rename, size, quit ---------------------------------- # 
+# (6) ------------------------------------ flip and rotate img ---------------------------------- # 
+
+img = pygame.image.load('character.png')
+img_flip = pygame.transform.flip(img, boolx,booly) # 1 boolx: horizontal flip; booly: vertical flip ;2 boolx and booly: horizontal and vertical flip
+
+angle = 180 # also can be 0,90,270, etc.
+img_rotate = pygame.transform.rotate(img, angle)
+
+
+# (6) ------------------------------------ window, rename, size, quit ---------------------------------- # 
