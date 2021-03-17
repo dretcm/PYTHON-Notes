@@ -152,7 +152,7 @@ pygame.mixer.music.queue("test2.mp3")
 # loop music and begin of play:
 # by default is '0', that is to say, that it just plays once, -1 for loops.
 # "start" is the time in seconds to start, be default is 0, i mean, at the begining of song.
-pygame.mixer.music.play(loop=-1, start=35)
+pygame.mixer.music.play(loops=-1, start=35)
 
 # (4) ------------------------------------ transform images, transparent images, text, colliderect  ---------------------------------- # 
 
