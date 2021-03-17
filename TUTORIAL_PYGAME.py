@@ -154,7 +154,7 @@ pygame.mixer.music.queue("test2.mp3")
 # "start" is the time in seconds to start, be default is 0, i mean, at the begining of song.
 pygame.mixer.music.play(loop=-1, start=35)
 
-# (4) ------------------------------------ transform images, text, colliderect  ---------------------------------- # 
+# (4) ------------------------------------ transform images, transparent images, text, colliderect  ---------------------------------- # 
 
 import pygame, sys
 from pygame.locals import *
@@ -173,6 +173,11 @@ bg = pygame.transform.scale(pygame.image.load('bg.png'), (width, height)) # (ima
 
 # apple:
 score = 0
+apple_img = pygame.transform.scale(pygame.image.load('apple.png'), (25, 25))
+apple_img.set_colorkey((255, 255, 255))  # color which will be transparent o equals to background
+
+apple = pygame.Rect(0, 0, 25, 25)
+state_apple = True
 
 def print_score(score):
         font = pygame.font.Font(None,20) # font or text set
