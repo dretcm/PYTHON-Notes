@@ -3023,6 +3023,9 @@ html = page.content
 with open('text.txt', 'wb') as file:
         file.write(html)
 
+# google searches trends:
+https://trends.google.com/trends/hottrends/visualize?nrow=5&ncol=5
+
 59 -------------->> Threading : threading : Multiprocessing :
 
 # example 1:
