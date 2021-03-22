@@ -1,3 +1,5 @@
+# pague of colors in RGB: https://htmlcolorcodes.com/
+
 # (1) ----------------------------------------- window, rename, size, quit --------------------------------------------- #
 
 import pygame, sys
@@ -211,7 +213,7 @@ while (True):
         pygame.display.update()
         clock.tick(60)
 
-# (6) ------------------------------------ flip and rotate img ---------------------------------- # 
+# (5) ------------------------------------ flip and rotate img ---------------------------------- # 
 
 img = pygame.image.load('character.png')
 img_flip = pygame.transform.flip(img, boolx,booly) # 1 boolx: horizontal flip; booly: vertical flip ;2 boolx and booly: horizontal and vertical flip
@@ -220,7 +222,7 @@ angle = 180 # also can be 0,90,270, etc.
 img_rotate = pygame.transform.rotate(img, angle)
 
 
-# (7) ------------------------------------ button ---------------------------------- # 
+# (6) ------------------------------------ button ---------------------------------- # 
 
 font = pygame.font.Font(None,70)
 
@@ -241,4 +243,6 @@ for event in pygame.event.get():
                         print('you clicked the button')
                         
                         
-# (8) ------------------------------------ window, rename, size, quit ---------------------------------- # 
+# (7) ------------------------------------ window, rename, size, quit ---------------------------------- #
+# (8) ------------------------------------ window, rename, size, quit ---------------------------------- #
+# (9) ------------------------------------ window, rename, size, quit ---------------------------------- #

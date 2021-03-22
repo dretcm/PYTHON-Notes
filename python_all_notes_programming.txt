@@ -162,6 +162,8 @@ lista.pop(posicion_a_eliminar) # para eliminar cierto elemto en la poscicion "x"
 lista.remove(valor_a_eliminar)
 lista.index(palabra_a_buscar) #te devuelve la poscicion.
 lista.sort() # ordena la lista.
+# para ordenar una lista se usa el comando "lista.sort()" y para invertirla o verla al revez seria "lista.sort(reverse=True)".
+# tambien se puede usar "lista.reverse()" para voltear la lista pero no ordenarla
 
 # para hacer las famosas matrices primero crearemos " matriz " que sera la principal, luego en los " for "  agregaremos mas listas " matriz1 "para que estas sean rows o filas
 # ejemplo:
@@ -255,7 +257,7 @@ print(names)
 #['Julieta A', 'Pedro B', 'Luisa C', 'Ruben F']
 #['Julieta A', 'Pedro B', 'Luisa C', 'Ruben F']
 
-4---->>
+4---->> use random :
 
 # para genera numeros aleatorios se debe usar
 import random
@@ -289,9 +291,16 @@ random.uniform(2.5, 10.0) # output: 3.1800146073117523
 # randrange tipo for.
 randrange(0, 101, 2)   # output: 26
 
-5--->>
-# para ordenar una lista se usa el comando "lista.sort()" y para invertirla o verla al revez seria "lista.sort(reverse=True)".
-# tambien se puede usar "lista.reverse()" para voltear la lista perono ordenarla
+5--->> tuple : tuplas : tuples :
+
+# the tuples are a whole(set) of elements "not modifiable", is as type const.
+
+a = tuple([1,2,2,2,2,3,3])
+print(a)   # (1,2,2,2,2,3,3)
+print(a.count(2))  # 4 # quantity of certain number.
+print(a.index(3))  # 5 # position of certain number.
+print(help(tuple))  # information about this
+
 6--->>
 # para instalar algo se podria usar "pip install Howdoi " como ejemplo.
 7--->>
@@ -304,22 +313,86 @@ list2=[]
 dates1=dict(zip(list1,list2))
 # donde "list1" es igual a "keys"
 # y "list2" es igual a "values"
-9--->>
+
+
+a = (1,2)
+b = (3,4)
+list(zip(a,b)) # [(1,2),(3,4)]
+
+9--->> set operations (|,^,-,&): use set :
+
 # el "set()" sirve para convertir una lista,tupla,etc a un conjunto
 # donde lo más relevante de un conjunto es no repetir ningun elemento
 # ejemplo:
 list1=[1,1,1,2,3,3,4,5,5,7]
 # pero con set(list1) o sea
 list2=set(list1)
-print(list2)
-[1,2,3,4,5,7]
-10--->>
+print(list2) # [1,2,3,4,5,7]
+
+a = set([1,2,3])
+print(a) # {1,2,3}
+a.add(5) # add elemento at end
+print(a) # {1,2,3,5}
+a.pop()  # by default the position to delete is 0.
+print(a) # {2,3,5}
+
+more : https://snakify.org/en/lessons/sets/
+
+set operations : 
+
+c1 = {1, 2, 3, 4, 5, 6}
+c2 = {2, 4, 6, 8, 10}
+c3 = {1, 2, 3}
+c4 = {4, 5, 6}
+
+print('union: ',c1 | c2)
+print('intersection: ',c1 & c2)
+print('union of all sets: ',c1 & c2 & c3 & c4)
+print('set diffetence: ',c1 - c2)
+print('symmetric difference: ',c1 ^ c2)
+print('symmetric difference: ',(c1 - c2) | (c2 - c1))
+
+# output:
+union:  {1, 2, 3, 4, 5, 6, 8, 10}
+intersection:  {2, 4, 6}
+union of all sets:  set()
+set diffetence:  {1, 3, 5}
+symmetric difference:  {1, 3, 5, 8, 10}
+symmetric difference:  {1, 3, 5, 8, 10}
+
+10--->> import math :
+
 # para hacer potencias y raices importamos la libreria math "import math".
+
 import math
 print(math.pow(x,y))   # donde " x " es el numero y " y " es a cuanto queremos elevarlo.
 print(math.sqrt(x))    # donde podremos sacarle raices cuadradas, pero si queires cubicas usemos:
 print(round(x**(1/3))) # asi serian una raiz cubica, obvio que hay muchas más formas pero pense si podia hacer eso.
 print(x**float(1/3))   # tambien encontre esta en internet y creo que tendria más sentido, y entre 2, 4, 5, etc.
+
+
+import math
+
+pi = math.pi
+e = math.e
+inf = math.inf
+nan = math.nan
+print(pi,e,inf,nan) # 3.141592653589793 2.718281828459045 inf nan
+
+print(math.comb(6,2))  # 15
+print(math.factorial(5)) # 120
+print(math.prod([1,2,3,4,5,6])) # 720
+print(math.log(9,3)) # 2
+print(math.log2(8)) # 3
+print(math.log10(100)) # 2
+
+
+angle = 0
+theta = math.radians(angle)  # Convert angle x from degrees to radians.
+theta = math.degrees(angle)  # Convert angle x from radians to degrees.
+
+print(math.sin(theta)) # 0
+print(math.cos(theta)) # 1
 
 11--->>
                               # para un ejecutable usaremos el " import time ".
@@ -950,12 +1023,13 @@ print(string.punctuation) # !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
 print(string.whitespace) # rectangulo vertical y fecha para arriba
 
 33------>>>>
+
 #forma para ingresar o printear algo:
 
 a="gaaa gente 2123b"
 b="---%"
 c="watch movies"
-m='my message is{}: {} and {}'.format(a,b,c)
+m='my message is{:} {:} and {:}'.format(a,b,c)
 print(m)
 
 
@@ -2075,55 +2149,133 @@ plt.show()
 
 43 ---------------->>>>  OPERADORES DE CLASE EN PYTHON : OPERATORS
 
-
-class Backpack():
+class Backpack:
   def __init__(self, owner):
     self.owner = owner
     self.__store = {}
 
     print('backpack bought.')
 
-  def __call__(self, item):
+  def __call__(self, item):   # obj()
     if item not in self.__store:
       self.__store[item] = 1
     else:
       self.__store[item] += 1
 
-  def __getitem__(self, idx):
+  def __getitem__(self, idx):  # obj[i]
     if idx < 0 or idx >= len(self.__store):
       return 'that item doesnt exist in the backpack.'
     return list(self.__store.items())[idx]
 
-  def __len__(self):
+  def __len__(self):   # len(obj)
     return sum(self.__store.values())
 
-  def store(self):
-    return self.__store
+  def __repr__(self):  # print(obj)
+    return f'store: {self.__store}'
 
-class Num():
+  def __gt__(self, obj):  # >
+    return len(self) > len(obj)
+  def __lt__(self, obj):  # <
+    return len(self) < len(obj)
+  def __ge__(self, obj):  # >=
+    return len(self) >= len(obj)
+  def __le__(self, obj):  # <=
+    return len(self) <= len(obj)
+  def __eq__(self, obj):  # ==
+    return len(self) == len(obj)
+  def __ne__(self, obj):  # !=
+    return len(self) != len(obj)
+  
+          
+Mochila = Backpack('Alex') # __init__
+
+Mochila('pencil')   # __call__
+Mochila('pencil')   # ...
+Mochila('book')     # ...
+Mochila('door')     # ...
+
+print(Mochila[2])   # __getitem__
+print(len(Mochila)) # __len__
+print(Mochila)      # __repr__
+
+
+OtherBack = Backpack('Pedro')  # __init__
+OtherBack('ruler')          # __call__
+OtherBack('eraser')         # ...
+print(OtherBack[5])         # __getitem__
+print(OtherBack)            # __repr__
+print(Mochila > OtherBack)  # __gt__
+print(Mochila <= OtherBack) # __le__
+
+# output:
+
+backpack bought.
+('door', 1)
+4
+store: {'pencil': 2, 'book': 1, 'door': 1}
+backpack bought.
+that item doesnt exist in the backpack.
+store: {'ruler': 1, 'eraser': 1}
+True
+False
+
+
+# numbers operators :
+
+class Num:
   def __init__(self, nums):
     self.nums = nums
   
   def __add__ (self, Obj):  # operador '+' suma de objetos
-    res =  self.nums + Obj.nums
+    res =  self.nums + Obj.nums  # [a,b,c] + [c,d] = [a,b,c,c,d]
     return Num(res)
-  def __call__(self):
-    return self.nums
+
+  def __sub__ (self, Obj):  # operador '-' resta de objetos
+    aux = self.nums.copy()
+    for n in Obj.nums:
+        if n in aux:
+           aux.remove(n)  # [a,b,c] - [c,d] = [a,b]
+    return Num(aux)  
+
+  def __repr__(self):
+    return f' set: {self.nums}'
+
 a = Num([1,2,3])
-b = Num([4,5,6])
-c = a + b
-print(c())
+b = Num([2,3,5,6])
+print(a,b)
 
-Mochila = Backpack('alex')
-Mochila('pencil')
-Mochila('pencil')
-Mochila('book')
-print(Mochila[2])
-print(len(Mochila))
-Mochila.store()
+c = a + b  # __add__
+print(c)
+
+d = a - b  # __sub__
+print(d)
+
+# output:
+
+ set: [1, 2, 3]  set: [2, 3, 5, 6]
+ set: [1, 2, 3, 2, 3, 5, 6]
+ set: [1]
 
 
-## Imprime el Objeto y destructor del objeto.
+# use str() function :
+
+class Coorde:
+  def __init__(self, x,y):
+    self.x, self.y = x, y
+  
+  def __str__ (self):  # str(obj)
+    return "(" + str(self.x) + ", " + str(self.y) + ")"
+
+
+vector = Coorde(3,2)
+print(str(vector))
+
+# output:
+
+(3, 2)
+
+
+# Imprime el Objeto y destructor del objeto.
 
 class Data:
         def __init__(self, store):
@@ -2139,6 +2291,11 @@ class Data:
 inventary = Data([1,2,3])
 print(inventary)
 del(inventary)
+
+# output:
+
+ Your data [1, 2, 3]
+the Object was deleted
 
 44 ---------------->> Use " * " :
 
@@ -2188,7 +2345,7 @@ def showDialog(title='Error!',
 
     pyautogui.alert(text, title, button='OK')
 
-46 ----------------->> DOCS : DOCX : WORD
+46 ----------------->> DOCS : DOCX : WORD : docs to pdf :
 
 import zipfile
 import docx
@@ -2211,6 +2368,32 @@ for i in range(len(photos)):
     doc.add_picture(path + photos[i], width=docx.shared.Cm(8), height=docx.shared.Cm(10))
 
 doc.save('images_etc.docx')
+
+
+## convert docx to pdf :
+
+from docx2pdf import convert 
+
+convert("GFG.docx") # espesific doc
+  
+convert("GeeksForGeeks\GFG_1.docx", "Other_Folder\Mine.pdf")  # in folder
+
+convert("GeeksForGeeks\")  # all in a folder
+
+
+## convert pdf to docx :
+
+from pdf2docx import Converter
+
+pdf_file = 'test.pdf'
+docx_file = pdf_file[:-4] + '.docx'
+
+print(docx_file)
+
+cv = Converter(pdf_file)
+cv.convert(docx_file, start=0, end=None)  # start = pague(0 by default, you can choose 1,2...), end = finihs pdf.
+cv.close()
+
 
 47 ----------------->> DERIVATES : DERIVADAS : 
 
@@ -3399,4 +3582,20 @@ while state != 'FINISHED':
     spinner.next()
 
 
-63 -------------->>
+63 -------------->> image scanner : scanner through  print :
+
+ from imagescanner import ImageScanner
+
+ # instantiate the imagescanner obj 
+ iscanner = ImageScanner()
+
+ # get all available devices
+ scanners = iscanner.list_scanners()
+
+ # choose one of the devices
+ scanner = scanners[0]
+
+ # scan your file (returns a PIL object)
+ scanner.scan()
+
+64 -------------->>
