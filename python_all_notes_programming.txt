@@ -2,7 +2,7 @@
 --------------------------------------------------------------------------" Python "------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------
 
---------->> FUNCION MAIN : NAME MAIN AND FINISH SCRIPT:
+--------->> FUNCION MAIN : NAME MAIN :
 
 //INCOVAR UNA FUNCION ANTES QUE TODAS LAS LINEAS DE COMANDO ANTERIORES A ESTA :
 
@@ -20,17 +20,29 @@ gatos
 felinos
 hola
 
-// task kill
+# diference between call the script(test.py) wihtout "if __name__=='__main__':" and using it :
 
-import sys
-try:
-	a = input()
-except:
-	sys.exit(1) # parameter 1 for errors, exit or finish script
+def hello():
+	print('hello')
 
-sys.exit(0)  # equals to sys.exit(), 0 is by default, finish script
-	
-	
+hello()
+
+## >>> from test import hello
+## hello
+## >>>
+
+
+def hello():
+	print('hello')
+
+if __name__=='__main__':
+	hello()
+
+## >>> from test import hello
+## >>>
+## conclusions: if we "import" it script, it will not run if we use 'if __name__=='__main__:'
+
+
 ---------->>> DICCIONARIO MULTIPLE :
 
 dic_account={"a":{1:"a",2:"ADMINISTRADOR",3:"Todo el mundo"}}
@@ -112,10 +124,16 @@ print(dic1[2])
 ga.close()
 
 
-------------------->>> BORRA TODOS LOS ESPACIOS DE UNA CADENA : ESPACIO :
+------------------->>> strip : find : trucks :
 
+# strip
 palabra = '   HOLA   '
-palabra.strip(" ") //HOLA
+palabra.strip(" ") #output: 'HOLA'   # borra todos los espacios de la cadena.
+
+# find
+chain = 'hello word'
+print(chain.find('w'))  # return 6 # return the position of the letter.
+print(chain.find('z'))  # return -1 # since it doesnt exist
 
 ------------------->>> ASIGNACION MULTIPLE :
 
@@ -137,7 +155,7 @@ a
 b
 c
 
-1 ----------> 
+1 ----------> use print - end : " ; " : type : len :
 
 print("para que lo imprimido sea de forma lateral: ",variable,end=" ")
 y usar " pass " es como un comentario pero no ignorado, así que no pasa nada solo es como para probar algo o ya sabes.
@@ -151,6 +169,14 @@ a = 3; b= 5; print(a+b)
 a = 3
 b = 5
 print(a+b)
+
+# use "type", it used to know the type of variable(e.g):
+print(type(3)) # <class 'int'>
+print(type("hello")) # <class 'str'>
+print(type([12,'a',3])) # <class 'list'>
+
+chain = 'hello'
+print(len(chain)) # return the lenght od the chain. # 5
 
 2 ---------> listas : list :
 
@@ -203,6 +229,25 @@ elements = [int(n) for n in input('Enter numbers(1,2,3,4,...): ').split(',')]  #
 # example 4:
 elements = [[i,j] for i in range(10) for j in range(10)]  # output: [[0,0],[0,1],[0,2].......[9,8],[9,9]]
 elements = [[i*j for j in range(10)] for i in range(10)]  # output: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],...., [0, 9, 18, 27, 36, 45, 54, 63, 72, 81]]
+
+# record that if using 'for' for iterate list, tuple, is recomend use the same type of iterate:
+
+for i in list:
+	if i in tuple:   # its convert list to tuple and is very expensive.
+	 	pass
+
+for i in list:
+	if i in list2:   # its better
+	 	pass
+
+for i in tuple:
+	if i in tuple2:   # its also better but for tuple.
+	 	pass
+
+# operation wirt collections :
+
+a = ['a'] * 10
+print(a)  # ['a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a'] # len(a) : 10
 
 3-->>
 
@@ -507,7 +552,7 @@ gustavo.actividad("planchitas")
 
 #instancear es crear objetos apartir de una clase.
 
-15--->>>
+15--->>> use exception : use error : raise :
 
 # para validar int, o str, float, etc usaremos:
 
@@ -522,6 +567,24 @@ def vali():                                   # en este ejemplo validamos un ent
             print(" el valor ingresado es incorrecto, digite entero.")
     
 vali()
+
+
+# create you own exception :
+
+while True:
+        try:
+                int(input('you: '))  # you: a
+        except Exception as e:     # 'except' recieve the error happened in 'try' which parameter is 'Exception' and it is saved in 'e', 
+                print('Message Error by me: ',e)  # Message Error by me:  invalid literal for int() with base 10: 'a'
+
+# use raise :
+
+while True:
+        try:
+                error = input('enter your error: ')  # enter your error: HELLO GUYS
+                raise Exception(error)    # send to 'Exception' as parameter 'error'.
+        except Exception as e:
+                print('Message Error by me: ',e)  # Message Error by me:  HELLO GUYS
 
 16----->>>>>
 
@@ -3598,4 +3661,30 @@ while state != 'FINISHED':
  # scan your file (returns a PIL object)
  scanner.scan()
 
-64 -------------->>
+64 -------------->> use sys :
+
+# taskkill sys.exit :
+
+import sys
+try:
+	a = input()
+except:
+	sys.exit(1) # parameter 1 for errors, exit or finish script
+
+sys.exit(0)  # equals to sys.exit(), 0 is by default, finish script
+
+# Return the size of object in bytes : getsizeof :
+
+import sys
+a = 3
+b = 'a'
+class Test:
+     def __init__(self):
+          self.value = 100
+          self.chain = 'value'
+c = Test()
+print(sys.getsizeof(a)) # 28 # bytes
+print(sys.getsizeof(b)) # 50
+print(sys.getsizeof(c)) # 48
+
+65 -------------->>
