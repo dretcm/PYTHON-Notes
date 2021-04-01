@@ -470,8 +470,12 @@ class Example(QWidget):
         listWidget.addItem("raven")
         listWidget.addItem("woodpecker")
         listWidget.addItem("hummingbird")
+
+        # listWidget.addItems(fileNames) # for severals items type list, tuple, etc.
             
-        listWidget.itemDoubleClicked.connect(self.onClicked)
+        listWidget.itemDoubleClicked.connect(self.onClicked) # dobule click
+	listWidget.itemClicked.connect(self.onClicked)   # one click
+	list_widget.itemSelectionChanged.connect(self.gooo)  # while you select a item
         
         vbox.addWidget(listWidget)
         self.setLayout(vbox)
@@ -484,12 +488,84 @@ class Example(QWidget):
 
         QMessageBox.information(self, "Info", item.text())
 
-# pop a item:
+# pop a item : drop object item :
+QListWidget.takeItem( index ) # return the object item
 
-QListWidget.takeItem( index )
+
+QListWidget.count() # count of elements
+position = 0 # or 1, 2, 10, etc.
+QlistWidget.item(position).text() # get element in str
+
+# get value
+value = list_widget.currentItem().text()  # item in python
+print(self.list_widget.currentRow())   # index
 
 
-3 ------------->>> example complet : message box : layout : combo box : list widget :
+# set text item : edit item through a click :
+self.FileList.currentItem().setText(text)
+
+def move_items(self):
+        item = self.list_widget.currentItem()
+        item.setFlags(item.flags() | QtCore.Qt.ItemIsEditable)
+        self.list_widget.editItem(item)
+
+
+# set index :
+
+    currentRow = self.ventana.listWidget.currentRow()
+    currentItem = self.ventana.listWidget.takeItem(currentRow)
+    self.ventana.listWidget.insertItem(currentRow - 1, currentItem)
+
+
+# move : drag : drop : ITEMS :
+
+from PyQt5.QtWidgets import QApplication, QListWidget, QListWidgetItem, QListView, QMainWindow
+import sys
+  
+  
+class Window(QMainWindow):
+  
+    def __init__(self):
+        super().__init__()
+  
+        self.setWindowTitle("Python ")
+
+        self.setGeometry(100, 100, 500, 400)
+
+        self.UiComponents()
+        self.show()
+  
+
+    def UiComponents(self):
+            
+        self.list_widget = QListWidget(self)
+  
+        self.list_widget.setGeometry(50, 70, 150, 100)
+  
+        item1 = QListWidgetItem("A")
+        item2 = QListWidgetItem("B")
+        item3 = QListWidgetItem("C")
+  
+        self.list_widget.addItem(item1)
+        self.list_widget.addItem(item2)
+        self.list_widget.addItem(item3)
+        
+        # self.list_widget.setMovement(QListView.Free) # not necesary.
+        
+        self.list_widget.setDragDropMode(self.list_widget.InternalMove)
+
+        self.list_widget.model().rowsMoved.connect(self.move_items)
+
+    def move_items(self):
+            print(self.list_widget.currentRow())
+
+
+App = QApplication(sys.argv)
+window = Window()
+sys.exit(App.exec())
+
+
+3 ------------->>> example complet : message box : layout : combo box : list widget : image window :
 
 import sys #, os
 import numpy as np
@@ -508,7 +584,7 @@ class UiVectors(QWidget):
 
     def initUI(self):
 
-        self.setWindowIcon(QIcon('yasu.ico'))
+        self.setWindowIcon(QIcon('yasu.ico'))  # image to window
 
         self.x = np.array([])
         self.y = np.array([])
@@ -818,7 +894,99 @@ exe = MyList()
 sys.exit(app.exec_())
 
 
-5 ------------->>>
-6 ------------->>>
-7 ------------->>>
+5 ------------->>> get folder and his directory : QFileDialog :
+
+# get one file : select only one file :
+
+        def openfile(self):
+                options = QFileDialog.Options()
+                filename, _ = QFileDialog.getOpenFileName(self,"QFileDialog.getOpenFileName()", "","All Files (*);;Images jpg (*.jpg);;Images PNG (*.png)", options=options)
+                print(filename)
+                if filename:
+                        self.data_path.append(filename)
+                        self.data.addItem(str(os.path.basename(filename)))
+
+# get filenames path : select several filenames :
+        def openfile(self):
+                options = QFileDialog.Options()
+                filenames, _ = QFileDialog.getOpenFileNames(self,"QFileDialog.getOpenFileNames()", "","All Files (*);;Images jpg (*.jpg);;Images PNG (*.png)", options=options)
+                print(filenames)
+                if filenames:
+                        for filename in filenames:
+                                self.data_path.append(filename)
+                                self.data.addItem(str(os.path.basename(filename)))
+
+folder = str(QFileDialog.getExistingDirectory(self, "Select Directory"))  # return path od directory or folder.
+
+6 ------------->>> QTabWidget : Tab : Tabs :
+
+import sys
+from PyQt5.QtWidgets import (QWidget, QApplication,QTabWidget)
+from image2pdf import FastConvert
+from word2pdf_all import WordPdfConvert
+                
+class Gestor(QWidget):
+        def __init__(self):
+                super().__init__()
+
+                self.initUI()
+                
+                self.setWindowTitle('gestor')
+                self.resize(445,260)
+
+                self.show()
+
+        def initUI(self):
+                tab1 = FastConvert()   # other class with widget.
+                tab2 = WordPdfConvert()
+		tab3 = QWidget()
+
+                tabs = QTabWidget(self)
+                tabs.addTab(tab1,'tab1')
+                tabs.addTab(tab2,'tab2')
+                tabs.addTab(tab3,'tab3 empty')
+                tabs.setGeometry(15,10,425,240)
+
+                # functions:
+
+                
+if __name__=='__main__':
+        app = QApplication(sys.argv)
+        aux = Gestor()
+        sys.exit(app.exec_())
+
+7 ------------->>> messague box :
+
+import sys
+from PyQt5.QtWidgets import QWidget, QMessageBox, QApplication
+from PyQt5.QtGui import QIcon
+
+class Dialogs(QWidget):
+        def __init__(self):
+                super().__init__()
+
+        @staticmethod
+        def dialog(title='Error!', text = 'There was a mistake.', icon=QMessageBox.Warning):
+                
+                msgBox = QMessageBox()
+                msgBox.setWindowIcon(QIcon('images\\yasu.ico'))
+                if icon:
+                        msgBox.setIcon(icon)
+                msgBox.setText(text)
+                msgBox.setWindowTitle(title)
+                msgBox.setStandardButtons(QMessageBox.Ok)
+                msgBox.exec()
+                
+if __name__=='__main__':
+        app = QApplication(sys.argv)
+        aux = Dialogs.dialog()
+        sys.exit(app.exec_())
+
+# types of icons:
+
+msg.setIcon(QMessageBox.Information)
+msg.setIcon(QMessageBox.Question)
+msg.setIcon(QMessageBox.Warning)
+msg.setIcon(QMessageBox.Critical)
+
 8 ------------->>>

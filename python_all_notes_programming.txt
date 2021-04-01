@@ -2,7 +2,7 @@
 --------------------------------------------------------------------------" Python "------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------
 
---------->> FUNCION MAIN : NAME MAIN :
+--------->> FUNCION MAIN : NAME MAIN : import from other directory :
 
 //INCOVAR UNA FUNCION ANTES QUE TODAS LAS LINEAS DE COMANDO ANTERIORES A ESTA :
 
@@ -42,6 +42,19 @@ if __name__=='__main__':
 ## >>>
 ## conclusions: if we "import" it script, it will not run if we use 'if __name__=='__main__:'
 
+
+# import from other directory or folder :
+#
+packagues
+images
+main.py
+#
+from packagues.my_script import my_function,my_class
+
+# other form
+import sys
+sys.path.append('\\packagues')
+from my_script import my_function
 
 ---------->>> DICCIONARIO MULTIPLE :
 
@@ -433,6 +446,8 @@ print(math.log10(100)) # 2
 
 
 angle = 0
+
+theta_radians = angle * 2 * math.pi / 360.0
 theta = math.radians(angle)  # Convert angle x from degrees to radians.
 theta = math.degrees(angle)  # Convert angle x from radians to degrees.
 
@@ -2432,6 +2447,42 @@ for i in range(len(photos)):
 
 doc.save('images_etc.docx')
 
+# other example advance:
+
+import docx
+# create an instance of a word document
+doc = docx.Document()
+# add a heading of level 0 (largest heading)
+doc.add_heading('Heading for the document', 0)
+# add a paragraph and store
+# the object in a variable
+doc_para = doc.add_paragraph('Your paragraph goes here, ')
+# add a run i.e, style like
+# bold, italic, underline, etc.
+doc_para.add_run('hey there, bold here').bold = True
+doc_para.add_run(', and ')
+doc_para.add_run('these words are italic').italic = True
+# add a page break to start a new page
+doc.add_page_break()
+# add a heading of level 2
+doc.add_heading('Heading level 2', 2)
+# pictures can also be added to our word document
+# width is optional
+doc.add_picture('path_to_picture')
+# now save the document to a location
+doc.save('path_to_document')
+
+
+# read docx :
+
+import docx
+
+doc = docx.Document('test.docx')
+print(len(doc.paragraphs)) # lenght of lines.
+
+for line in doc.paragraphs:  # lines
+        print(line.text) # convert class line to text.
+
 
 ## convert docx to pdf :
 
@@ -2711,6 +2762,27 @@ aux = sum(comb)/3
 plt.imshow(aux, cmap='gray')
 plt.show()
 
+# SAVE IMAGES TO PDF : ITERATE :
+
+from PIL import Image
+
+image1 = Image.open(r'C:\Users\Ron\Desktop\Test\image1.png')
+image2 = Image.open(r'C:\Users\Ron\Desktop\Test\image2.png')
+image3 = Image.open(r'C:\Users\Ron\Desktop\Test\image3.png')
+image4 = Image.open(r'C:\Users\Ron\Desktop\Test\image4.png')
+ 
+im1 = image1.convert('RGB')
+im2 = image2.convert('RGB')
+im3 = image3.convert('RGB')
+im4 = image4.convert('RGB')
+
+imagelist = [im2,im3,im4]
+
+im1.save(r'C:\Users\Ron\Desktop\Test\myImages.pdf',save_all=True, append_images=imagelist) # if happend a mistake use "im1 = image1.convert('RGB')".
+
+
+
+
 50 ----------------->> Windown rotate or controller:
 
 pip install rotate-screen
@@ -2805,6 +2877,7 @@ os.system('ping google.com')
 
 1 option: os.path.dirname(os.path.abspath(__file__))
 2 option: os.path.abspath(os.getcwd())
+3 option: os.path.dirname(__file__)
 
 # get all elements in this directory:
 
@@ -3137,10 +3210,42 @@ stream = video.streams.first()
 stream.download(output_path = r'..\app\youtube_downloads', filename='hola') # also we can set the path of the installing, or create a folder as youtube_donwloads.
 # finename = name that we want, by default is in format '.mp4'.
 
-57 -------------->> voice to text : voice reproduce of text : winsound : text to voice :
+57 -------------->> voice to text : voice reproduce of text : winsound : text to voice : speech recogition : gTTs :
 
 # vocie to text:
+# example 1
 
+from speech_recognition import Microphone, Recognizer, AudioFile, UnknownValueError, RequestError
+
+recognizer = Recognizer()
+microphone = Microphone()
+
+with microphone:
+        recognizer.adjust_for_ambient_noise(microphone, duration=1) # for better understanding, analisys of the words, by default is 1.
+
+        print('Talk pls: ')
+        audio = recognizer.record(microphone, 5) # record audio (microphone object, time to record)
+        #audio = recognizer.listen(microphone) # This method takes an audio source as its first argument and records input from the source until silence is detected.
+        with open('voice.wav','wb') as file:  # it must saved in file binary('wb')
+                file.write(audio.get_wav_data()) # 'audio.get_wav_data()' get the data in binary of the variable 'audio'.
+
+with AudioFile('voice.wav') as file:  # open and read file.wav in binary
+        recognizer.adjust_for_ambient_noise(file) # for better performance.
+        audio = recognizer.record(file)
+        
+try:
+        print('end record...')
+        text = recognizer.recognize_google(audio) # recognizer of google.
+        print('you said: ',text)
+        
+except RequestError as exc:
+        print(exc)
+        
+except UnknownValueError:
+        print(' Unable to recognize.')
+
+
+# example 2
 import speech_recognition as sr
 r = sr.Recognizer() 
 
@@ -3153,6 +3258,24 @@ while True:
         print('You said: {}'.format(text))
     except:
         print('Sorry could not hear')
+
+
+# example 3
+import speech_recognition
+
+recognizer = speech_recognition.Recognizer()
+while True:
+        try:
+                with speech_recognition.Microphone() as mic:
+                        recognizer.adjust_for_ambient_noise(mic, duration=0.2)
+                        audio = recognizer.listen(mic)
+
+                        text = recognizer.recognize_google(audio)
+                        print(f'Recognizer: {text}')
+                        
+        except speech_recognition.UnknownValueError():
+                recognizer = speech_recognition.Recognizer()
+                continue
 
 
 # voice reproduce of text : https://gtts.readthedocs.io/en/latest/module.html#languages-gtts-lang
@@ -3184,15 +3307,12 @@ winsound.Beep(fre,dur)
 
 # recording audio :
 
-from playsound import playsound
-import os
 import speech_recognition as sr
-import time
 
 r = sr.Recognizer()
 
 NOMBRE_ARCHIVO = "voz.wav"
-path = os.path.join(os.path.dirname(os.path.abspath(__file__)), NOMBRE_ARCHIVO)
+
 
 with sr.Microphone() as source:
         
@@ -3207,18 +3327,13 @@ with sr.Microphone() as source:
         print('finish')
 
 
-playsound(NOMBRE_ARCHIVO)
-
-time.sleep(10)
-
-os.remove(path)
-
 # Pyttsx3 : send text to voice :
 
 # example 1:
 import pyttsx3
 
 speaker = pyttsx3.init()
+
 dialog = ['hola','its my voice bot','si sisi ta galan ese otaku']
 for phrase in dialog:
         speaker.say(phrase)
@@ -3234,6 +3349,7 @@ pdfReader = PyPDF2.PdfFileReader(book)
 pages = pdfReader.numPages
 
 speaker = pyttsx3.init()
+
 for num in range(7, pages):
         page = pdfReader.getPage(num)
         text = page.extractText()
@@ -3461,7 +3577,7 @@ import time
 
 def test(n):
         accumulator = 1
-        for i in range(10000):
+        for i in n:
                 accumulator *= i
         return accumulator
 
@@ -3469,7 +3585,7 @@ if __name__ == "__main__":
         begin = time.time()
 
         process = Pool()
-        result = process.map(test, range(1000))
+        result = process.map(test, range(10000))
         process.close()
         process.join()
 

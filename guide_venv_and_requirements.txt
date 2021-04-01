@@ -190,6 +190,10 @@ echo FINISH
 
 # source: https://www.youtube.com/watch?v=5ykxJjXeAjM
 
+The PYW file type is primarily associated with Python by Python Software Foundation. 
+PYW files are used in Windows to indicate a script needs to be run using PYTHONW. EXE instead 
+of PYTHON. EXE in order to prevent a DOS console from popping up to display the output.
+
 # 1. save the script as [name script].pyw
 # 2. click the script.pyw and enjoy it.
 
