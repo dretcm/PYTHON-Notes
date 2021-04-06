@@ -563,11 +563,34 @@ alexander.poscicion(5)                # aqui llamamos a la funcion "poscicion(5)
 gustavo = Acleta(15)                  # aquí llamamos a otra clase 
 gustavo.actividad("planchitas")
 
-14--->>>
+14--->>> use with : use finally and try :
 
-#instancear es crear objetos apartir de una clase.
+# example 1:
 
-15--->>> use exception : use error : raise :
+document = open('text.txt','r')
+for line in document:
+        print(line)
+document.close()
+
+
+# the previous is equivalent to:
+# where you not need use "document.close()"
+# it closes at finish the code block.
+with open('test.txt','r') as document:
+        for line in document:
+                print(line)
+
+
+# what the 'with' statement is doing:
+document = open('text.txt','r')
+try:
+        for line in document:
+                print(line)
+finally:
+        document.close()
+
+
+15--->>> use exception, try, and finally : use error : raise :
 
 # para validar int, o str, float, etc usaremos:
 
@@ -600,6 +623,17 @@ while True:
                 raise Exception(error)    # send to 'Exception' as parameter 'error'.
         except Exception as e:
                 print('Message Error by me: ',e)  # Message Error by me:  HELLO GUYS
+
+
+# example with finally:
+
+try:
+        value = int(input('enter value: '))
+except:
+        print('the value doesnt a integer.')
+        value = None
+finally:
+        print('you value is: ',value)
 
 16----->>>>>
 
@@ -766,9 +800,8 @@ else:
 
 //OTRA FORMA DE USAR EL OPEN :
 
-with open("tabla_alex.txt","r") as file:
+with open("tabla_alex.txt","r") as file: # este no tiene necesidad de usar '.close()'.
        print(file.readlines())
-       file.close()
 
 // UnicodeDecodeError ERROR !!!!
 
@@ -3592,7 +3625,7 @@ if __name__ == "__main__":
         total = time.time() - begin
         print(f'It took {total} seconds.') # output: It took 0.402921199798584 seconds.
 
-60 -------------->> concanate video and audio : ffmpeg : convert video to audio :
+60 -------------->> concanate video and audio : ffmpeg : convert video to audio : compress large video :
 
 # first: 
 conda install -c menpo ffmpeg
@@ -3803,4 +3836,61 @@ print(sys.getsizeof(a)) # 28 # bytes
 print(sys.getsizeof(b)) # 50
 print(sys.getsizeof(c)) # 48
 
-65 -------------->>
+65 -------------->> function functools : use cache : 
+
+import time, sys
+from functools import cache
+
+# function "cache" -> "@cache".
+# Simple lightweight unbounded cache.  Sometimes called "memoize".
+# help(cache)
+
+@cache   # this is the magic
+def fibo1(n):
+    if n <=1:
+        return 1
+    return fibo1(n-1) + fibo1(n-2)
+
+# the previous is "almost equivalent" to 'fibo2':
+def fibo2(n,data={}):
+    if n <=1:
+        return 1
+    try:
+        return data[n]
+    except:
+        value = fibo2(n-1) + fibo2(n-2)
+        data[n] = value
+        return value
+
+sys.setrecursionlimit(10000)
+    
+begin = time.time()
+print(fibo1(1000))
+print(time.time() - begin)
+
+begin = time.time()
+print(fibo2(1000))
+print(time.time() - begin)
+
+66 -------------->> emoji : use emoji :
+
+# pip install emoji
+
+# print a emoji:
+
+import emoji
+
+print(emoji.emojize(':thumbs_up:'))
+print(emoji.emojize('Python is :thumbs_up:'))
+print(emoji.emojize("Python is fun :red_heart:"))
+
+
+# about all emojis:
+
+import emoji
+#help(emoji) # if you want know more.
+data = list(emoji.EMOJI_UNICODE_ENGLISH) # all emojis example {':thumbs_up:':emoji like up}
+for e in data[-100:]:
+    print(emoji.emojize(e))
+
+67 -------------->>

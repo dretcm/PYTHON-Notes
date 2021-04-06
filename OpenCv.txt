@@ -156,7 +156,7 @@ cv2.destroyAllWindows()
 import cv2
 capture = cv2.VideoCapture('BEASTARS.mp4')   # cv2.VideoCapture(0) for camera.
 
-if not cap.isOpened(): # (True/False) if open return True.
+if not capture.isOpened(): # (True/False) if open return True.
     	print("Cannot open camera")
     	exit()
 
@@ -315,7 +315,112 @@ while (cap.isOpened()):
 cap.release()
 cv2.destroyAllWindows()
 
-4 --------------->>>
+4 --------------->>> Drawing (Lines, Images, Circles & Text) : draw tringle - draw contours :
+
+# example 1:
+
+import cv2
+cap = cv2.VideoCapture(0)
+width = int(cap.get(3))
+height = int(cap.get(4))
+
+while (True):
+        ret, frame = cap.read()
+
+        img = cv2.line(frame, (0,0), (width,height), (255,0,0), 15) # (tensor or image, (x start,y start), (x end, y end), colors(BGR), line_width)
+        img = cv2.line(img, (0,height), (width, 0), (0,255,0), 5)
+        img = cv2.rectangle(img, (150,10), (200,450), (0,128,255), 10) # (tensor or image, (x start,y start), (x end, y end), colors(BGR), line_width)
+        img = cv2.circle(img, (300,300), 100, (0,0,255), -1) # (tensor or image, (x center,y center), radius, colors(BGR),  -1:if want fill circle - 0...12..100:only border)
+
+        font = cv2.FONT_HERSHEY_SIMPLEX        # type of font.
+        img = cv2.putText(img, 'Hello :b', (10,450), font, 3, (255,255,255), 10, cv2.LINE_AA) # (tensor, text, (x,y), previous font, line scale, BGR colors, bold line, type line)
+
+        cv2.imshow('frame',img)
+        
+        if cv2.waitKey(1) == ord('q'):
+                break
+        
+cap.release()
+cv2.destroyAllWindows()
+
+
+# draw triangle:
+
+import cv2
+import numpy as np
+
+cap = cv2.VideoCapture(0)
+
+triangle_position = np.array([(300,10),(160,200),(440,200)])   # midle top, left bot, right bot.
+
+while (True):
+        ret, frame = cap.read()
+
+        cv2.drawContours(frame, [triangle_position], 0, (0,255,0), 0)  # (tensor, array with the position, 0 pls, BGR colors, -1:if want fill triangle - 0...12..100:only border)
+
+        cv2.imshow('frame',frame)
+        
+        if cv2.waitKey(1) == ord('q'):
+                break
+        
+cap.release()
+cv2.destroyAllWindows()
+
+
+5 --------------->>> Colors and Color Detection :
+
+# convert to HSV (which stands for Hue Saturation Value, Hue is measured in degrees from 0 to 360) : 
+import cv2
+
+cap = cv2.VideoCapture(0)
+
+while (True):
+        ret, frame = cap.read()
+
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+
+        cv2.imshow('frame',frame)
+        
+        if cv2.waitKey(1) == ord('q'):
+                break
+        
+cap.release()
+cv2.destroyAllWindows()
+
+
+# show filter camera colors : mask :
+
+import cv2
+import numpy as np
+
+cap = cv2.VideoCapture(0)
+
+while (True):
+        ret, frame = cap.read()
+
+        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)  # hue saturation value
+        
+        lower_blue = np.array([90,50,50])  # range colors to filter
+        upper_blue = np.array([128,255,255])
+        
+        mask = cv2.inRange(hsv, lower_blue, upper_blue)  # in this case is for blue colors.
+
+        result = cv2.bitwise_and(frame,frame,mask=mask)
+        
+        cv2.imshow('frame',result)
+        cv2.imshow('mask',mask)
+        
+        if cv2.waitKey(1) == ord('q'):
+                break
+        
+cap.release()
+cv2.destroyAllWindows()
+
+6 --------------->>>
+
+7 --------------->>>
+
+8 --------------->>>
 
 20 -------------->>> save or recording videos :
 
