@@ -416,6 +416,57 @@ while (True):
 cap.release()
 cv2.destroyAllWindows()
 
+
+
+# filter laplacian :
+
+import cv2
+import numpy as np
+
+
+cap = cv2.VideoCapture(path)
+cv2.namedWindow("frame", cv2.WINDOW_NORMAL)
+cv2.resizeWindow("frame", 480, 270) 
+
+while True:
+        _, frame = cap.read()
+
+        laplacian = cv2.Laplacian(frame,cv2.CV_64F)
+        laplacian = np.uint8(laplacian)
+
+        cv2.imshow('frame',laplacian)
+
+        if cv2.waitKey(1) == ord('q'):
+                break
+
+cap.release()
+cv2.destroyAllWindows()
+
+
+# filter canny :
+
+import cv2
+import numpy as np
+
+
+cap = cv2.VideoCapture(path)
+cv2.namedWindow("frame", cv2.WINDOW_NORMAL)
+cv2.resizeWindow("frame", 480, 270) 
+
+while True:
+        _, frame = cap.read()
+
+        edges = cv2.Canny(frame,100,200) # (frame, minvalue, max value)
+
+        cv2.imshow('frame',edges)
+
+        if cv2.waitKey(1) == ord('q'):
+                break
+
+cap.release()
+cv2.destroyAllWindows()
+
+
 6 --------------->>>
 
 7 --------------->>>
