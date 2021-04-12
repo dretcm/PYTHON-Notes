@@ -36,7 +36,7 @@ screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 width = pygame.display.get_surface().get_width()  # example 1380
 height = pygame.display.get_surface().get_height() # 768
 
-# (2) ----------------------------- load image, fill background, inputs, physics, collisions --------------------------- #
+# (2) ----------------------------- load image, fill background, inputs, physics, collisions, draw rect --------------------------- #
 
 import pygame, sys
 from pygame.locals import *
@@ -88,6 +88,7 @@ while True:
                 pygame.draw.rect(screen, (255, 0, 0), test_rect)   # draw a rectangle in "screen", with the color "255,0,0 (Red)", and his collider is "test_rect".
         else:
                 pygame.draw.rect(screen, (0, 0, 0), test_rect)
+                # pygame.draw.rect(screen, (0, 0, 0), [pos_x, pos_y, width, height])
 
         
         for event in pygame.event.get():
