@@ -1,0 +1,147 @@
+info: for create you bot use "discord dev" in your browser.
+
+1 ---------> basic discord bot:
+
+import discord
+from discord.ext import commands
+
+from urllib import parse, request
+import re
+import datetime
+
+
+bot = commands.Bot(command_prefix='+', description="This is a Helper Bot") # (command for calling you bot, description)
+
+@bot.command()
+async def ping(ctx):    # if in discord type "+ping" this function will activate.
+    await ctx.send('pong')
+
+@bot.command()
+async def sum(ctx, numOne: int, numTwo: int): # +sum 3 5   => it show 8
+    await ctx.send(numOne + numTwo)
+
+@bot.command()
+async def info(ctx):
+ 	 	# (title, in this case was the server name; description,  time, color of the frame or layout)
+    embed = discord.Embed(title=f"{ctx.guild.name}", description="Lorem Ipsum asdasd", timestamp=datetime.datetime.utcnow(), color=discord.Color.blue())
+
+    embed.add_field(name="Server created at", value=f"{ctx.guild.created_at}")
+    embed.add_field(name="Server Owner", value=f"{ctx.guild.owner}")
+    embed.add_field(name="Server Region", value=f"{ctx.guild.region}")
+    embed.add_field(name="Server ID", value=f"{ctx.guild.id}")
+    embed.set_thumbnail(url=f"{ctx.guild.icon}") 
+    embed.set_thumbnail(url="https://pluralsight.imgix.net/paths/python-7be70baaac.png")
+
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def youtube(ctx, *, search):   # (..., *, ...) we use '*' for various args, (e.g): ">youtube hello in python". this function accept various params or args.
+    query_string = parse.urlencode({'search_query': search})
+    html_content = request.urlopen('http://www.youtube.com/results?' + query_string)
+    # print(html_content.read().decode())
+    search_results = re.findall('href=\"\\/watch\\?v=(.{11})', html_content.read().decode())
+    print(search_results)
+    # I will put just the first result, you can loop the response to show more results
+    await ctx.send('https://www.youtube.com/watch?v=' + search_results[0])
+
+
+### for Events
+##@bot.event
+##async def on_ready():
+##    await bot.change_presence(activity=discord.Streaming(name="Tutorials", url="http://www.twitch.tv/accountname"))
+##    print('My Ready is Body')     # for setting you bot state
+
+
+@bot.listen()    # it read all text current in you server, without use the function "+on_message" in discord.
+async def on_message(message):
+    if "youtube" in message.content.lower():
+        # in this case don't respond with the word "YouTube" or you will call the on_message event recursively
+        await message.channel.send('This is that you want http://youtube.com')  # send the message in the channel where you wrote the msg.
+        await bot.process_commands(message)
+
+
+print('Bot activate...')
+bot.run('ODMyMDA3OTYyNDM5NzEyNzc4.YHdhzA.sm_jpeKsgNYP8YfJLpPGU8ofMAo')  # token bot or key.
+
+
+2 ---------> images scraping discord:
+
+# example 1:
+
+link = 'https://www.google.com/search?q=waifus+anime&tbm=isch&ved=2ahUKEwjI45Ol4v7vAhVkh5UCHSoXDIEQ2-cCegQIABAA&oq=waifus+anime&gs_lcp=CgNpbWcQAzIFCAAQsQMyAggAMgIIADICCAAyAggAMgIIADICCAAyAggAMgIIADICCAA6BAgjECc6BAgAEEM6BggAEAUQHlCJGVjLJWCDJmgAcAB4AIABbogBvgWSAQMzLjSYAQCgAQGqAQtnd3Mtd2l6LWltZ8ABAQ&sclient=img&ei=fWp3YIixDOSO1sQPqq6wiAg&bih=658&biw=1360&client=opera-gx&hs=i9B&hl=es'
+
+@bot.command()
+async def waifu(ctx):
+        html = requests.get(link).text
+        soup = BeautifulSoup(html, 'html.parser')
+        wafle = []
+        for item in soup.find_all('img'):
+                wafle.append(item['src'])
+        wafle.remove('/images/branding/searchlogo/1x/googlelogo_desk_heirloom_color_150x55dp.gif')
+        await ctx.send(random.choice(wafle))
+
+
+# best example :
+
+import requests
+from bs4 import BeautifulSoup
+import json
+
+link = 'https://mywaifulist.moe/random'
+
+@bot.command()
+async def waifu(ctx):
+        html = requests.get(link).content
+        soup = BeautifulSoup(html, 'html.parser')
+        
+        string = str(soup.find_all('script', attrs={"type":"application/ld+json"}))[36:-10] # filter
+        data = json.loads(string)
+
+        await ctx.send(data['image'])
+
+
+# send images in embed:
+
+@bot.command()
+async def waifu(ctx):
+        html = requests.get(link).content
+        soup = BeautifulSoup(html, 'html.parser')
+        
+        string = str(soup.find_all('script', attrs={"type":"application/ld+json"}))[36:-10] # filter
+        data = json.loads(string)
+
+        embed = discord.Embed(title=data['name'], color=discord.Color.blue())
+
+        embed.set_image(url=data['image'])
+
+        await ctx.send(embed=embed)
+
+
+# add emojis : add reaction message:
+
+@bot.command()
+async def waifu(ctx):
+        link = 'https://mywaifulist.moe/random'
+        html = requests.get(link).content
+        soup = BeautifulSoup(html, 'html.parser')
+        
+        string = str(soup.find_all('script', attrs={"type":"application/ld+json"}))[36:-10] # filter
+        data = json.loads(string)
+
+        embed = discord.Embed(title=data['name'], color=discord.Color.blue())
+        embed.set_image(url=data['image'])
+
+        message = await ctx.send(embed=embed)
+
+        with open('emojis.txt','r',encoding='utf-8') as f:
+                for i in f.read()[:-1]:
+                        await message.add_reaction(str(i))
+
+
+3 --------->
+4 --------->
+5 --------->
+6 --------->
+7 --------->
+8 --------->
+9 --------->

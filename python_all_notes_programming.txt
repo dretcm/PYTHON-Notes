@@ -276,10 +276,13 @@ for i in range(len(list)):
 # ejem  " cont=list.count(1) " donde con seria " cont=3 ".
 # ejem  " cont=list.count(7) " donde con seria " cont=1 ".
 # ejem  " cont=list.count(5) " donde con seria " cont=4 ".
+
 # Este es un ejemplo avanzado:
+
 list=[1,1,2,3,1,5,5,5,6,7,5]
 max(set(list), key=list.count)
 print("the mode is: ",max(set(list), key=list.count))
+
 #LISTA COMPRIMIDA CON FOR AND IF
 
 f=[ i for i in [1,2,3,4,5,6,7,8,9,10] if i % 2==1]   #extrae los numeros primos de 1 a 10.
@@ -360,10 +363,61 @@ print(a.index(3))  # 5 # position of certain number.
 print(help(tuple))  # information about this
 
 6--->>
+
 # para instalar algo se podria usar "pip install Howdoi " como ejemplo.
-7--->>
+
+7--->> major : max : min : sum : abs :
+
 # usar funtion max(algo) or min(algo) or sum(algo) de una lista o colecciones para hallar el maximo, minimo, y suma total.
+# abs(x): para el valor absoluto de x.
+
+# un metodo para hallar el menor y menor puede ser usando(en vectores seria como escalar vectores): 
+## mayor = [ a + b + abs(a - b)]/2  # para 2 numeros
+
+# a = 5
+# b = 7
+# a + b => -----> + ------->
+# abs(a-b) => -->
+# (a+b)+abs(a-b) =>  -----> + -------> + --> => -------------->
+# [(a+b)+abs(a-b)]/2 => -------> => 7
+
+## menor = [ a + b - abs(a - b)]/2
+
+# a = 5
+# b = 7
+# a + b => -----> + ------->
+# abs(a-b) => -->
+# (a+b)-abs(a-b) =>  -----> + -------> - --> => ---------->
+# [(a+b)+abs(a-b)]/2 => -----> => 5
+
+
+# Example:
+
+def major(a,b,c):
+        first = (a+b+abs(a-b))/2
+        return int((first + c + abs(first-c))/2)
+
+
+# Example 2:
+
+def major(a,b,c):
+        if a>b:
+                if a>c:
+                        return a
+                else:
+                        return c
+        if b>c:
+                return b
+        return c
+                        
+
+a = int(input('enter number: '))
+b = int(input('enter number: '))
+c = int(input('enter number: '))
+print(major(a,b,c))
+
 8--->>
+
 # usar "zip", esta sirve para unir listas, o colecciones para transformarlas en un dicionario con sus respectivas llaves o keys y valores o values
 ejemplo:
 list1=[]
@@ -1469,6 +1523,7 @@ print("\nejemplo 7:\n",arreglo)
 
 arreglo = np.random.random((4,5))   // 4 = filas, 5 = columnas.
 print("\nejemplo 8:\n",arreglo)
+arr = np.random.randint(0,255,size=3) # np.array([25,240,128])
 
 arreglo = np.empty((3,5))  //genera una  martriz vacia de ceros. 3 = filas, 5 = columnas.
 
@@ -1785,6 +1840,29 @@ def squarer_and_sum(x):
 	return (x ** 2) + 1
 vfunc = np.vectorize(squarer_and_sum)
 print(vfunc(x)) # Output : array([ 2,  5,  10, 17, 27])
+
+
+# int0 equals to int 64:
+
+>>> arr = np.int0([1, 2, 3])
+>>> arr.nbytes
+24
+
+>>> import numpy
+>>> numpy.int0 is numpy.int64
+True
+
+
+# flatten and ravel:
+
+x = np.array([[1, 2, 3], [4, 5, 6]])
+np.ravel(x)
+array([1, 2, 3, 4, 5, 6])
+
+a = np.array([[1,2], [3,4]])
+a.flatten()
+array([1, 2, 3, 4])
+
 
 40 ------------------->>> USO DE * Y ** EN PYTHON PARA PARAMETROS : SOBRECARGA DE FUNCIONES 2.0 :
 
@@ -2638,7 +2716,7 @@ factory = SG.SvgPathImage
 img = qrcode.make('hi, hello, hola, etc.', image_factory=factory)
 img.save('D:/my_qrcode.svg')
 
-49 ----------------->> Open Images: images:
+49 ----------------->> Open Images: images : images to pdf :
 
 # 1 option:
 from PIL import Image
@@ -2838,8 +2916,6 @@ im4 = image4.convert('RGB')
 imagelist = [im2,im3,im4]
 
 im1.save(r'C:\Users\Ron\Desktop\Test\myImages.pdf',save_all=True, append_images=imagelist) # if happend a mistake use "im1 = image1.convert('RGB')".
-
-
 
 
 50 ----------------->> Windown rotate or controller:
@@ -3446,6 +3522,32 @@ with open('text.txt', 'wb') as file:
 
 # google searches trends:
 https://trends.google.com/trends/hottrends/visualize?nrow=5&ncol=5
+
+# example 3 : request img :
+
+html = requests.get(link).text    # the link of the page to scrap imgs.
+soup = BeautifulSoup(html, 'html.parser')
+
+for item in soup.find_all('img'):
+        print(item['src'])
+
+# use post of requests:
+https://j2logo.com/python/python-requests-peticiones-http/
+
+import requests
+auth_data = {'email': 'juanjo@j2logo.com', 'pass': '1234'}
+resp = requests.post('https://mipagina.xyz/login/', data=auth_data)
+
+
+import requests
+resp = requests.get('http://mipagina.xyz/', timeout=0.01)  # time of wait before recieve the first byte, if not put timeout we will wait indefinitly
+
+# final example pro:
+
+html = requests.get(link).content
+soup = BeautifulSoup(html, 'html.parser')
+        
+data = soup.find_all('script', attrs={"type":"application/ld+json"})
 
 59 -------------->> Threading : threading : Multiprocessing :
 

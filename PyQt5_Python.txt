@@ -989,4 +989,28 @@ msg.setIcon(QMessageBox.Question)
 msg.setIcon(QMessageBox.Warning)
 msg.setIcon(QMessageBox.Critical)
 
-8 ------------->>>
+8 ------------->>> QTextEdit : Text Edit : text edit :
+
+import sys
+from PyQt5.QtWidgets import QWidget, QApplication, QTextEdit
+
+class MyIDE(QWidget):
+        def __init__(self):
+                super().__init__()
+                self.resize(400,300)
+                self.UI()
+        def UI(self):
+                self.text = QTextEdit(self)
+                self.text.setAcceptRichText(True)
+
+                self.show()
+
+if __name__=='__main__':
+        App = QApplication(sys.argv)
+        window = MyIDE()
+        sys.exit(App.exec_())
+
+9 ------------->>>
+10 ------------->>>
+11 ------------->>>
+12 ------------->>>
