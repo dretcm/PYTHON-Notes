@@ -61,7 +61,7 @@ async def on_message(message):
 
 
 print('Bot activate...')
-bot.run('ODMyMDA3OTYyNDM5NzEyNzc4.YHdhzA.sm_jpeKsgNYP8YfJLpPGU8ofMAo')  # token bot or key.
+bot.run('token of your app in discord dev')  # token bot or key.
 
 
 2 ---------> images scraping discord:
