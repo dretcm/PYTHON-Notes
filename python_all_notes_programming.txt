@@ -148,6 +148,33 @@ chain = 'hello word'
 print(chain.find('w'))  # return 6 # return the position of the letter.
 print(chain.find('z'))  # return -1 # since it doesnt exist
 
+# subsets : sub-index range:
+
+string = 'playing'
+print(string[:3]) # pla   # normal example
+print(string[:1000]) # playing  # Not Error, even where the final position not exists.
+
+print(string[100]) Error, because only there will error when it be a "index" and not exists it.
+print(string[100:]) # not Error # output: ''
+print(string[100:1200]) # not Error # output: ''
+
+print(string[:-5]) # pl
+print(string[:-7]) # ''
+print(string[:-1000]) # len(string[:-1000]) = 0    # the same happens when we go backward. # output: ''
+print(string[100:-1200]) # not Error # output: ''
+
+
+# for search a subset or sub-string:
+
+def find_position(string, sub):
+        lenght = len(sub)
+        for i in range(len(string)):
+                if string[i:i+lenght] == sub:
+                        return (i,i+lenght)
+        return (0,0)
+
+print(find_position('la musica no esta fuerte', 'no esta fuerte'))
+
 ------------------->>> ASIGNACION MULTIPLE :
 
 cadena = "a-b-c"
