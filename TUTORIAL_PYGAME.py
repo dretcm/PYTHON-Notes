@@ -89,6 +89,7 @@ while True:
         else:
                 pygame.draw.rect(screen, (0, 0, 0), test_rect)
                 # pygame.draw.rect(screen, (0, 0, 0), [pos_x, pos_y, width, height])
+		# pygame.draw.rect(screen, (255,0,0), button, 0) # (screen, color RGB, 1:invisible, 0: fill, 1:edge)
 
         
         for event in pygame.event.get():
@@ -123,6 +124,11 @@ while True:
                         
         pygame.display.update() # this function will apply the display resfresh
         clock.tick(60)
+
+# draw circle :
+
+pygame.draw.circle(display,(255,255,255),(600,700),40) # screen, color, radius
+
         
 # (3) ------------------------------------ full screen window, audio ---------------------------------- #  
 # example of programming hero (Halloween XD).
@@ -223,7 +229,7 @@ angle = 180 # also can be 0,90,270, etc.
 img_rotate = pygame.transform.rotate(img, angle)
 
 
-# (6) ------------------------------------ button ---------------------------------- # 
+# (6) ------------------------------------ button, mouse ---------------------------------- # 
 
 font = pygame.font.Font(None,70)
 
@@ -242,8 +248,79 @@ for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1 and button.collidepoint(event.pos):
                         print('you clicked the button')
+
+
+
+## mouse:
+
+import pygame, sys
+from pygame.locals import *
+
+clock = pygame.time.Clock() 
+pygame.init()
+
+
+WINDOW_SIZE = (600,400)
+
+screen = pygame.display.set_mode(WINDOW_SIZE,0,32)
+
+#help(pygame.mouse) # more abourt mouse in pygame
+
+font = pygame.font.Font(None,20)
+
+while True:
+        screen.fill((146, 244, 255))
+
+        message = font.render(str(pygame.mouse.get_pos()), 1, (0,0,0))  # get positon of mouse
+        screen.blit(message,(10,10))
+        
+        for event in pygame.event.get():
+                if event.type == QUIT:
+                        pygame.quit() 
+                        sys.exit()
                         
+        pygame.display.update()
+        clock.tick(30)
                         
-# (7) ------------------------------------ window, rename, size, quit ---------------------------------- #
-# (8) ------------------------------------ window, rename, size, quit ---------------------------------- #
+# (7) ------------------------------------ surface, center of image ---------------------------------- #
+
+# example 1:
+
+import pygame, sys
+from pygame.locals import *
+
+clock = pygame.time.Clock() 
+pygame.init()
+
+
+WINDOW_SIZE = (600,400)
+screen = pygame.display.set_mode(WINDOW_SIZE,0,32)
+
+display = pygame.Surface((1200, 800))  # creata a plane or superfice in (width,height) = 1200, 800
+
+font = pygame.font.Font(None,100)
+
+img_ball = pygame.transform.scale(pygame.image.load('ball.png'), (100, 100))  # image 100x100px
+img_ball.set_colorkey((255, 255, 255))
+
+while True:
+        display.fill((146, 244, 255))  # use surface not screen
+
+        message = font.render(str(pygame.mouse.get_pos()), 1, (0,0,0))
+        display.blit(message,(800,60)) # use surface
+        
+        x,y = pygame.mouse.get_pos()
+        display.blit(img_ball, (x*2-50,y*2-50))   # midle of image or center of image the form is: center = tuple(width_img/2,heigt/2), in this case the center is 50,50 in an img of 100x100px
+        
+        for event in pygame.event.get():
+                if event.type == QUIT:
+                        pygame.quit() 
+                        sys.exit()
+                        
+        surf = pygame.transform.scale(display, WINDOW_SIZE)  # resize the surface of (1200,800) to (600,400)
+        screen.blit(surf, (0, 0))  # now, show the surface in the screen in the position 0,0 for doing a simulation of that the surface is the screen.
+        pygame.display.update()  # update all frames and goo
+        clock.tick(30)
+
+# (8) ------------------------------------ dialog player, camera ---------------------------------- #
 # (9) ------------------------------------ window, rename, size, quit ---------------------------------- #
