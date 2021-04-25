@@ -89,7 +89,7 @@ while True:
         else:
                 pygame.draw.rect(screen, (0, 0, 0), test_rect)
                 # pygame.draw.rect(screen, (0, 0, 0), [pos_x, pos_y, width, height])
-		# pygame.draw.rect(screen, (255,0,0), button, 0) # (screen, color RGB, 1:invisible, 0: fill, 1:edge)
+		# pygame.draw.rect(screen, (255,0,0), button, 0) # (screen, color RGB, 1:invisible, 0: fill, 1....90:edge bold)
 
         
         for event in pygame.event.get():
@@ -323,4 +323,151 @@ while True:
         clock.tick(30)
 
 # (8) ------------------------------------ dialog player, camera ---------------------------------- #
-# (9) ------------------------------------ window, rename, size, quit ---------------------------------- #
+# (9) ------------------------------------ input text  ---------------------------------- #
+
+# example 1:
+
+def main():
+    screen = pg.display.set_mode((640, 480))
+    font = pg.font.Font(None, 32)
+    clock = pg.time.Clock()
+    input_box = pg.Rect(100, 100, 140, 32)
+    color_inactive = pg.Color('lightskyblue3')
+    color_active = pg.Color('dodgerblue2')
+    color = color_inactive
+    active = False
+    text = ''
+    done = False
+
+    while not done:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                done = True
+            if event.type == pg.MOUSEBUTTONDOWN:
+                # If the user clicked on the input_box rect.
+                if input_box.collidepoint(event.pos):
+                    # Toggle the active variable.
+                    active = not active
+                else:
+                    active = False
+                # Change the current color of the input box.
+                color = color_active if active else color_inactive
+            if event.type == pg.KEYDOWN:
+                if active:
+                    if event.key == pg.K_RETURN:
+                        print(text)
+                        text = ''
+                    elif event.key == pg.K_BACKSPACE:
+                        text = text[:-1]
+                    else:
+                        text += event.unicode
+
+        screen.fill((30, 30, 30))
+        # Render the current text.
+        txt_surface = font.render(text, True, color)
+        # Resize the box if the text is too long.
+        width = max(200, txt_surface.get_width()+10)
+        input_box.w = width
+        # Blit the text.
+        screen.blit(txt_surface, (input_box.x+5, input_box.y+5))
+        # Blit the input_box rect.
+        pg.draw.rect(screen, color, input_box, 2)
+
+        pg.display.flip()
+        clock.tick(30)
+
+
+if __name__ == '__main__':
+    pg.init()
+    main()
+    pg.quit()
+
+
+# example 2: 
+
+class InputText:
+        font = pygame.font.Font(None, 32)
+        input_box = pygame.Rect(0, 0, 140, 40)
+        color_inactive = pygame.Color((0,255,0))
+        color_active = pygame.Color((255,0,0))
+        color = color_inactive
+        active = False
+        text = ''
+        
+        def set_mouse(self, pos):
+                if self.input_box.collidepoint(pos):
+                        self.active = not self.active
+                else:
+                        self.active = False
+                self.color = self.color_active if self.active else self.color_inactive
+
+        def set_keyboard(self,event):
+                if self.active:
+                        if event.key == K_RETURN:
+                                print(self.text)
+                                self.text = ''
+                        elif event.key == K_BACKSPACE:
+                                self.text = self.text[:-1]
+                        else:
+                                self.text += event.unicode
+                                        
+        def run_input(self, display):                              
+                txt_surface = self.font.render(self.text, True, self.color)
+                width = max(200, txt_surface.get_width()+10)
+                self.input_box.w = width
+                display.blit(txt_surface, (self.input_box.x+5, self.input_box.y+5))
+                pygame.draw.rect(display, self.color, self.input_box, 2)
+
+
+# in the while and for to events:
+
+                if event.type == MOUSEBUTTONDOWN:
+                        entry.set_mouse(event.pos)
+                if event.type == KEYDOWN:
+                        if event.key == K_LEFT:
+                                move_left = True
+                        if event.key == K_RIGHT:
+                                move_right = True
+                        if event.key == K_UP:
+                                move_up = True
+                        if event.key == K_DOWN:
+                                move_down = True
+                        entry.set_keyboard(event)
+
+# example 3:
+
+class InputText:
+        font = pygame.font.Font(None, 35)
+        input_box = [500, 350, 140, 40]
+        color = pygame.Color((0,255,0))
+        text = ''
+
+        def set_keyboard(self,event):
+                if event.key == K_RETURN:
+                        print(self.text)
+                        self.text = ''
+                elif event.key == K_BACKSPACE:
+                        self.text = self.text[:-1]
+                else:
+                        self.text += event.unicode
+                                        
+        def run_input(self, display):                             
+                txt_surface = self.font.render(self.text, True, self.color)
+                
+                width = max(200, txt_surface.get_width()+10)
+                self.input_box[2] = width
+                
+                x,y = self.input_box[0], self.input_box[1]
+
+                display.blit(txt_surface, (x+5, y+10))
+                pygame.draw.rect(display, self.color, self.input_box, 2)
+
+
+# (10) ------------------------------------ input text  ---------------------------------- #
+# (11) ------------------------------------ input text  ---------------------------------- #
+# (12) ------------------------------------ input text  ---------------------------------- #
+# (13) ------------------------------------ input text  ---------------------------------- #
+# (14) ------------------------------------ input text  ---------------------------------- #
+# (15) ------------------------------------ input text  ---------------------------------- #
+# (16) ------------------------------------ input text  ---------------------------------- #
+# (17) ------------------------------------ input text  ---------------------------------- #

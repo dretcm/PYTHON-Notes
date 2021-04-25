@@ -389,6 +389,7 @@ cv2.destroyAllWindows()
 
 
 # show filter camera colors : mask :
+# link of replace green background: https://programmerclick.com/article/54071808408/
 
 import cv2
 import numpy as np
@@ -569,7 +570,7 @@ from skvideo import io
 
 if __name__ == '__main__':
     codec = cv2.VideoWriter_fourcc(*"XVID")
-    out = cv2.VideoWriter("D:\Grabacion.avi", codec , 20.0, (640, 440))
+    out = cv2.VideoWriter("D:\Grabacion.avi", codec , 20.0, (640, 440))  # (outputfile, codec, fps, size_video)
 
     cv2.namedWindow("Grabando", cv2.WINDOW_NORMAL)
     cv2.resizeWindow("Grabando", 480, 270) #Los ultimos dos argunmentos son las dimensiones de la ventana de grabación
@@ -588,6 +589,7 @@ if __name__ == '__main__':
 
 
 # option 2(with skvideo - pip install scikit-video):
+# more about skvideo: http://www.scikit-video.org/stable/io.html
 
 import cv2 # OpenCV
 import pyautogui
@@ -639,7 +641,7 @@ def generate_video(path, lenght):
             img = cv2.imread(path+'\\'+f'img{i}.jpg')
             frame = np.asarray(img)
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            writer.writeFrame(frame[:,:,::-1])
+            writer.writeFrame(frame[:,:,::-1])  # cv2 use BGR, we want RGB for this we use "::-1" for write the frame in reverse "RGB".
             cv2.imshow('Grabando', frame)
             
         write.close()
@@ -674,4 +676,78 @@ if __name__ == '__main__':
     out.release()
     cv2.destroyAllWindows()
 
-22 ---------------->>>
+22 ---------------->>> GREEN BACKOGROUND VIDEO REPLCAE : MASK : 
+
+import cv2
+import numpy as np
+import subprocess
+import os
+
+def video(path):
+        cap = cv2.VideoCapture('lonrot.mp4')
+        width, height = 854, 480
+
+        lower_green = np.array([0,80,0])   # threshold of filter coloer green
+        upper_green = np.array([80,255,80])
+
+        img = cv2.imread(path)
+        img = cv2.resize(img, (width,height))  # resize the image to the size of video.
+
+        
+        codec = cv2.VideoWriter_fourcc(*"MP4V")
+        out = cv2.VideoWriter("video.mp4", codec , 30, (width,height))
+
+        while (True):
+                try:
+                        ret, frame = cap.read()
+
+                        if not ret:
+                                break
+
+                        mask = cv2.inRange(frame.copy(), lower_green, upper_green)
+                                
+                        frame[mask != 0] = [0, 0, 0]
+                                
+                        image = img.copy()
+                        image[mask==0] = [0,0,0]
+
+                        final = image + frame
+                                
+                        cv2.imshow('video',final)
+                                
+                        out.write(final)
+                                
+                        if cv2.waitKey(1) == ord('q'):
+                                break
+                except Exception as e:
+                        print(e)
+                        break
+                
+        cap.release()
+        out.release()
+        cv2.destroyAllWindows()
+        
+
+def generate_video(path, outputfile = "output.mp4"):
+        video(path)
+        videofile = "video.mp4"
+        audiofile = "audio.mp3"
+        aux = "temporal.mp4"
+        codec = "copy"
+        
+        subprocess.run(f"ffmpeg -i {videofile} -i {audiofile} -c {codec} {aux}")
+        os.system(f'DEL /F /A {videofile}')
+        subprocess.run(f"ffmpeg -i {aux} -c:v libx264 -b:v 1.5M -c:a libvo_aacenc -b:a 128K {outputfile}")
+        os.system(f'DEL /F /A {aux}')
+        
+
+if __name__ == '__main__':
+        path = 'diego.jpg'
+        generate_video(path, outputfile='resulted_video.mp4')
+
+23 ---------------->>>
+23 ---------------->>>
+23 ---------------->>>
+23 ---------------->>>
+23 ---------------->>>
+23 ---------------->>>

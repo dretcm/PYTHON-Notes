@@ -218,6 +218,17 @@ print(type([12,'a',3])) # <class 'list'>
 chain = 'hello'
 print(len(chain)) # return the lenght od the chain. # 5
 
+
+# the UPPERCASES and numbers are minors to LOWERCASES:
+
+print('A' < 'a') # output : True
+
+print(3 < 'a') # output : True
+
+print('A' > 'a') # output : False
+
+# it works according the ascii code (https://elcodigoascii.com.ar).
+
 2 ---------> listas : list :
 
 lista.append(añade_elemento) # para añadir elementos a las listas.
@@ -292,7 +303,9 @@ print(a)  # ['a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a'] # len(a) : 10
 3-->>
 
 #para verificar si una palabra esta en una cadena se debe usar
+
 palabra.count('hi')------average es promedio
+
 #donde palabra es la cadena, .count es el metodo o method, y lo 1 va ('hi') es la palabra q queremos verificar si esta en la cadena.
 #el  "lista.count(2) tambien sirve para listas y ver cuantas vesces esta ese numero en la lista, tipo contador.
 # ejemplo normalico:
@@ -2587,6 +2600,12 @@ def showDialog(title='Error!',
 
     pyautogui.alert(text, title, button='OK')
 
+
+# keyboard entry : dialog input :
+
+import pyautogui
+pyautogui.password(text='passasd', title='tt', default='', mask='*')  # (text, title, add the in the input, mask for 'hola' => '****' or 'hi' and mask='o'=>'oo')
+
 46 ----------------->> DOCS : DOCX : WORD : docs to pdf :
 
 import zipfile
@@ -3780,7 +3799,7 @@ if __name__ == "__main__":
         total = time.time() - begin
         print(f'It took {total} seconds.') # output: It took 0.402921199798584 seconds.
 
-60 -------------->> concanate video and audio : ffmpeg : convert video to audio : compress large video :
+60 -------------->> concatenate video and audio : ffmpeg : convert video to audio : compress large video :
 
 # first: 
 conda install -c menpo ffmpeg
