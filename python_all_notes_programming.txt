@@ -231,6 +231,14 @@ print('A' > 'a') # output : False
 
 2 ---------> listas : list :
 
+# the string's or 'str' are INMUTABLES. The list, by other way, are MUTABLES,(i.e):
+string = "hello"
+string[0] = "a" # error
+
+L = ['h','o','l','a']
+L[0] = 'a' # dont problem 
+print(L) # ['a','o','l','a']
+
 lista.append(añade_elemento) # para añadir elementos a las listas.
 lista.extend([x,y,z]) # para exterder a la lista con elementos puestos.
 lista.insert(poscicion,valor) # para colocar un elemento " y "en la posicion "x".
@@ -299,6 +307,14 @@ for i in tuple:
 
 a = ['a'] * 10
 print(a)  # ['a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a'] # len(a) : 10
+
+a = [3] * 10
+print(a)  # [3, 3, 3, 3, 3, 3, 3, 3, 3, 3] # len(a) : 10
+
+n = 5
+elements = list(range(1,n+1))
+print([elements] * n)   # [[1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5]]
+
 
 3-->>
 
@@ -402,9 +418,41 @@ print(a.count(2))  # 4 # quantity of certain number.
 print(a.index(3))  # 5 # position of certain number.
 print(help(tuple))  # information about this
 
-6--->>
+6--->> use pip : use id : direction of memory :
 
 # para instalar algo se podria usar "pip install Howdoi " como ejemplo.
+>pip install pandas
+>pip install numpy
+
+# use "id" :
+
+a = '3'
+b = [1,2,3,True,'<']
+c = 120
+d = False
+e = a
+f = '' + a
+g = b[:]
+
+print(id(a)) # return the position of memory.
+print(id(b))
+print(id(c))
+print(id(d))
+print(id(e))
+print(a is e)
+print(a is f)
+print(g is b)
+
+# output:
+1535921981872
+1535931294720
+1535921444944
+140711232166024
+1535921981872
+True
+True
+False
+
 
 7--->> major : max : min : sum : abs :
 
