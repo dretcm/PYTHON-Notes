@@ -252,6 +252,14 @@ app.exec()
 
 dig.label.setStyleSheet("background: white;")
 
+# color labels:
+
+        self.l1 = QLabel(self.photo,self)
+        self.l1.setGeometry(50,20,100,20)
+        self.l1.setStyleSheet('font: 10pt "Arial";')
+        self.l1.setTextFormat(Qt.RichText)
+        self.l1.setStyleSheet("color: red;")
+
 10 ------------->>> TALLA DE PANTALLA:
 
 1-click mainwindow
@@ -359,6 +367,15 @@ dig.progressBar.setVisible(True) # Fasle for hiding the bar.
 dig.show()
 app.exec()
 
+
+# other
+
+self.bar = QProgressBar(self)
+self.bar.setGeometry(60,120,180,30)
+self.bar.setVisible(False)
+self.bar.setMaximum(0)
+self.bar.setMinimum(0)
+
 18 ------------>>> QtCore : QThread : Threading 
 
 # para que no se congele las ventanas, y lleve las tareas a un segundo plano.
@@ -369,7 +386,9 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton
 
 class Downloader(QThread):
     def __init__(self, url, filename):
-        super().__init__()
+	#super().__init__()
+	QThread.__init__(self)
+
         self._url = url
         self._filename = filename
     def run(self):
@@ -393,15 +412,16 @@ class MainWindow(QMainWindow):
     
     def initDownload(self):
         self.label.setText("Descargando archivo...")
+
         # Deshabilitar el botón mientras se descarga el archivo.
         self.button.setEnabled(False)
+
         # Ejecutar la descarga en un nuevo hilo.
-        self.downloader = Downloader(       # object
-            "https://www.python.org/ftp/python/3.7.2/python-3.7.2.exe",
-            "python-3.7.2.exe"
-        )
+        self.downloader = Downloader("https://www.python.org/ftp/python/3.7.2/python-3.7.2.exe", "python-3.7.2.exe")
+
         # Qt invocará el método `downloadFinished()` cuando el hilo 
         # haya terminado.
+
         self.downloader.finished.connect(self.downloadFinished)  # important
         self.downloader.start()
     
@@ -411,6 +431,7 @@ class MainWindow(QMainWindow):
         self.button.setEnabled(True)
         # Eliminar el hilo una vez que fue utilizado.
         del self.downloader
+
 if __name__ == "__main__":
     app = QApplication([])
     window = MainWindow()
@@ -915,6 +936,8 @@ sys.exit(app.exec_())
                         for filename in filenames:
                                 self.data_path.append(filename)
                                 self.data.addItem(str(os.path.basename(filename)))
+
+# get folder:
 
 folder = str(QFileDialog.getExistingDirectory(self, "Select Directory"))  # return path od directory or folder.
 

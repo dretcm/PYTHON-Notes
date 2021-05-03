@@ -229,6 +229,9 @@ cap = cv2.VideoCapture(0)
 cap.set(3,600) # 3 for width, 4 for height
 cap.set(4,500)
 
+cap.get(3,600) # 3 for width, 4 for height
+cap.get(4,500)
+
 while True:
     ret, frame = cap.read()
 

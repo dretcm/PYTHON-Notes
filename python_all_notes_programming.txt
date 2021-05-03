@@ -596,6 +596,35 @@ theta = math.degrees(angle)  # Convert angle x from radians to degrees.
 print(math.sin(theta)) # 0
 print(math.cos(theta)) # 1
 
+
+# example of circunference:
+
+f(x) = 0 +- sqrt(2 - (x - 3)**2)
+
+import math
+import matplotlib.pyplot as plt
+import numpy as np
+
+class Circunference:
+    def __init__(self,center,radious):
+        self.a, self.b = center
+        self.a *= -1
+        self.b *= -1
+        self.r = radious
+    def circunference(self,x):
+        return self.b + math.sqrt(abs(self.r - (x + self.a)**2))
+
+radious = math.sqrt(2)
+Op = Circunference((3,0),2)
+func = np.vectorize(Op.circunference)
+
+dom = np.arange(3-radious,3+radious+0.001,0.001)
+ran = func(dom)
+
+plt.scatter(dom, ran, c='red')
+plt.scatter(dom, -1*ran)
+plt.show()
+
 11--->>
                               # para un ejecutable usaremos el " import time ".
 import time
