@@ -195,10 +195,10 @@ a
 b
 c
 
-1 ----------> use print - end : " ; " : type : len :
+1 ----------> use print - end : " ; " : type : len : format : print with f'' :
 
+# print end or print continious :
 print("para que lo imprimido sea de forma lateral: ",variable,end=" ")
-y usar " pass " es como un comentario pero no ignorado, así que no pasa nada solo es como para probar algo o ya sabes.
 
 # usar ";" al final es como saltar en el script, e.g:
 
@@ -228,6 +228,20 @@ print(3 < 'a') # output : True
 print('A' > 'a') # output : False
 
 # it works according the ascii code (https://elcodigoascii.com.ar).
+
+# print with f'' :
+name = 'pedro'
+print(f' name: {name}') # output: name: pedro
+
+print(f' abc{10}ef{2}ghijk{32}{01}') # output: abc10ef2ghijk3201
+
+# trucks with format:
+
+print('{:} = 12'.format('x')) # output: x = 12
+
+timer = "{:02d}{:02d}:{:02d}".format(3,7,12) # output: 03:07:12
+timer = "{:02}{:02}:{:02}".format(3,7,12) # output: 03:07:12
+timer = "{:03}{:03}:{:05}".format(3,7,12) # output: 003:007:00012
 
 2 ---------> listas : list :
 
@@ -314,6 +328,14 @@ print(a)  # [3, 3, 3, 3, 3, 3, 3, 3, 3, 3] # len(a) : 10
 n = 5
 elements = list(range(1,n+1))
 print([elements] * n)   # [[1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5]]
+
+
+# comparate :
+
+print([1,2,3] > [1]) # True
+print([1,2,3] > [2]) # False
+print([15,2,23] > [16]) # False
+print([15,62,23] > [15]) # True
 
 
 3-->>
@@ -625,7 +647,7 @@ plt.scatter(dom, ran, c='red')
 plt.scatter(dom, -1*ran)
 plt.show()
 
-11--->>
+11--->> use time :
                               # para un ejecutable usaremos el " import time ".
 import time
 time.sleep(3)                 # donde "time.sleep(x) " es la funcion principal y "x" cuantos segundos de retraso queremos para finalizar algo o el programa.
@@ -1150,6 +1172,26 @@ for i in range(1,6):
 1
 2
 
+
+# anidamiento con break:
+def aea():
+        cade = 'abcdef'
+        for i in range(3):
+                print(i)
+                for j in cade:
+                        print(j)
+                        break
+
+aea()
+
+# output:
+0
+a
+1
+a
+2
+a
+
 23 ------->>> use split : split chars or strings : 
 
 #use palabra.split()
@@ -1215,12 +1257,15 @@ cadena=f.read(5)
 print(cadena)
 print(f.tell())       #imprime la poscion actual del puntero osea "5"
 
-27-->> SQLITE :
+27------>> SQLITE : sqlite3 :
 
 #para establecar una coneccion con sqlite3 usaremos:
+
 varible_a_guardar=sqlite3.connect("archivo_a_crear.db")
 #establecemos un cursor
+
 c=varible_a_guardar.cursor()
+
 c.execute('''CREATE TABLE GAMES
              (NAMEGAME text, EDITION text, COMPANY text, VOL real, PRICE real)''')
 
@@ -1236,7 +1281,37 @@ c.executemany("DELETE INTO GAMES VALUES (?,?,?,?,?)",ingrese)
 conn.commit()
 
 c.close()
+
+# other example :
+
+import sqlite3
+cur=sqlite3.connect(":memory:")
+c=cur.cursor()
+
+c.execute('''CREATE TABLE tienda
+             (cliente text, comprador text, producto text, venta real)''')
+
+
+purchases = [('Cisco', 'juan', 'pc', 5000),
+             ('Microsoft', 'pep', 'mouse', 80),
+             ('Apple', 'delia', 'teclado', 100),
+             ('Mac', 'pepa', 'placa i3', 700),
+             ('Os', 'inosuke', 'monitor', 100),
+            ]
+c.executemany('INSERT INTO tienda VALUES (?,?,?,?)', purchases)
+
+cur.commit()
+for row in c.execute('SELECT cliente FROM tienda ORDER BY cliente'):
+        print(row)
+cade="total"
+print(cade.center(60,"="))       
+for row in c.execute('SELECT * FROM tienda ORDER BY cliente'):
+        print(row)
+
+cur.close()
+
 28---->
+
 para comentarios usaremos:
 alf + 3 para volverlos a todos asi -->> ###print("hola")
 y para retornarlos usaremos alf +4 --->> print("hola")
@@ -1252,7 +1327,9 @@ vali=open("character.pickle",'rb')
 g=pickle.load(vali)
 for clave, valor in g.items():
     print(f"{clave} --> {valor}")
-30--------------->>>>>>>>>>>>>>><
+
+30--------------->>>>>>>>>>>>>>>
+
 import sqlite3
 conn=sqlite3.connect(":memory:") #en vez de :memory: puede ir el documento o base de datos nombre_del_documento.db
 c=conn.cursor()
@@ -1527,7 +1604,7 @@ Pedro
 Claudio
 Hi, im  Claudio
 
-# EXAMPLE OF STATIC AND RETURN OTHER CALSSES:
+# EXAMPLE OF STATIC AND RETURN OTHER CLASSES:
 
 class Fish:
         def __init__(self):
