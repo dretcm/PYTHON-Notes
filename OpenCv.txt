@@ -559,7 +559,26 @@ cap.release()
 cv2.destroyAllWindows()
 
 
-9 --------------->>> 
+9 --------------->>> get time of video : get number of fps : get number of frames :
+
+import cv2
+
+cap = cv2.VideoCapture("dancing_dog.mp4")
+fps = cap.get(cv2.CAP_PROP_FPS)    # OpenCV2 version 2 used "CV_CAP_PROP_FPS" get the "fps".
+frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))   # get the number of frames.
+duration = int(frame_count/fps)  # FPS :  Frames Per Seconds
+
+print('fps = ', fps)
+print('number of frames = ', frame_count)
+print('duration (Seconds) = ', duration)
+hours = int(duration/3600)
+duration = duration % 3600
+minutes = int(duration/60)
+seconds = duration%60
+print('{:02}:{:02}:{:02}'.format(hours,minutes,seconds))
+
+cap.release()
+
 10 --------------->>> 
 11 --------------->>> 
 12 --------------->>> 
