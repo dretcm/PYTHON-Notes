@@ -10,7 +10,7 @@ WINDOW_SIZE = (400, 400)
 
 pygame.init() # initial pygame
 
-pygame.display.set_caption('My Pygame window ')   # set window´s name
+pygame.display.set_caption('My Pygame window ')   # set window´s name or title of the window.
 screen = pygame.display.set_mode(WINDOW_SIZE, 0, 32)  # set the size of window, or initial the screen
 
 while True:
@@ -463,11 +463,379 @@ class InputText:
                 pygame.draw.rect(display, self.color, self.input_box, 2)
 
 
-# (10) ------------------------------------ input text  ---------------------------------- #
-# (11) ------------------------------------ input text  ---------------------------------- #
-# (12) ------------------------------------ input text  ---------------------------------- #
-# (13) ------------------------------------ input text  ---------------------------------- #
-# (14) ------------------------------------ input text  ---------------------------------- #
+# (10) ------------------------------------ dialog in current game  ---------------------------------- #
+# class dialog :
+
+class Dialog:
+        def __init__(self):
+                self.font = pygame.font.Font(None,40)
+                self.begin = time.time()
+                self.pos = 0
+                self.pos_list = 0
+                
+                self.fast = 0.2
+                self.guion = None
+                
+        def reset(self):
+                self.begin = time.time()
+                self.pos = 0
+                self.pos_list += 1
+                
+        def text(self):
+                now = time.time()
+                if now - self.begin > self.fast:
+                        self.pos += 1
+                        self.begin = now
+                if self.pos >= len(self.guion[self.pos_list]) + 3:
+                        self.reset()
+                msg = self.font.render(self.guion[self.pos_list][:self.pos], 1, (255,255,255))
+                return msg
+
+        def message(self, guion):
+                self.guion = guion + ['']  # limit of messages
+                self.pos_list = 0
+
+        def state(self):
+                if self.guion[self.pos_list] == '':
+                        return False
+                return True
+
+# (11) ------------------------------------ input text, draw line ---------------------------------- #
+
+# pc : input :
+
+class InputText:
+        font = pygame.font.Font(None, 35)
+        input_box = [500, 350, 140, 40]
+        color = pygame.Color((0,255,0))
+        text = ''
+
+        def set_keyboard(self,event):
+                if event.key == K_RETURN:
+                        print(self.text)
+                        self.text = ''
+                elif event.key == K_BACKSPACE:
+                        self.text = self.text[:-1]
+                else:
+                        self.text += event.unicode
+                                        
+        def run_input(self, display):                             
+                txt = self.font.render('PASSWORD', True, self.color)
+                txt_surface = self.font.render(self.text, True, self.color)
+                
+                width = max(200, txt_surface.get_width()+10)
+                self.input_box[2] = width
+                
+                x,y = self.input_box[0], self.input_box[1]
+                
+                display.blit(txt, (x, y-40))
+                display.blit(txt_surface, (x+5, y+5))
+                pygame.draw.rect(display, self.color, self.input_box, 2) 
+                pygame.draw.rect(display, self.color, (x - 20 , y-60,240, 130), 2)
+
+
+# draw line with start pos and end pos :
+	# aaline(surface, color, start_pos, end_pos)
+
+	pygame.draw.aaline(screen, light_grey, (screen_width/2,0),(screen_width/2,screen_height))
+
+# or:
+        x,y = pygame.mouse.get_pos()
+        pygame.draw.aaline(screen, light_grey, (screen_width/2,screen_height/2),(x,y))
+
+# (12) ------------------------------------ model of character ---------------------------------- #
+
+import pygame, sys, time, os
+from pygame.locals import *
+
+clock = pygame.time.Clock()
+pygame.init()
+
+WINDOW_SIZE = (1200,600)
+
+screen = pygame.display.set_mode(WINDOW_SIZE,0,32)
+display = pygame.Surface((1200, 1200))
+
+# character options:
+class Player:
+        x, y = 600, 700
+        speed = 5
+
+        left = False
+        right = False
+        up = False
+        down = False
+
+        can_move = True
+
+        player_collider = pygame.Rect(x,y,40,40)
+        
+        def down_key(self,key):
+                if key == K_LEFT:
+                        self.left = True
+                if key == K_RIGHT:
+                        self.right = True
+                if key == K_UP:
+                        self.up = True
+                if key == K_DOWN:
+                        self.down = True
+                        
+        def up_key(self,key):
+                if key == K_LEFT:
+                        self.left = False
+                if key == K_RIGHT:
+                        self.right = False
+                if key == K_UP:
+                        self.up = False
+                if key == K_DOWN:
+                        self.down = False
+                        
+        def moving_player(self, display):
+                if self.can_move:
+                        x,y = self.get_position()
+                        if self.left:
+                                x -= self.speed
+                        if self.right:
+                                x += self.speed
+                        if self.up:
+                                y -= self.speed
+                        if self.down:
+                                y += self.speed
+                                
+                        self.set_position(x,y)
+                pygame.draw.rect(display,(255,255,255),self.player_collider)
+
+        def set_move(self, flag):
+                self.can_move = flag
+                
+        def get_position(self):
+                return (self.player_collider.x, self.player_collider.y)
+        
+        def set_position(self,x,y):
+                self.player_collider.x = x
+                self.player_collider.y = y
+                
+        def get_collider(self):
+                return self.player_collider
+        
+player = Player()
+
+while True:
+        display.fill((0, 0, 0))
+
+        player.moving_player(display)
+
+        for event in pygame.event.get():
+                if event.type == QUIT:
+                        pygame.quit() 
+                        sys.exit()
+                if event.type == KEYDOWN:
+                        player.down_key(event.key)
+                        
+                if event.type == KEYUP:
+                        player.up_key(event.key)
+                        
+        surf = pygame.transform.scale(display, WINDOW_SIZE)
+        screen.blit(surf, (0, 0))
+        
+        pygame.display.update()
+        clock.tick(30)
+
+
+# (13) ------------------------------------ pog game  ---------------------------------- #
+
+import pygame, sys, random
+from pygame.locals import *
+
+clock = pygame.time.Clock()
+pygame.init()
+
+screen_width,screen_height = 1200,600
+screen = pygame.display.set_mode((screen_width,screen_height))
+pygame.display.set_caption('pong')
+
+
+ball = pygame.Rect(screen_width/2 - 15,screen_height/2 - 15,30,30)
+player = pygame.Rect(screen_width-20,screen_height/2 - 70,10,140)
+opponent = pygame.Rect(10,screen_height/2 - 70,10,140)
+
+bg_color = pygame.Color('grey12')
+light_grey = (200,200,200)
+
+
+ball_speed_x = 7 * random.choice((1,-1))
+ball_speed_y = 7 * random.choice((1,-1))
+
+def ball_animation():
+        global ball_speed_x, ball_speed_y
+        ball.x += ball_speed_x
+        ball.y += ball_speed_y
+
+        if ball.top <= 0 or ball.bottom >= screen_height:
+                ball_speed_y *= -1
+        if ball.left <= 0 or ball.right >= screen_width:
+                ball_restart()
+
+        if ball.colliderect(player) or ball.colliderect(opponent):
+                ball_speed_x *= -1
+
+def player_animation():
+        player.y += player_speed
+        if player.top <= 0:
+                player.top = 0
+        if player.bottom >= screen_height:
+                player.bottom = screen_height
+
+def opponent_animation():
+        if opponent.top < ball.y:
+                opponent.top += opponent_speed
+        if opponent.bottom > ball.y:
+                opponent.bottom -= opponent_speed
+        if opponent.top <= 0:
+                opponent.top = 0
+        if opponent.bottom >= screen_height:
+                opponent.bottom = screen_height
+
+def ball_restart():
+        global ball_speed_x, ball_speed_y
+        ball.center = (screen_width/2, screen_height/2)
+        ball.x *= random.choice((1,-1))
+        ball.y *= random.choice((1,-1))
+        
+player_speed = 0
+opponent_speed = 7
+
+while True:
+        for event in pygame.event.get():
+                if event.type == QUIT:
+                        pygame.quit() 
+                        sys.exit()
+                if event.type == KEYDOWN:
+                        if event.key == K_DOWN:
+                                player_speed += 7
+                        if event.key == K_UP:
+                                player_speed -= 7
+                if event.type == KEYUP:
+                        if event.key == K_DOWN:
+                                player_speed -= 7
+                        if event.key == K_UP:
+                                player_speed += 7
+
+        ball_animation()
+        player_animation()
+        opponent_animation()
+        
+        screen.fill(bg_color)
+        pygame.draw.rect(screen,light_grey, player)
+        pygame.draw.rect(screen,light_grey,opponent)
+        pygame.draw.ellipse(screen,light_grey,ball)
+        pygame.draw.aaline(screen, light_grey, (screen_width/2,0),(screen_width/2,screen_height))
+
+        
+        pygame.display.update()
+        clock.tick(30)
+
+# (14) ------------------------------------ camera  ---------------------------------- #
+
+# option 1:
+import pygame, sys
+from pygame.locals import *
+
+clock = pygame.time.Clock()
+pygame.init()
+
+screen_width, screen_height = 600, 400
+
+screen = pygame.display.set_mode((screen_width, screen_height))
+display = pygame.Surface((1200, 1200))
+
+class PlayerCamera:
+        x, y = screen_width/2 -10, screen_height/2 -15  # the player always is in the center of the camera(screen)
+        
+        speed = 15
+        left = False
+        right = False
+        up = False
+        down = False
+
+        player_collider = pygame.Rect(x,y,40,40)
+        
+        def down_key(self,key):
+                if key == K_LEFT:
+                        self.left = True
+                if key == K_RIGHT:
+                        self.right = True
+                if key == K_UP:
+                        self.up = True
+                if key == K_DOWN:
+                        self.down = True
+                        
+        def up_key(self,key):
+                if key == K_LEFT:
+                        self.left = False
+                if key == K_RIGHT:
+                        self.right = False
+                if key == K_UP:
+                        self.up = False
+                if key == K_DOWN:
+                        self.down = False
+                        
+        def moving_player(self, display):
+                pygame.draw.rect(display,(255,255,255),self.player_collider)
+                x, y = 0, 0
+                if self.left:
+                        x -= self.speed
+                if self.right:
+                        x += self.speed
+                if self.up:
+                        y -= self.speed
+                if self.down:
+                        y += self.speed
+                return x, y
+                
+        def get_position(self):
+                return (self.x, self.y)
+        
+        def set_position(self,x,y):
+                self.x = x
+                self.y = y
+                
+        def get_collider(self):
+                return self.player_collider
+
+
+player = PlayerCamera()
+x_player, y_player = 0, 0
+
+
+while True:
+        for event in pygame.event.get():
+                if event.type == QUIT:
+                        pygame.quit() 
+                        sys.exit()
+                if event.type == KEYDOWN:
+                        player.down_key(event.key)
+                if event.type == KEYUP:
+                        player.up_key(event.key)
+                        
+        screen.fill((0,0,0)) # camera of character
+        display.fill((0,0,0))  # map
+        
+        pygame.draw.rect(display,(255,255,255),(599,0,2,1200))
+        pygame.draw.rect(display,(255,255,255),(0,599,1200,2))
+        pygame.draw.circle(display,(255,255,255),(600,600),10)
+                        
+        screen.blit(display, (x_player, y_player))
+        x, y = player.moving_player(screen)
+        x_player -= x
+        y_player -= y
+        
+        pygame.display.update()
+        clock.tick(30)
+
+#option 2: 
+	# pass
+
 # (15) ------------------------------------ input text  ---------------------------------- #
 # (16) ------------------------------------ input text  ---------------------------------- #
 # (17) ------------------------------------ input text  ---------------------------------- #
