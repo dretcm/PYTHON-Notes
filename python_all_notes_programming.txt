@@ -1407,17 +1407,38 @@ print(string.printable) # 0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQR
 print(string.punctuation) # !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
 print(string.whitespace) # rectangulo vertical y fecha para arriba
 
-33------>>>>
+33------>>>> ASSERT : assert : asserts :
 
-#forma para ingresar o printear algo:
+assert(1==2) # Se lanza la excepción AssertionError.
+assert(1==1) # no lanza nada.
 
-a="gaaa gente 2123b"
-b="---%"
-c="watch movies"
-m='my message is{:} {:} and {:}'.format(a,b,c)
-print(m)
+assert 'a'=='A', "El assert falló"
+assert False, "El assert falló"
+
+# the ago is equivalent to:
+if condicion:
+    raise AssertionError()
 
 
+# example 1:
+def calcula_media(lista):
+    return sum(lista)/len(lista)
+
+assert(calcula_media([5, 10, 7.5]) == 7.5) # ok
+assert(calcula_media([4, 8]) == 6) # ok
+
+
+# example 2:
+def suma(a, b):
+    assert(type(a) == int)
+    assert(type(b) == int)
+    return a+b
+
+# Ok, los argumentos son int
+suma(3, 5)
+
+# Error, ya que las variables no son int
+suma(3.0, 5.0)
 
 34 ------->>>> OPEN txt :
 
@@ -1686,7 +1707,7 @@ print(apply_grade({'Matemáticas':6.5, 'Física':5, 'Química':3.4, 'Economía':
 
 SALIDA : [5, 10, 25]
 
-39 ------------------->>>>  USO DE NUMPY or NP: 
+39 ------------------->>>>  USO DE NUMPY or NP: use numpy :
 
 import numpy as np
 
@@ -2734,7 +2755,7 @@ c = {**a,**b}  # {'a': 1, 'b': 2, 'c': 3, 'd': 4}
 45 ---------------->> PyAutoGui :
 
 // escribir por teclado automatico:
-
+gian se la jala con ricardo milos
 import pyautogui, time
 time.sleep(5)
 for word in f:
@@ -4221,4 +4242,32 @@ data = list(emoji.EMOJI_UNICODE_ENGLISH) # all emojis example {':thumbs_up:':emo
 for e in data[-100:]:
     print(emoji.emojize(e))
 
-67 -------------->>
+67 -------------->> pywhatkit : text or string in handwriter or done in hand or people :
+documentation: https://pypi.org/project/pywhatkit/
+
+# text to handwrite :
+import pywhatkit
+
+text = ''' Todo el mundo piensa igual, desde el 2017 la humanidad
+        ah termiando de pensar o es solo el pensaminto individual de mi.
+        La gente se da cuenta de lo que ahce a cierta edad o momento, uno
+        nunca sambra cuando se presentara la iluminacion de tu vida <3.
+        '''
+pywhatkit.text_to_handwriting(text, rgb=(0,0,255))
+
+string (required) - String that you want to convert to handwritten text
+save_to (optional, val = "pywhatkit.png") - Path where the image will be saved
+rgb (optional, val = [0,0,138]) - Color of the handwritten character in rgb format
+
+# message wsp:
+import pywhatkit as kit
+kit.sendwhatmsg()
+
+phone_num (required) - Phone number of target with country code
+message (required) - Message that you want to sendwhatmsg
+time_hour (required) - Hours at which you want to send message in 24 hour format
+time_min (required) - Minutes at which you want to send message
+wait_time (optional, val=20) - Seconds after which the message will be sent after opening the web
+print_waitTime (optional, val=True) - Will print the remaining time if set to true
+
+68 -------------->> 
