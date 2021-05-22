@@ -609,14 +609,25 @@ print(math.log2(8)) # 3
 print(math.log10(100)) # 2
 
 
-angle = 0
+angle = 90
 
 theta_radians = angle * 2 * math.pi / 360.0
 theta = math.radians(angle)  # Convert angle x from degrees to radians.
-theta = math.degrees(angle)  # Convert angle x from radians to degrees.
+# theta = math.degrees(angle)  # Convert angle x from radians to degrees.
 
-print(math.sin(theta)) # 0
-print(math.cos(theta)) # 1
+print(math.sin(theta)) # 1
+print(math.cos(theta)) # 0
+
+
+Definition and Usage:
+The math.sin() method returns the sine of a number.
+
+Note: To find the sine of degrees, it must first be converted into radians with the math.radians() method (see example below).
+
+# as in your calculator:
+import math
+print(math.sin(math.radians(90))) # 1
+print(math.cos(math.radians(90))) # 0
 
 
 # example of circunference:

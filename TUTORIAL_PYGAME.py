@@ -836,6 +836,181 @@ while True:
 #option 2: 
 	# pass
 
-# (15) ------------------------------------ input text  ---------------------------------- #
+# (15) --------------------------------- Gun, Bullet, direction vectors  ---------------------------------- #
+
+# Bullet:
+
+class Bullet:
+        r_x = 0
+        r_y = 0
+        x = 0
+        y = 0
+        h = 0
+        k = 0
+        
+        theta = 0
+        x_cos = 0
+        y_sin = 0
+        
+        magnitude = 0
+        speed = 10
+        limit = 200
+        
+        can = False
+        
+        def shoot(self, display):
+                if self.can:
+                        x = (self.magnitude * self.x_cos) + self.h
+                        y = (self.magnitude * self.y_sin) + self.k
+
+                        pygame.draw.circle(display,(255,255,255),(x,y),10)
+
+                        if self.magnitude > self.limit:
+                                self.can = False
+                                self.magnitude = 0
+                        else:
+                                self.magnitude += self.speed
+                        
+        def distance(self):
+                # (x - h, y - k)
+                self.r_x = self.x - self.h
+                self.r_y = self.y - self.k
+                # self.limit =  int(math.sqrt((self.x)**2 + (self.y)**2))
+        
+        def angle(self):
+                # 0 - 90   : +
+                # 90 - 180 : -
+                # 180 - 270: +
+                # 270 - 360: -
+                if int(self.r_x)==0:
+                        self.r_x = 0.0001
+                self.theta =  math.degrees(math.atan(self.r_y / self.r_x))
+                if self.theta < 0 :
+                        if self.r_y < 0:
+                                self.theta += 360
+                        else:
+                                self.theta += 180
+                else:
+                        if self.r_x < 0:
+                                self.theta += 180
+                                
+                self.x_cos = math.cos(math.radians(self.theta))
+                self.y_sin = math.sin(math.radians(self.theta))
+        
+        def limit_shoot(self, position, player): # (mouse position, player position)
+                self.h, self.k = player
+                self.x, self.y = position
+                self.can = True
+                self.distance()
+                self.angle()
+
+
+# Gun:
+
+class Bullet:
+        r_x = 0
+        r_y = 0
+        x = 0
+        y = 0
+        h = 0
+        k = 0
+        
+        theta = 0
+        x_cos = 0
+        y_sin = 0
+        
+        magnitude = 0
+        speed = 10
+        limit = 200
+        
+        def shoot(self, display):
+
+                x = (self.magnitude * self.x_cos) + self.h
+                y = (self.magnitude * self.y_sin) + self.k
+
+                pygame.draw.circle(display,(255,255,255),(x,y),10)
+
+                if self.magnitude > self.limit:
+                        return False
+                else:
+                        self.magnitude += self.speed
+                        return True
+                
+        def distance(self):
+                # (x - h, y - k)
+                self.r_x = self.x - self.h
+                self.r_y = self.y - self.k
+        
+        def angle(self):
+                # 0 - 90   : +
+                # 90 - 180 : -
+                # 180 - 270: +
+                # 270 - 360: -
+                if int(self.r_x)==0:
+                        self.r_x = 0.0001
+                self.theta =  math.degrees(math.atan(self.r_y / self.r_x))
+                if self.theta < 0 :
+                        if self.r_y < 0:
+                                self.theta += 360
+                        else:
+                                self.theta += 180
+                else:
+                        if self.r_x < 0:
+                                self.theta += 180
+                                
+                self.x_cos = math.cos(math.radians(self.theta))
+                self.y_sin = math.sin(math.radians(self.theta))
+        
+        def limit_shoot(self, position, player):
+                self.h, self.k = player
+                self.x, self.y = position
+                self.distance()
+                self.angle()
+
+
+class Gun:
+        bullets = []
+        bullets_activate = []
+
+        def update_gun(self, display):
+                if self.bullets:
+                        for i in range(len(self.bullets)):
+                                if self.bullets[i].shoot(display):
+                                        self.bullets_activate.append(self.bullets[i])
+                                        
+                        self.bullets = self.bullets_activate.copy()
+                        self.bullets_activate = []
+
+        def activate_gun(self, position, player):
+                blt = Bullet()
+                blt.limit_shoot(position, player)
+                
+                self.bullets.append(blt)
+   
+pistol = Gun()
+
+while True:
+        for event in pygame.event.get():
+                if event.type == QUIT:
+                        pygame.quit() 
+                        sys.exit()
+                if event.type == KEYDOWN:
+                        player.down_key(event.key)
+                        if event.key == K_SPACE:
+                                pistol.activate_gun(pygame.mouse.get_pos(), player.get_position())  # get position mouse and player position.
+                if event.type == KEYUP:
+                        player.up_key(event.key)
+                        
+        display.fill((0,0,0))
+        
+        pistol.update_gun(display)
+    
+        player.moving_player(display)
+
+        pygame.draw.aaline(display, (0,255,0), player.get_position(),pygame.mouse.get_pos()) # line type directional of gun.
+        
+        pygame.display.update()
+        clock.tick(30)
+
 # (16) ------------------------------------ input text  ---------------------------------- #
 # (17) ------------------------------------ input text  ---------------------------------- #
