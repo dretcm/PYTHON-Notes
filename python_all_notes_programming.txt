@@ -4220,6 +4220,15 @@ print(sys.getsizeof(a)) # 28 # bytes
 print(sys.getsizeof(b)) # 50
 print(sys.getsizeof(c)) # 48
 
+
+# get the directory of your python version :
+
+>>> import sys
+>>> sys.prefix
+
+'C:\\Program Files\\Blender Foundation\\Blender 2.92\\2.92\\python'
+
+
 65 -------------->> function functools : use cache : 
 
 import time, sys

@@ -197,4 +197,10 @@ of PYTHON. EXE in order to prevent a DOS console from popping up to display the 
 # 1. save the script as [name script].pyw
 # 2. click the script.pyw and enjoy it.
 
-10 ----------------->>> 
+10 ----------------->>> pip with user : ensurepip : update :
+
+python3 -m ensurepip
+python3 -m pip install --upgrade pip --user
+python3 -m pip install opencv-python opencv-contrib-python imutils numpy dlib --user
+
+11 ----------------->>>

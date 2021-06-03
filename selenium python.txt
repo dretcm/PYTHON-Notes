@@ -56,4 +56,28 @@ time.sleep(35) # 10 secons
 
 browser.close()
 
+3 --------------->>> problem of chrome driver binary : ChromeDriverManager :
+
+Step by step:
+1. pip install chromedriver-binary
+2. import the package
+
+from selenium import webdriver
+import chromedriver_binary  # Adds chromedriver binary to path
+
+driver = webdriver.Chrome()
+driver.get("http://www.python.org")
+
+
+# better option:
+pip install webdriver-manager
+
+from selenium import webdriver
+
+from webdriver_manager.chrome import ChromeDriverManager
+
+driver = webdriver.Chrome(ChromeDriverManager().install())
+
+3 --------------->>>
+3 --------------->>>
 3 --------------->>>

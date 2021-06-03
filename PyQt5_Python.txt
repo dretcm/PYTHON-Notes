@@ -917,6 +917,8 @@ sys.exit(app.exec_())
 
 5 ------------->>> get folder and his directory : QFileDialog :
 
+from PyQt5.QtWidgets import QFileDialog
+
 # get one file : select only one file :
 
         def openfile(self):
@@ -1033,7 +1035,29 @@ if __name__=='__main__':
         window = MyIDE()
         sys.exit(App.exec_())
 
-9 ------------->>>
-10 ------------->>>
+9 ------------->>> QCheckBox :
+
+cb = QCheckBox('Show title', self)
+
+cb.toggle() # by default is empty, is call this function, it will be on.
+
+
+if cb.isChecked():
+	...
+  	...
+
+10 ------------->>> background :
+
+self.setStyleSheet("background: black;")
+self.setStyleSheet("background-image: url(background.png);")
+
+bg = QLabel('',self)
+bg.setGeometry(0, 0, 400, 270)
+bg.setStyleSheet("background-image: url(background.png);")
+
+bg = QLabel('',self)
+bg.setGeometry(0, 0, 400, 270)
+bg.setStyleSheet("background: black;")
+
 11 ------------->>>
 12 ------------->>>
