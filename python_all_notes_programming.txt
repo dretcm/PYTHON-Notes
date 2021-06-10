@@ -2783,7 +2783,7 @@ c = {*a,*b}   # {'c', 'a', 'b', 'd'}
 
 c = {**a,**b}  # {'a': 1, 'b': 2, 'c': 3, 'd': 4}
 
-45 ---------------->> PyAutoGui :
+45 ---------------->> PyAutoGui : auto py :
 
 // escribir por teclado automatico:
 gian se la jala con ricardo milos
@@ -4071,6 +4071,26 @@ outputfile = "output.mp4"
 subprocess.run(f"ffmpeg -i {videofile} -c:v libx264 -b:v 1.5M -c:a libvo_aacenc -b:a 128K {outputfile}")  # of 1.37 GB to 17.2 MB
 ## in cmd it will be> ffmpeg -i "video.mp4" -c:v libx264 -b:v 1.5M -c:a libvo_aacenc -b:a 128K "output.mp4"
 
+
+# cut mp3
+
+Cortar los primeros 11 segundos de un mp3:
+
+$ ffmpeg -i miMp3.mp3 -t 11 mis11segundos.mp3
+
+y ya está.
+
+Cortar 11 segundos a partir del segundo 42 de un mp3
+
+$ ffmpeg -i miMp3.mp3 -ss 42 -t 11 mis11nuevosSegundos.mp3
+
+Convertir de un mp3 a un wav:
+
+$ ffmpeg -i miMp3.mp3 miWav.wav
+
+Quitarle canales a un audio para que ocupe menos (util para móviles)
+
+$ ffmpeg -i miMp3.mp3 -ac 1 miMp3Mono.mp3
 
 61 -------------->> zip file : zip-file : zipfile :
 

@@ -130,7 +130,7 @@ while True:
 pygame.draw.circle(display,(255,255,255),(600,700),40) # screen, color, radius
 
         
-# (3) ------------------------------------ full screen window, audio ---------------------------------- #  
+# (3) ------------------------------------ full screen window, load audio , Sound ---------------------------------- #  
 # example of programming hero (Halloween XD).
 import pygame
 from time import sleep
@@ -141,6 +141,8 @@ window = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 pygame.mixer.init()
 pygame.mixer.music.load('ratsasan.mp3')
 pygame.mixer.music.play()
+
+pygame.mixer.music.set_volume(0.2)
 
 sleep(2)
 
@@ -162,6 +164,33 @@ pygame.mixer.music.queue("test2.mp3")
 # by default is '0', that is to say, that it just plays once, -1 for loops.
 # "start" is the time in seconds to start, be default is 0, i mean, at the begining of song.
 pygame.mixer.music.play(loops=-1, start=35)
+
+
+# music and difference with sounds : mixer Sound :
+
+https://programmerclick.com/article/704172167/
+
+import pygame, sys
+
+pygame.init()
+pygame.mixer.init()
+
+display = pygame.display.set_mode((500, 200))
+
+sound = pygame.mixer.Sound("A.wav")  # create object Sound of mixer.
+sound.set_volume(1) # volume of 0% = 0 and 0.5 = 50% and 100% = 1
+
+while True:
+        for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                        pygame.quit() 
+                        sys.exit()
+                if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_SPACE:
+                                sound.play()  # play the sound object.
+                                
+        pygame.display.update()
+
 
 # (4) ------------------------------------ transform images, transparent images, text, colliderect  ---------------------------------- # 
 

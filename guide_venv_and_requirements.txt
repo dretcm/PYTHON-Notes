@@ -9,6 +9,9 @@ good video for this guide: https://www.youtube.com/watch?v=APOPm01BVrk
 
 1 ----------------->>>>> virtual environments:
 
+# create a env with conda:
+conda create --name pandas_tuto python=x.x
+
 * open cmd and go to the path of preference for the project, e.g:
 
 C:\users> cd test\etc...
@@ -18,6 +21,8 @@ C:\users> cd test\etc...
 C:\users\test\project>conda activate base
 
 (base) C:\users\test\project>python -m venv project_test_venv
+
+# or with version: python -m venv blender python=3.5.0
 
 * and then we go to put our project_test_venv\scripts...
 
@@ -199,8 +204,30 @@ of PYTHON. EXE in order to prevent a DOS console from popping up to display the 
 
 10 ----------------->>> pip with user : ensurepip : update :
 
-python3 -m ensurepip
-python3 -m pip install --upgrade pip --user
-python3 -m pip install opencv-python opencv-contrib-python imutils numpy dlib --user
+python -m ensurepip
+python -m pip install --upgrade pip --user
+python -m pip install opencv-python opencv-contrib-python imutils numpy dlib --user
 
-11 ----------------->>>
+11 ----------------->>> mklink :
+# i believe that this create a access direct, use cmd in mode administrator.
+# create to link or connection strengh with windows.
+
+mklink /j python D:\programs\blender_packages\blender   # blender is a environment
+
+12 ----------------->>> to install packages in blender:
+
+# search his prefix:
+import sys
+sys.prefix
+
+# open cmd and go directory:
+
+cd C:\Program Files\Blender Foundation\Blender\2.80\python\
+cd bin
+
+# finally:
+
+python -m ensurepip
+python -m pip install numpy
+
+13 ----------------->>>
