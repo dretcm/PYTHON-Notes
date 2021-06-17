@@ -4084,6 +4084,9 @@ Cortar 11 segundos a partir del segundo 42 de un mp3
 
 $ ffmpeg -i miMp3.mp3 -ss 42 -t 11 mis11nuevosSegundos.mp3
 
+# cortar audio desde 1 segundo hasta al final:
+ffmpeg -i grito.mp3 -ss 1 new_grito.mp3
+
 Convertir de un mp3 a un wav:
 
 $ ffmpeg -i miMp3.mp3 miWav.wav
