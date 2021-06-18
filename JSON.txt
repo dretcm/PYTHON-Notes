@@ -17,6 +17,9 @@ None			null
 # dump(): save a (int, char, list, dict, etc.) in a file.json in your disk.
 # dumps(): save a ((int, char, list, dict, etc.) or string as loads) in your temporary memory.
 
+
+# important: in the file.json, the strings must be between ", (e.g): ["mario", 124, "A",True]. Pls no use ' or 'mario', etc. it will give a error.
+
 # open data with "load":
 
 with open("dataalex.json","r") as file:

@@ -215,6 +215,13 @@ print(type(3)) # <class 'int'>
 print(type("hello")) # <class 'str'>
 print(type([12,'a',3])) # <class 'list'>
 
+class Avestruz:
+	...
+	...
+	...
+ave = Avestruz()
+print(type(ave).__name__) # Avestruz, retorna el nombre de la clase.
+
 chain = 'hello'
 print(len(chain)) # return the lenght od the chain. # 5
 
@@ -766,6 +773,68 @@ alexander.poscicion(5)                # aqui llamamos a la funcion "poscicion(5)
 
 gustavo = Acleta(15)                  # aquí llamamos a otra clase 
 gustavo.actividad("planchitas")
+
+
+# example 2 :  super() and super().__init__() :
+
+class Vehiculo:
+        def __init__(self, c, r):
+                self.color = c
+                self.ruedas = r
+        def __str__(self):
+                return 'Color: ' + self.color + ', Ruedas: ' + self.ruedas
+
+
+class Coche(Vehiculo):
+        def __init__(self, c,r,v, cl):
+                super().__init__(c,r)
+                self.velocidad = v
+                self.cilindrada = cl
+                
+        def __str__(self):
+                return super().__str__() + ", Velocidad: " + str(self.velocidad)  + ", Cilindrada: " + str(self.cilindrada)
+
+class Camioneta(Coche):
+        def __init__(self, c,r,v, cl, carga):
+                super().__init__(c,r,v,cl)
+                self.carga = carga
+                
+        def __str__(self):
+                return super().__str__() + ", Carga: " + str(self.carga)
+
+        
+class Bicicleta(Vehiculo):
+        def __init__(self, c,r,t):
+                super().__init__(c,r)
+                self.tipo = t
+                
+        def __str__(self):
+                return super().__str__() + ", Tipo: " + self.tipo
+
+class Motocicleta(Bicicleta):
+        def __init__(self, c, r, t, v, cl):
+                super().__init__(c,r,t)
+                self.velocidad = v
+                self.cilindrada = cl
+                
+        def __str__(self):
+                return super().__str__() + ", Velocidad: " + str(self.velocidad) + ", Cilindrada: " + str(self.cilindrada)
+
+        
+def main():
+    coche = Coche("azul", "cuatro", 140, 1200)
+    bici = Bicicleta("roja", "dos", "urbana")
+    camio = Camioneta("azul", "cuatro", 140, 1200, 500)
+    moto = Motocicleta("roja", "dos", "urbana", 90, 600)
+    
+    print(coche)
+    print(bici)
+    print(camio)
+    print(moto)
+    
+if __name__== "__main__":
+    main()
+
 
 14--->>> use with : use finally and try :
 
@@ -2608,7 +2677,7 @@ ax.set_zlabel('Z-axis', fontweight ='bold')
 fig.colorbar(sctt, ax = ax, shrink = 0.5, aspect = 5)
 plt.show()
 
-43 ---------------->>>>  OPERADORES DE CLASE EN PYTHON : OPERATORS
+43 ---------------->>>>  OPERADORES DE CLASE EN PYTHON : OPERATORS CLASS :
 
 class Backpack:
   def __init__(self, owner):
