@@ -230,4 +230,12 @@ cd bin
 python -m ensurepip
 python -m pip install numpy
 
-13 ----------------->>>
+13 ----------------->>> pip install for pygame :
+
+1)> pip install pyinstaller
+2)> pyinstaller
+3)> pip.exe
+4)> cd D:\my_games\poryect
+5)> pyinstaller main.py --onefile --noconsole
+
+14 ----------------->>>

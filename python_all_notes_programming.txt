@@ -434,6 +434,8 @@ random.seed(0) # tambien puede ser (1),(2)..(144).
 # Random float:  2.5 <= x < 10.0
 random.uniform(2.5, 10.0) # output: 3.1800146073117523
 
+# random.randint(0,20) / 10 -1   <=>   random.uniform(-1,1)
+
 # randrange tipo for.
 randrange(0, 101, 2)   # output: 26
 
@@ -1577,6 +1579,19 @@ def permutations_with_repetitions(lista, n): # len(lista)^n
     return output
 
 print(permutations_with_repetitions(['a','b'], 3))
+
+
+# potencia de un conjunto : P(A) : 
+
+def potencia(c):
+    if len(c) == 0:
+        return [[]]
+    r = potencia(c[:-1])
+    return r + [s + [c[-1]] for s in r]
+
+A = [1,2,3]
+        
+print(potencia(A.copy())) # len(...) = 2^len(A) = 8
 
 
 36 ------------------------->>> CLASES - ENCAPSULAMIENTO - HERENCIA - POLIMORFISMO :
@@ -4398,7 +4413,7 @@ data = list(emoji.EMOJI_UNICODE_ENGLISH) # all emojis example {':thumbs_up:':emo
 for e in data[-100:]:
     print(emoji.emojize(e))
 
-67 -------------->> pywhatkit : text or string in handwriter or done in hand or people :
+67 -------------->> pywhatkit : text or string in handwriter or done in hand or people : real text :
 documentation: https://pypi.org/project/pywhatkit/
 
 # text to handwrite :
@@ -4415,7 +4430,9 @@ string (required) - String that you want to convert to handwritten text
 save_to (optional, val = "pywhatkit.png") - Path where the image will be saved
 rgb (optional, val = [0,0,138]) - Color of the handwritten character in rgb format
 
+
 # message wsp:
+
 import pywhatkit as kit
 kit.sendwhatmsg()
 

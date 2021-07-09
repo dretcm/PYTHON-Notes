@@ -138,6 +138,8 @@ from time import sleep
 pygame.init()
 window = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 
+WINDOW_SIZE = pygame.display.get_window_size()
+
 pygame.mixer.init()
 pygame.mixer.music.load('ratsasan.mp3')
 pygame.mixer.music.play()
@@ -635,7 +637,7 @@ class InputText:
         x,y = pygame.mouse.get_pos()
         pygame.draw.aaline(screen, light_grey, (screen_width/2,screen_height/2),(x,y))
 
-# (12) ------------------------------------ model of character ---------------------------------- #
+# (12) ------------------------------------ model of character, player model, sprite ---------------------------------- #
 
 import pygame, sys, time, os
 from pygame.locals import *
@@ -733,6 +735,260 @@ while True:
         pygame.display.update()
         clock.tick(30)
 
+
+# option 2:
+
+# player:
+class Player:
+        live = True
+        speed = 15
+
+        left = False
+        right = False
+        up = False
+        down = False
+
+        width = 80
+        height = 80
+
+        sonido_f = pygame.mixer.Sound("music/muerte.mp3")
+
+        speed_sprite = 0.25
+
+        def __init__(self, window_size):
+                self.x = window_size[0]//2 - 45
+                self.y = window_size[1]//2 - 25
+                
+                self.rect = pygame.Rect(self.x,self.y, self.width, self.height)
+
+                self.images = []
+                for img in ['images/player/p10.png', 'images/player/p11.png', 'images/player/p12.png']:
+                        self.images.append(pygame.image.load(img))
+                        
+                self.actual = 0
+                self.image = self.images[self.actual]
+        
+        def down_key(self,key):
+                if key == K_a:
+                        self.left = True
+                if key == K_d:
+                        self.right = True
+                if key == K_w:
+                        self.up = True
+                if key == K_s:
+                        self.down = True
+                        
+        def up_key(self,key):
+                if key == K_a:
+                        self.left = False
+                if key == K_d:
+                        self.right = False
+                if key == K_w:
+                        self.up = False
+                if key == K_s:
+                        self.down = False
+                        
+        def moving_player(self, screen):
+                
+                if self.left:
+                        self.rect.x -= self.speed
+                if self.right:
+                        self.rect.x += self.speed
+                if self.up:
+                        self.rect.y -= self.speed
+                if self.down:
+                        self.rect.y += self.speed
+                
+                screen.blit(self.image, self.get_position())
+                
+                if self.actual >= len(self.images):
+                        self.actual = 0
+                self.image = self.images[int(self.actual)]
+                self.actual += self.speed_sprite
+                
+        def get_position(self):
+                return (self.rect.x, self.rect.y)
+        
+        def set_position(self,x,y):
+                self.rect.topleft = [x, y]
+##                self.rect.x = x
+##                self.rect.y = y
+                
+        def get_collider(self):
+                return self.rect
+
+        def set_player_live(self, live):
+                self.live = live
+                self.sonido_f.play()
+                
+        def player_live(self):
+                return self.live
+
+
+
+# sprite examples :
+
+import pygame, sys
+
+class Player(pygame.sprite.Sprite):
+	def __init__(self, pos_x, pos_y):
+		super().__init__()
+		self.attack_animation = False
+		self.sprites = []
+		self.sprites.append(pygame.image.load('attack_1.png'))
+		self.sprites.append(pygame.image.load('attack_2.png'))
+		self.sprites.append(pygame.image.load('attack_3.png'))
+		self.sprites.append(pygame.image.load('attack_4.png'))
+		self.sprites.append(pygame.image.load('attack_5.png'))
+		self.sprites.append(pygame.image.load('attack_6.png'))
+		self.sprites.append(pygame.image.load('attack_7.png'))
+		self.sprites.append(pygame.image.load('attack_8.png'))
+		self.sprites.append(pygame.image.load('attack_9.png'))
+		self.sprites.append(pygame.image.load('attack_10.png'))
+		self.current_sprite = 0
+		self.image = self.sprites[self.current_sprite]
+
+		self.rect = self.image.get_rect()
+		self.rect.topleft = [pos_x,pos_y]
+
+	def attack(self):
+		self.attack_animation = True
+
+	def update(self,speed):
+		if self.attack_animation == True:
+			self.current_sprite += speed
+			if int(self.current_sprite) >= len(self.sprites):
+				self.current_sprite = 0
+				self.attack_animation = False
+
+		self.image = self.sprites[int(self.current_sprite)]
+
+# General setup
+pygame.init()
+clock = pygame.time.Clock()
+
+# Game Screen
+screen_width = 400
+screen_height = 400
+screen = pygame.display.set_mode((screen_width,screen_height))
+pygame.display.set_caption("Sprite Animation")
+
+# Creating the sprites and groups
+moving_sprites = pygame.sprite.Group()
+player = Player(100,100)
+moving_sprites.add(player)
+
+while True:
+	for event in pygame.event.get():
+		if event.type == pygame.QUIT:
+			pygame.quit()
+			sys.exit()
+		if event.type == pygame.KEYDOWN:
+			player.attack()
+
+	# Drawing
+	screen.fill((0,0,0))
+	moving_sprites.draw(screen)
+	moving_sprites.update(0.25)
+	pygame.display.flip()
+	clock.tick(60)
+
+# option 3:
+
+# player:
+class Player:
+        live = True
+        speed = 15
+
+        left = False
+        right = False
+        up = False
+        down = False
+
+        width = 80
+        height = 80
+
+        sonido_f = pygame.mixer.Sound("music/muerte.mp3")
+
+        speed_sprite = 0.1
+
+        def __init__(self, window_size):
+                self.x = window_size[0]//2 - 45
+                self.y = window_size[1]//2 - 25
+                
+                self.rect = pygame.Rect(self.x,self.y, self.width, self.height)
+
+                func = lambda img: pygame.image.load(img)
+
+                self.images = [func(i) for i in ['images/player/player10.png', 'images/player/player11.png']]
+                self.images_up = [func(i) for i in ['images/player/player0.png', 'images/player/player1.png', 'images/player/player2.png']]
+                self.images_down = [func(i) for i in ['images/player/player3.png', 'images/player/player4.png', 'images/player/player5.png']]
+                self.images_left = [func(i) for i in ['images/player/player8.png', 'images/player/player9.png']]
+                self.images_right = [func(i) for i in ['images/player/player6.png', 'images/player/player7.png']]
+                        
+                self.actual = 0
+                self.image = self.images[self.actual]
+        
+        def down_key(self,key):
+                if key == K_a:
+                        self.left = True
+                if key == K_d:
+                        self.right = True
+                if key == K_w:
+                        self.up = True
+                if key == K_s:
+                        self.down = True
+                        
+        def up_key(self,key):
+                if key == K_a:
+                        self.left = False
+                if key == K_d:
+                        self.right = False
+                if key == K_w:
+                        self.up = False
+                if key == K_s:
+                        self.down = False
+                        
+        def moving_player(self, screen):
+                now = self.images
+                
+                if self.left:
+                        self.rect.x -= self.speed
+                        now = self.images_left
+                if self.right:
+                        self.rect.x += self.speed
+                        now = self.images_right
+                if self.up:
+                        self.rect.y -= self.speed
+                        now = self.images_up
+                if self.down:
+                        self.rect.y += self.speed
+                        now = self.images_down
+                
+                screen.blit(self.image, self.get_position())
+                self.changues_img(now)
+
+        def changues_img(self, sprites):
+                if self.actual >= len(sprites):
+                        self.actual = 0
+                self.image = sprites[int(self.actual)]
+                self.actual += self.speed_sprite
+                
+        def get_position(self):
+                return (self.rect.x, self.rect.y)
+        
+        def set_position(self,x,y):
+                self.rect.topleft = [x, y]
+                
+        def get_collider(self):
+                return self.rect
+
+        def set_player_live(self, live):
+                self.live = live
+                self.sonido_f.play()
+                
+        def player_live(self):
+                return self.live
 
 # (13) ------------------------------------ pog game  ---------------------------------- #
 
@@ -1322,5 +1578,60 @@ class Orda:
                 screen.blit(message, (self.size_screen[0]-170,10))
 
     
-# (16) ------------------------------------ input text  ---------------------------------- #
+# (16) ------------------------------------ particulas : particles  ---------------------------------- #
+
+import pygame, sys, random
+from pygame.locals import *
+
+pygame.init()
+mainClock = pygame.time.Clock()
+
+screen = pygame.display.set_mode((500, 500),0,32)
+
+def circle_surf(radius, color):
+    surf = pygame.Surface((radius * 2, radius * 2))
+    pygame.draw.circle(surf, color, (radius, radius), radius)
+    surf.set_colorkey((0, 0, 0))
+    return surf
+
+# [localitation x & y, velocity, timer]
+particles = []
+
+while True:
+    screen.fill((0,0,0))
+
+    pygame.draw.rect(screen, (50, 20, 120), pygame.Rect(100, 100, 200, 80))
+
+    mx, my = pygame.mouse.get_pos()
+    particles.append([[mx, my], [random.randint(0,20) / 10 -1, -5], random.randint(6, 20)]) # random.uniform(-1,1) <==> random.randint(0,20) / 10 -1
+
+    for particle in particles:
+        particle[0][0] += particle[1][0]
+        particle[0][1] += particle[1][1]
+        particle[2] -= 0.1
+        particle[1][1] += 0.15
+        
+        pygame.draw.circle(screen, (255, 255, 255), [int(particle[0][0]), int(particle[0][1])], int(particle[2]))
+
+        radius = particle[2] * 2
+        screen.blit(circle_surf(radius, (255, 0, 0)), (int(particle[0][0] - radius), int(particle[0][1] - radius)), special_flags=BLEND_RGB_ADD)
+
+        if particle[2] <= 0:
+            particles.remove(particle)
+
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            pygame.quit()
+            sys.exit()
+
+    pygame.display.update()
+    mainClock.tick(60)
+
+
 # (17) ------------------------------------ input text  ---------------------------------- #
+# (18) ------------------------------------ input text  ---------------------------------- #
+# (19) ------------------------------------ input text  ---------------------------------- #
+# (20) ------------------------------------ input text  ---------------------------------- #
+# (21) ------------------------------------ input text  ---------------------------------- #
+# (22) ------------------------------------ input text  ---------------------------------- #
+# (23) ------------------------------------ input text  ---------------------------------- #
