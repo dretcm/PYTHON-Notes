@@ -175,6 +175,12 @@ def find_position(string, sub):
 
 print(find_position('la musica no esta fuerte', 'no esta fuerte'))
 
+
+------------------->>> IPython :
+
+from IPython.display import clear_output
+clear_output(wait=True) # clear the screen.
+
 ------------------->>> ASIGNACION MULTIPLE :
 
 cadena = "a-b-c"
@@ -263,6 +269,13 @@ print(L) # ['a','o','l','a']
 lista.append(añade_elemento) # para añadir elementos a las listas.
 lista.extend([x,y,z]) # para exterder a la lista con elementos puestos.
 lista.insert(poscicion,valor) # para colocar un elemento " y "en la posicion "x".
+
+a = []
+a.insert(0,3)
+a # [3]
+a.insert(0,5)
+a # [5,3]
+
 lista.clear() # para eliminar todos los elementos de la lista.
 lista.pop(posicion_a_eliminar) # para eliminar cierto elemto en la poscicion "x".
 lista.remove(valor_a_eliminar)
@@ -1898,6 +1911,12 @@ print(np.std(a))    # imprime la desviacion estandar (La desviación estándar e
 # la desviacion standar viene a ser el _Delta de X.
 
 print(np.mean(a))  # la media del array, matriz etc.
+x = np.array([[1], [4]])
+np.mean(x, axis=0) # [2.5] => 1 + 4 / 2 # sum all rows by each column
+np.mean(x, axis=1) # [[1.0], [4.0]] => 1 / 1, 4 / 1 # sum all columns of each row.
+
+x = np.array([[1], [4]])
+np.mean(x, axis=0, keepdims=True) # [[2.5]] 
 
 x = np.array([(1,2,3),(4,5,6)])  
 y = np.array([(1,2,3),(4,5,6)])
@@ -1916,7 +1935,16 @@ std[ std == 0 ] = 1 # COMO UN MINI CONDICIONAL. si elemento[x] es == 0 entonces 
 a = np.array([(1,2,3),(4,5,6)])
 print(np.sum(a))  # imprime 21, suma todos los elementos del arreglo o matriz.
 
+# new axis : np.newaxis :
+
+x = np.array([1,2,3]) # shape = (3,) # that is to say, a array with 3 columns
+x = x[:, np.newaxis] # add new axis to array
+x.shape # (3,1) # now this array is a matrix that have 3 rows and 1 colunm, R3x1
+x = x[:, np.newaxis] 
+x.shape # (3,1,1) # now this matrix is a tensor with 3 matrix  with 1 row and 1 colunm, R3x1x1
+
 dists = np.sum(np.power(X_test[:, np.newaxis] - X_train,2),axis=2)
+
 # se usa el axis 2, para entrar al 3 array. [ [ [3],[3] ],[ [3], [3] ] ]
 
 a = np.arange(6).reshape(2,3) + 10
@@ -2383,7 +2411,15 @@ print(a.std())  #para mostrar la desviacion estandar de cada columna o en otras 
 2  3.0
 
 
-42 ---------------->>>> MATPLOLIB : import matplotlib.pyplot as plt :
+# iterate elements with other array:
+
+X, Y = make_circles(n_samples=n_samples, factor=0.5, noise=0.05)
+
+plt.scatter(X[Y == 0,0], X[Y == 0,1], c = 'red')
+plt.scatter(X[Y == 1,0], X[Y == 1,1], c = 'blue')
+plt.show()
+
+42 ---------------->>>> MATPLOLIB : import matplotlib.pyplot as plt : use matplotlib :
 || TEXT ||
 
 plt.text(3,-0.1, "Suma de Riemann: ", color='r')       # 1 parametro(eje x), 2 parametro(eje y), 3 parametro(string), 4 (color con una char).
@@ -2538,6 +2574,36 @@ plt.xlabel("Eje X: ")
 plt.text(3,-0.1, "La Distancia entre los puntos es: "+str(distancia(x1,y1)), color='r')
 plt.show()
 
+# subplots arrays:
+
+sigmoid = (
+          lambda x: 1 / (1 + np.e ** (-x)),
+          lambda x: x * (1 - x)
+          )
+
+relu = lambda x: np.maximum(x,0)
+
+
+_x = np.linspace(-5, 5, 100)
+
+plt.subplots(figsize=(12,8))
+
+ax1 = plt.subplot(2, 2, 1)
+ax1.plot(_x, sigmoid[0](_x))
+ax1.set_title('sigmoid')
+
+ax2 = plt.subplot(2, 2, 2)
+ax2.plot(_x, sigmoid[1](_x))
+ax2.set_title('sigmoid derivated')
+
+ax3 = plt.subplot(2, 2, 3)
+ax3.plot(_x, relu(_x))
+ax3.set_title('Relu')
+
+plt.tight_layout()
+plt.show()
+
+
 # subplots in images:
 
 from PIL import Image
@@ -2691,6 +2757,60 @@ ax.set_zlabel('Z-axis', fontweight ='bold')
 
 fig.colorbar(sctt, ax = ax, shrink = 0.5, aspect = 5)
 plt.show()
+
+
+# mesh grid :
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+size = 50
+x1 = np.linspace(-1, 1, size)
+y1 = np.linspace(-1, 1, size)
+mesh = np.zeros((size, size))
+
+for i in range(size):
+  for j in range(size):
+    mesh[i,j] = np.random.randint(0,2)
+
+plt.pcolormesh(x1,  y1, mesh, cmap='coolwarm')
+plt.show()
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+size = 50
+x1 = np.linspace(-1, 1, size)
+y1 = np.linspace(-1, 1, size)
+mesh = np.random.rand(size, size)
+
+plt.pcolormesh(x1,  y1, mesh, cmap='coolwarm')
+plt.show()
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+size = 50
+x1 = np.linspace(-1, 1, size)
+y1 = np.linspace(-1, 1, size)
+mesh = np.zeros((size, size))
+
+con = 0
+current = 0.0
+for i in range(size):
+  for j in range(size):
+    if con<25:
+      mesh[i,j] = current
+    else:
+      mesh[i,j] = current
+    current += 0.01
+  con+=1
+
+plt.pcolormesh(x1,  y1, mesh, cmap='coolwarm')
+plt.show()
+
 
 43 ---------------->>>>  OPERADORES DE CLASE EN PYTHON : OPERATORS CLASS :
 
@@ -4115,6 +4235,18 @@ if __name__ == "__main__":
 
 60 -------------->> concatenate video and audio : ffmpeg : convert video to audio : compress large video :
 
+DATA
+
+"size" - percent pixel size of the converted video in relation to the original.
+"bitrate" - bitrates of original and converted videos.
+"definition" - pixel size of videos.
+"convert" - time to convert the video in seconds.
+
+To compress for web at a reasonable broadband bitrate of about 1.5Mbps video / 128kbps audio.
+Mbps less the memory will be lite.
+Kbps less the memory will be lite or lieghtwidth.
+
+
 # first: 
 conda install -c menpo ffmpeg
 pip install ffmpeg-python
@@ -4153,7 +4285,8 @@ import subprocess
 videofile = "video.mp4"
 outputfile = "output.mp4"
 subprocess.run(f"ffmpeg -i {videofile} -c:v libx264 -b:v 1.5M -c:a libvo_aacenc -b:a 128K {outputfile}")  # of 1.37 GB to 17.2 MB
-## in cmd it will be> ffmpeg -i "video.mp4" -c:v libx264 -b:v 1.5M -c:a libvo_aacenc -b:a 128K "output.mp4"
+## in cmd it will be> ffmpeg -i "video.mp4" -c:v libx264 -b:v 1.5M -c:a libvo_aacenc -b:a 128K "output.mp4"   # normal compress
+ffmpeg -i "video.mp4" -c:v libx264 -b:v 0.3M -c:a libvo_aacenc -b:a 128K "output.mp4"  # lite compress
 
 
 # cut mp3
