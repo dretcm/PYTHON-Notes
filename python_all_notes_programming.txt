@@ -56,7 +56,8 @@ import sys
 sys.path.append('\\packagues')
 from my_script import my_function
 
----------->>> DICCIONARIO MULTIPLE :
+
+---------->>> DICCIONARIO MULTIPLE : dict :
 
 dic_account={"a":{1:"a",2:"ADMINISTRADOR",3:"Todo el mundo"}}
 
@@ -118,11 +119,41 @@ b = [1,2,3,4]
 dictionary = {value:b[index]  for index, value in enumerate(a)} 
 # output:{'a': 1, 'b': 2, 'c': 3, 'd': 4}
 
+
+>>> text = "hola gente como anda"
+>>> {word: text.count(word) for word in set(text)}
+{'h': 1, 'g': 1, 'c': 1, 'o': 3, 'l': 1, 'e': 2, 'd': 1, 't': 1, ' ': 3, 'm': 1, 'n': 2, 'a': 3}
+
 ---------------------------->>> PARA QUE FUNCION EL INT PRIMARY KEY AUTOINCREMENT :
 
 ("create table empleados(id integer primary key autoincrement,name text,salario float,bono text)")
 
 alex.insert_data("insert into empleados (name,salario,bono) values(?,?,?)",lista_datos)  //el id se aumentara solo
+
+---------------------------->>> for and while with else :
+
+data = [1 , 3, 5, 8]
+target = 4
+for element in data:
+	if element == target:
+		print('Yes')
+		break
+else:
+	print("No")
+
+# output with for: No
+
+target = 3
+i = 0
+while i < len(data):
+	if data[i] == target:
+		print('Yes')
+		break
+	i += 1
+else:
+	print("No")	
+
+# output with for: Yes
 
 ---------------NUEVO -----> PICKLE USE: 
 
@@ -246,7 +277,7 @@ print('A' > 'a') # output : False
 name = 'pedro'
 print(f' name: {name}') # output: name: pedro
 
-print(f' abc{10}ef{2}ghijk{32}{01}') # output: abc10ef2ghijk3201
+print(f' abc{10}ef{2}ghijk{32}{01}{[1,2,3]}') # output: abc10ef2ghijk3201[1,2,3]
 
 # trucks with format:
 
@@ -256,7 +287,8 @@ timer = "{:02d}{:02d}:{:02d}".format(3,7,12) # output: 03:07:12
 timer = "{:02}{:02}:{:02}".format(3,7,12) # output: 03:07:12
 timer = "{:03}{:03}:{:05}".format(3,7,12) # output: 003:007:00012
 
-2 ---------> listas : list :
+
+2 ---------> listas : list : dtype list :
 
 # the string's or 'str' are INMUTABLES. The list, by other way, are MUTABLES,(i.e):
 string = "hello"
@@ -277,31 +309,24 @@ a.insert(0,5)
 a # [5,3]
 
 lista.clear() # para eliminar todos los elementos de la lista.
+
 lista.pop(posicion_a_eliminar) # para eliminar cierto elemto en la poscicion "x".
+
 lista.remove(valor_a_eliminar)
+
 lista.index(palabra_a_buscar) #te devuelve la poscicion.
+
 lista.sort() # ordena la lista.
 # para ordenar una lista se usa el comando "lista.sort()" y para invertirla o verla al revez seria "lista.sort(reverse=True)".
 # tambien se puede usar "lista.reverse()" para voltear la lista pero no ordenarla
+# sort with key.
+>>> data = [[1,5], [2,-3], [6,0], [2,3]]
+>>> data.sort(key=lambda x: x[0]+x[1])
+>>> data
+[[2, -3], [2, 3], [1, 5], [6, 0]]
 
-# para hacer las famosas matrices primero crearemos " matriz " que sera la principal, luego en los " for "  agregaremos mas listas " matriz1 "para que estas sean rows o filas
-# ejemplo:
 
-matriz=[]
-
-r=int(input(" Enter quantity of rows: "))
-c=int(input(" Enter quantity of columns: "))
-
-for i in range(r):
-    matriz1=[]
-    for f in range(c):
-        a=int(input(" Enter number in position ["+str(i)+"]["+str(f)+"]: "))
-        matriz1.append(a)   # aqui agregamos elementos "a" ingresados por teclado a la matriz secundaria o las filas.
-    matriz.append(matriz1)  # aqui agregamos la sublista a la lista principal.
-# conejos: cuando se traten de coleciones(listas, tuplas, conjuntos, diccionarios y no sé que más) usaremos cada herramienta posible para definir estas segun sean sus caracteristicas principales
-# osea si queremos ordenar algo, agregar, eliminar, usaremos listas(list(x)), si queremos solo saber que elementos hay sin repetirce usaremos "set(x)", si queremos
-# que tengan claves con valores usaremos "dict(zip(lista1,lista2))" donde veremos una mejor explicación en el punto 8, y "set" para convertirlos en conjuntos, tambien me olvidaba de las tuplas
-# que son "tuple(x)"que como que las convierten a constantes o algo así.
+lista.count(element)  # retornara el numero de veces que aparece ele element en la lista.
 
 
 # List Comprehension : Listas Comprimidas:
@@ -322,6 +347,19 @@ elements = [int(n) for n in input('Enter numbers(1,2,3,4,...): ').split(',')]  #
 # example 4:
 elements = [[i,j] for i in range(10) for j in range(10)]  # output: [[0,0],[0,1],[0,2].......[9,8],[9,9]]
 elements = [[i*j for j in range(10)] for i in range(10)]  # output: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],...., [0, 9, 18, 27, 36, 45, 54, 63, 72, 81]]
+
+
+# example 5:
+
+>>> text = "hola gente como anda"
+>>> dict([(word, text.count(word)) for word in set(text)])  
+{'h': 1, 'o': 3, 'l': 1, 'a': 3, ' ': 3, 'g': 1, 'e': 2, 'n': 2, 't': 1, 'c': 1, 'm': 1, 'd': 1}
+
+# example with dictionary : dict :
+
+>>> {word: text.count(word) for word in set(text)}
+{'h': 1, 'g': 1, 'c': 1, 'o': 3, 'l': 1, 'e': 2, 'd': 1, 't': 1, ' ': 3, 'm': 1, 'n': 2, 'a': 3}
+
 
 # record that if using 'for' for iterate list, tuple, is recomend use the same type of iterate:
 
@@ -548,7 +586,7 @@ b = int(input('enter number: '))
 c = int(input('enter number: '))
 print(major(a,b,c))
 
-8--->>
+8--->> use zip python : zip() :
 
 # usar "zip", esta sirve para unir listas, o colecciones para transformarlas en un dicionario con sus respectivas llaves o keys y valores o values
 ejemplo:
@@ -558,10 +596,37 @@ dates1=dict(zip(list1,list2))
 # donde "list1" es igual a "keys"
 # y "list2" es igual a "values"
 
-
 a = (1,2)
 b = (3,4)
-list(zip(a,b)) # [(1,2),(3,4)]
+list(zip(a,b)) # [(1,2),(3,4)] # unmutable
+
+>>> list(zip([1,2],[3,4])) # mutable
+[(1, 3), (2, 4)]
+
+>>> list(zip([1,2],[3,4], [5,6]))
+[(1, 3, 5), (2, 4, 6)]
+
+
+# example with two list:
+>>> names = ['Aron', 'Breyton', 'Camile', 'Derek']
+>>> ages = [13, 23, 87, 2]
+>>> for name, age in zip(names, ages):  # [('Aron', 13), ('Breyton', 23), ...]
+	if age < 15:
+		print(name)
+Aron
+Derek
+
+
+# with 3 elements
+>>> names = ['Aron', 'Breyton', 'Camile', 'Derek']
+>>> ages = [13, 23, 87, 2]
+>>> citys = ['A', 'B', 'C', 'D']
+>>> for name, age, city in zip(names, ages, citys):  # [('Aron', 13, 'A'), ('Breyton', 23, 'B'), ...]
+	if age < 15:
+		print(name, city)
+Aron A
+Derek D
+
 
 9--->> set operations (|,^,-,&): use set :
 
@@ -1853,6 +1918,13 @@ print("\nejemplo 3:\n",arreglo)
 arreglo = np.arange(2,3,0.1)   // desde 2, hasta 3, con paso de 0.1. 
 print("\nejemplo 4:\n",arreglo)
 
+# arange with rows and columns:
+>>> x = np.arange(30).reshape((3,10))   # generate a array with 30 elements since 0, and reshape with 3 rows and 10 columns.
+>>> x
+array([[ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9],
+       [10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+       [20, 21, 22, 23, 24, 25, 26, 27, 28, 29]])
+
 arreglo = np.linspace(1.,4.,6)   // genera un array de "6" valores entre "1." hasta "4.".
 print("\nejemplo 5:\n",arreglo)
 
@@ -1879,6 +1951,17 @@ print(a.dtype)       # imprime el tipo de dato, en este caso es "int64".
 a = np.array([(1,2,3,4,5,6)])
 print(a.size)    # 6, retorna el tamaño del array.
 print(a.shape)   # (1,6)   retorna la forma del array.
+
+
+# array operation:
+
+import numpy as np
+from math import e
+import matplotlib.pyplot as plt
+>>> x = np.arange(-10,11) # dom(x) = [-10,10]
+>>> y = e**x
+>>> plt.plot(x,y)
+>>> plt.show()
 
 ----
 a = np.array([(1,2,3),(4,5,6)])   # matriz de 2 filas por 3 columnas.
@@ -1930,10 +2013,34 @@ X = np.random.permutation(X)  # genera un roden aleatorio de los elementos del a
 mu = np.mean(X,axis=0) # X es un arreglo o matriz, AL PONER AXIS = 0 NOS RETORNARA UN ARRAY DE LA MEDIA DE CADA COLUMNA.
 std = np.std(X,axis=0)
 
-std[ std == 0 ] = 1 # COMO UN MINI CONDICIONAL. si elemento[x] es == 0 entonces elemento[x] = 1 etcetcetc.
+
+# conditionals:
+
+>>> std[ std == 0 ] = 1 # COMO UN MINI CONDICIONAL. si elemento[x] es == 0 entonces elemento[x] = 1 etcetcetc.
+
+
+>>> X, Y = make_circles(n_samples=n_samples, factor=0.5, noise=0.05)
+>>> print('samples and n inputs: ',X.shape)
+(500,2)
+>>> print(Y.shape)
+(500,)
+>>> Y = Y[:, np.newaxis] 
+>>> print(Y.shape)
+(500,1)
+
+>>> plt.scatter(X[Y[:, 0] == 0,0], X[Y[:, 0] == 0,1], c = 'blue') # when Y the first colunm in all rows is equals to 0, then we'll get only the rows in X when Y is fulfilled.
+>>> plt.scatter(X[Y[:, 0] == 1,0], X[Y[:, 0] == 1,1], c = 'red')
+>>> plt.show()
+
+
+>>> train[train[:,0] == 1] # get array when the first column(index:0) is equals to 1.
+
+
+# sum np:
 
 a = np.array([(1,2,3),(4,5,6)])
 print(np.sum(a))  # imprime 21, suma todos los elementos del arreglo o matriz.
+
 
 # new axis : np.newaxis :
 
@@ -2220,6 +2327,67 @@ array([1, 2, 3, 4, 5, 6])
 a = np.array([[1,2], [3,4]])
 a.flatten()
 array([1, 2, 3, 4])
+
+
+# 2 iters, 1 iter, and map:
+
+func = lambda th: np.sin(1/2 * th[0]**2 - 1/4 * th[1]**2 + 3) * np.cos(2 * th[0] + 1 - np.e**th[1])
+
+size = 100
+
+_x = np.linspace(-2, 2, size)
+_y = np.linspace(-2, 2, size)
+
+# two
+_z = np.zeros((size,size))
+
+for i in range(_x.shape[0]):
+  for j in range(_x.shape[0]):
+    _z[i,j] = func([_x[i],_y[j]])
+_z
+
+
+# one
+_z = np.zeros((size,size))
+for i in range(_x.shape[0]):
+  _z[i] = func([_x[i],_y])
+_z
+
+
+# map
+_z = np.zeros((size,size))
+_z = np.array(list(map(lambda x: func([x,_y]), _x)))
+_z
+
+
+# asignate values in subsets :
+
+>>> z = np.zeros((3,10))
+>>> z
+array([[0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]])
+
+>>> z[0,[1,2,3]] = 1
+>>> z
+array([[0., 1., 1., 1., 0., 0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0.],
+       [0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]])
+
+## example 2:
+
+import numpy as np
+
+def vectorize_sequences(sequences, dimension=10000):
+  results = np.zeros((len(sequences), dimension)) 	# shape: (x_rows, 10 000)
+  for i, sequence in enumerate(sequences):
+    results[i, sequence] = 1.    # asignate "1." float to subset as the previous example.
+  return results
+  
+x_train = vectorize_sequences(train_data)
+x_test = vectorize_sequences(test_data)
+
+>>>
 
 
 40 ------------------->>> USO DE * Y ** EN PYTHON PARA PARAMETROS : SOBRECARGA DE FUNCIONES 2.0 :
@@ -2811,6 +2979,19 @@ for i in range(size):
 plt.pcolormesh(x1,  y1, mesh, cmap='coolwarm')
 plt.show()
 
+
+# use contour : contourf :
+
+plt.contour(_x,_y,_z, 100) # lines without font
+plt.show()
+
+
+plt.contourf(_x,_y,_z, 100) # color areas
+plt.show()
+
+plt.contourf(_x,_y,_z, 100)
+plt.colorbar() # deep level colors
+plt.show()
 
 43 ---------------->>>>  OPERADORES DE CLASE EN PYTHON : OPERATORS CLASS :
 
@@ -4576,4 +4757,101 @@ time_min (required) - Minutes at which you want to send message
 wait_time (optional, val=20) - Seconds after which the message will be sent after opening the web
 print_waitTime (optional, val=True) - Will print the remaining time if set to true
 
-68 -------------->> 
+68 -------------->> use perfplot :
+
+# it package is usefull for making measures, etc.
+# example of https://stackoverflow.com/questions/35215161/most-efficient-way-to-map-function-over-numpy-array
+
+import numpy as np
+import perfplot
+import math
+
+def f(x):
+    # return math.sqrt(x)
+    return np.sqrt(x)
+
+vf = np.vectorize(f)
+
+def array_for(x):
+    return np.array([f(xi) for xi in x])
+
+def array_map(x):
+    return np.array(list(map(f, x)))
+
+def fromiter(x):
+    return np.fromiter((f(xi) for xi in x), x.dtype)
+
+def vectorize(x):
+    return np.vectorize(f)(x)
+
+def vectorize_without_init(x):
+    return vf(x)
+
+perfplot.show(
+    setup=np.random.rand,
+    n_range=[2 ** k for k in range(20)],
+    kernels=[f, array_for, array_map, fromiter,
+             vectorize, vectorize_without_init],
+    xlabel="len(x)",
+)
+
+69 -------------->> use copy : package copy :
+
+import copy
+labels_copy = copy.copy(labels)    # similar to list function .copy()
+
+70 -------------->> docstrings : docs strings :
+
+# when you cursor stay in any param of class or function class it will provide about the class or method.
+
+class Person():
+        """
+        Person class
+
+        Attributes:
+        -----------
+
+        Private:
+
+          __age: int
+            this is the person's age
+
+          __sex: str
+            this is the sex.
+
+        Public:
+
+          name: str
+            this is the name.
+
+        Methods:
+        ________
+
+        get_info (self,): str
+            return a str about the all attributes
+
+
+        """
+        def __init__(self, name, age, sex):
+                """Constructor for Person
+
+                name: put person's name str data type
+                age: put an integer(int) which is person's age
+                sex: 'male' or 'female' str data type
+                """
+                self.name = name
+                self.__age = age
+                self.__sex = sex
+                
+        def get_info(self):
+                """function get info
+
+                return: call the object how print or str return a chain of text about the data
+                """
+                return self.name + ' / ' + str(self.__age) + ' / ' +self.__sex
+
+
+someone = Person(, ,)
+someone.get_info()
+
+71 -------------->> 
