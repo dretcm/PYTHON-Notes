@@ -3709,6 +3709,7 @@ path = 'D:\images'
 os.mkdir(path)
 os.system(f'MKDIR {path}')
 os.system(f'MD {path}')
+os.system(f'COPY {img} {folder_name}')
 
 # tree : walk :
 
@@ -4145,6 +4146,166 @@ write('output.wav', fs, myrecording)  # Save as WAV file
 os.startfile("output.wav")
 
 
+
+# >>> plot any file.wav and frecuency :
+# https://programmerclick.com/article/33491350808/
+
+import wave
+import struct
+import matplotlib.pyplot as plt
+import numpy as np
+
+wave_file=wave.open("xsong.wav", 'r')
+
+channels = wave_file.getnchannels()
+samp_width = wave_file.getsampwidth()
+frame_rate = wave_file.getframerate()
+numframes = wave_file.getnframes()
+
+
+print("channel",channels)
+print('samp_width',samp_width)
+print('frame_rate',frame_rate)
+print('numframes',numframes)
+
+
+x = np.arange(numframes)
+data = np.zeros(numframes)
+
+for i in range(numframes):
+    frame = wave_file.readframes(1)
+    data[i] = struct.unpack("h",frame[0:2])[0] # Convierte datos binarios en decimales (entero de 16 bits con signo) porque el tamaño de muestra aquí es de 16 bits
+
+# standarization:
+
+std = np.std(data)
+mean = np.mean(data)
+
+data -= mean
+data /= std
+
+# plot data
+plt.plot(x, data)
+plt.show()
+
+wave_file.close()
+
+
+# espectograma con animacion: https://pyshine.com/How-to-make-a-real-time-voice-plot/
+
+import queue
+import sys
+from matplotlib.animation import FuncAnimation
+import matplotlib.pyplot as plt
+import numpy as np
+import sounddevice as sd
+
+# Lets define audio variables
+# We will use the default PC or Laptop mic to input the sound
+
+device = 0 # id of the audio device by default
+window = 1000 # window for the data
+downsample = 1 # how much samples to drop
+channels = [1] # a list of audio channels
+interval = 30 # this is update interval in miliseconds for plot
+
+# lets make a queue
+q = queue.Queue()
+# Please note that this sd.query_devices has an s in the end.
+device_info =  sd.query_devices(device, 'input')
+samplerate = device_info['default_samplerate']
+length  = int(window*samplerate/(1000*downsample))
+
+# lets print it 
+print("Sample Rate: ", samplerate)
+
+# Typical sample rate is 44100 so lets see.
+
+# Ok so lets move forward
+
+# Now we require a variable to hold the samples 
+
+plotdata =  np.zeros((length,len(channels)))
+# Lets look at the shape of this plotdata 
+print("plotdata shape: ", plotdata.shape)
+# So its vector of length 44100
+# Or we can also say that its a matrix of rows 44100 and cols 1
+
+# next is to make fig and axis of matplotlib plt
+fig,ax = plt.subplots(figsize=(8,4))
+
+# lets set the title
+ax.set_title("PyShine")
+
+# Make a matplotlib.lines.Line2D plot item of color green
+# R,G,B = 0,1,0.29
+
+lines = ax.plot(plotdata,color = (0,1,0.29))
+
+# We will use an audio call back function to put the data in queue
+
+def audio_callback(indata,frames,time,status):
+	q.put(indata[::downsample,[0]])
+
+# now we will use an another function 
+# It will take frame of audio samples from the queue and update
+# to the lines
+
+def update_plot(frame):
+	global plotdata
+	while True:
+		try: 
+			data = q.get_nowait()
+		except queue.Empty:
+			break
+		shift = len(data)
+		plotdata = np.roll(plotdata, -shift,axis = 0)
+		# Elements that roll beyond the last position are 
+		# re-introduced 
+		plotdata[-shift:,:] = data
+	for column, line in enumerate(lines):
+		line.set_ydata(plotdata[:,column])
+	return lines
+ax.set_facecolor((0,0,0))
+# Lets add the grid
+ax.set_yticks([0])
+ax.yaxis.grid(True)
+
+""" INPUT FROM MIC """
+
+stream  = sd.InputStream( device = device, channels = max(channels), samplerate = samplerate, callback  = audio_callback)
+
+
+""" OUTPUT """		
+
+ani  = FuncAnimation(fig,update_plot, interval=interval,blit=True)
+with stream:
+	plt.show()
+
+
+
+# https://newbedev.com/how-to-read-realtime-microphone-audio-volume-in-python-and-ffmpeg-or-similar
+
+import sounddevice as sd
+import numpy as np
+
+def print_sound(indata, outdata, frames, time, status):
+    volume_norm = np.linalg.norm(indata)*10
+    print ("|" * int(volume_norm))
+
+with sd.Stream(callback=print_sound):
+    sd.sleep(10000)  # stop in 10 sec, this parameter is in miliseconds
+
+stream = sd.Stream(callback = print_sound)
+stream.start()  # undefine type while True
+
+
+stream = sd.Stream(callback = print_sound)
+stream.start()
+sd.sleep(10000)  # later of 10 sec
+stream.stop()  # stop the stream
+
+
 58 -------------->> web scraping : requests and bs4 (BeautifulSoup) :
 
 # example 1:
@@ -4414,7 +4575,7 @@ if __name__ == "__main__":
         total = time.time() - begin
         print(f'It took {total} seconds.') # output: It took 0.402921199798584 seconds.
 
-60 -------------->> concatenate video and audio : ffmpeg : convert video to audio : compress large video :
+60 -------------->> concatenate video and audio : use ffmpeg : convert video to audio : compress large video :
 
 DATA
 
@@ -4480,7 +4641,9 @@ y ya está.
 
 Cortar 11 segundos a partir del segundo 42 de un mp3
 
-$ ffmpeg -i miMp3.mp3 -ss 42 -t 11 mis11nuevosSegundos.mp3
+C:\...> ffmpeg -i miMp3.mp3 -ss 42 -t 11 mis11nuevosSegundos.mp3
+
+D:\...> ffmpeg -i mivideo.mp4 -ss 360 -t 100 cortovideo.mp4     # desde el segundo 360(6 min) cortar 100 segundos(1 min y 40 sec) apra adelante.
 
 # cortar audio desde 1 segundo hasta al final:
 ffmpeg -i grito.mp3 -ss 1 new_grito.mp3

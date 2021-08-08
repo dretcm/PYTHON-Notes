@@ -195,11 +195,49 @@ def delete_all_table(self):
 		self.dig.entradatodo.removeRow(0)
 
 
-7 ------------->>> CHECKBUTTONS :
+7 ------------->>> CHECKBUTTONS : CHECKBOX :
 
 self.check_val=0
 if self.dig.check1.isChecked():
 	self.check_val=1
+
+import sys
+from PyQt5.QtWidgets import QApplication, QWidget, QCheckBox
+from PyQt5.QtCore import Qt
+
+
+class MyApp(QWidget):
+
+    def __init__(self):
+        super().__init__()
+
+        self.initUI()
+
+    def initUI(self):
+
+        cb = QCheckBox('Show title', self)
+        cb.move(20, 20)
+        cb.toggle()   # Because the check box appears to be off by default, we used toggle() method to change it to on.
+        cb.stateChanged.connect(self.changeTitle)
+
+        self.setWindowTitle('QCheckBox')
+        self.setGeometry(300, 300, 300, 200)
+        self.show()
+
+    def changeTitle(self, state):
+
+        if state == Qt.Checked:
+            self.setWindowTitle('QCheckBox')
+        else:
+            self.setWindowTitle(' ')
+
+
+if __name__ == '__main__':
+
+    app = QApplication(sys.argv)
+    ex = MyApp()
+    sys.exit(app.exec_())
+
 
 8----------->>>>> CAMBIO DE FORMA IMAGEN COLOR EN QT DESINGNER :
 
@@ -259,6 +297,17 @@ dig.label.setStyleSheet("background: white;")
         self.l1.setStyleSheet('font: 10pt "Arial";')
         self.l1.setTextFormat(Qt.RichText)
         self.l1.setStyleSheet("color: red;")
+
+
+# several sets : use setStylesheet : use stylesheet :
+
+                label = QLabel("Settings", self)
+                label.setGeometry(110,20,80,30)
+                label.setStyleSheet('''
+                                font: 11pt "Arial";  # (size words, type word)
+                                text-decoration: underline;  # <u>, subrayado
+				font: 16pt "MS Shell Dlg 2";  # (size words, negrita - bold)
+                                ''')
 
 10 ------------->>> TALLA DE PANTALLA:
 
@@ -1105,5 +1154,187 @@ bg = QLabel('',self)
 bg.setGeometry(0, 0, 400, 270)
 bg.setStyleSheet("background: black;")
 
-11 ------------->>>
-12 ------------->>>
+11 ------------->>> QSlider : QDial : Slider : Dial :
+
+import sys
+from PyQt5.QtWidgets import QApplication, QWidget, QSlider, QDial, QPushButton
+from PyQt5.QtCore import Qt
+
+
+class MyApp(QWidget):
+
+    def __init__(self):
+        super().__init__()
+
+        self.initUI()
+
+    def initUI(self):
+
+        self.slider = QSlider(Qt.Horizontal, self)
+        self.slider.move(30, 30)
+        self.slider.setRange(0, 50)
+        self.slider.setSingleStep(2)
+
+        self.dial = QDial(self)
+        self.dial.move(30, 50)
+        self.dial.setRange(0, 50)
+
+        btn = QPushButton('Default', self)
+        btn.move(35, 160)
+
+        self.slider.valueChanged.connect(self.dial.setValue)
+        self.dial.valueChanged.connect(self.slider.setValue)
+        btn.clicked.connect(self.button_clicked)
+
+        self.setWindowTitle('QSlider and QDial')
+        self.setGeometry(300, 300, 400, 200)
+        self.show()
+
+    def button_clicked(self):
+        self.slider.setValue(0)
+        self.dial.setValue(0)
+
+
+if __name__ == '__main__':
+
+    app = QApplication(sys.argv)
+    ex = MyApp()
+    sys.exit(app.exec_())
+
+
+# get value :
+                self.label = QLabel("2", self)
+                self.label.setGeometry(270,67,70,20)
+                self.label.setStyleSheet('font: 10pt "MS Shell Dlg 2"')
+
+                self.slider = QSlider(Qt.Horizontal, self)
+                self.slider.setGeometry(90,70,170,20)
+                self.slider.setRange(0, 30)
+                self.slider.setValue(2)  # define 2
+
+                self.slider.valueChanged[int].connect(self.setLabel)  # function
+
+        def setLabel(self, value):
+                self.label.setText(str(value))
+
+12 ------------->>> pixmap : use pixmap : images :
+
+import sys
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtCore import Qt
+
+
+class MyApp(QWidget):
+
+    def __init__(self):
+        super().__init__()
+
+        self.initUI()
+
+    def initUI(self):
+
+        pixmap = QPixmap('landscape.jpg')
+
+        lbl_img = QLabel()
+        lbl_img.setPixmap(pixmap)
+        lbl_size = QLabel('Width: '+str(pixmap.width())+', Height: '+str(pixmap.height()))
+        lbl_size.setAlignment(Qt.AlignCenter)
+
+        vbox = QVBoxLayout()
+        vbox.addWidget(lbl_img)
+        vbox.addWidget(lbl_size)
+        self.setLayout(vbox)
+
+        self.setWindowTitle('QPixmap')
+        self.move(300, 300)
+        self.show()
+
+
+if __name__ == '__main__':
+
+    app = QApplication(sys.argv)
+    ex = MyApp()
+    sys.exit(app.exec_())
+
+
+13 ------------->>>  Timer : updates real time : use timer :
+
+import sys
+from PyQt5 import QtCore, QtGui, QtWidgets
+
+path_of_image = 'D:\\screen.png'
+
+class App(QtWidgets.QWidget):
+    def __init__(self):
+        super().__init__()
+        self.title = 'My Screen'
+        self.left = 10
+        self.top = 10
+        self.width = 640
+        self.height = 480
+        self.initUI()
+
+    def initUI(self):
+        self.setWindowTitle(self.title)
+        self.setGeometry(self.left, self.top, self.width, self.height)
+        self.label = QtWidgets.QLabel(self)
+        timer = QtCore.QTimer(self)
+        timer.timeout.connect(self.update_image)
+        timer.start(60*1000)   # 60 * 1000 (miliseconds) = in 60 seconds  # arg: int to miliseconds(msec) 
+
+	# timer.stop()  # thisn function stop the timer
+
+        self.update_image()
+
+    def update_image(self):
+        pixmap = QtGui.QPixmap(path_of_image)
+        if not pixmap.isNull():
+            self.label.setPixmap(pixmap)
+            self.label.adjustSize()
+            self.resize(pixmap.size())
+
+if __name__ == '__main__':
+    app = QtWidgets.QApplication(sys.argv)
+    ex = App()
+    ex.show()
+    sys.exit(app.exec_())
+
+
+14 ------------->>> destyo window or QWidget : static size : size window : set title : set icon : move the window :
+
+# close the window or close the class or object window:
+
+		self.close()  # destroy the window
+
+
+# set size window
+		self.resize(300,200)   # width, height
+
+
+# static window
+
+Syntax : 	self.setFixedSize(width, height)
+
+Argument : It takes two integer as argument i.e width and height.
+Action performed : It set the fixed size of window.
+
+
+# static layout regard the window:
+		print(self.size())  # window size
+		print(self.sizeHint())    # layout size # output: PyQt5.QtCore.QSize(574(this a example of width), 446(hieght example))
+		self.setFixedSize(self.sizeHint())  
+
+
+#  set icon :
+             	self.setWindowIcon(QIcon('data/images/yasu.ico'))
+
+# set title:
+                self.setWindowTitle('Virtual Avatar Voice')
+
+
+# move the window:
+		self.move(150,150)   # (x in the computer's window, y inverser in the window)
+
+
+15 ------------->>>
