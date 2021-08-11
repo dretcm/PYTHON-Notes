@@ -248,6 +248,10 @@ border-radius:60px;   //para que cambie de foram a redodne y pueves ver sus resp
 
 https://www.youtube.com/watch?v=TRKebElniyo&t=799s  //para insertar imagenes.
 
+8.5 ----------------->>> LABEL :
+
+self.label = QLabel("hi", self)
+self.label.resize(width, height)
 
 9 ------------------->>> MOSTRAR IMAGENES : background :
 
@@ -860,6 +864,78 @@ class UiVectors(QWidget):
         msgBox.setStandardButtons(QMessageBox.Ok)
         msgBox.exec()
 
+
+# grid layout:
+
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+import sys
+from PyQt5.QtWidgets import QWidget, QPushButton,QHBoxLayout, QGridLayout, QApplication
+
+class UI(QWidget):
+
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+
+    def initUI(self):
+
+        grid = QGridLayout()
+        self.setLayout(grid)
+
+        #labels used later for buttons
+        names = ['1','2',
+                '3','4',
+                '5','6']
+
+        #a list of positions in the grid.
+        positions = [(i, j) for i in range(3) for j in range(2)]
+
+        #Buttons are created and added to the layout with the addWidget() method.
+        for position, name in zip(positions, names):
+            button = QPushButton(name)
+            grid.addWidget(button, *position)
+
+        self.setWindowTitle('Grid')
+        self.show()
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    ex = UI()
+    sys.exit(app.exec_())
+
+
 4 ------------->>> convert : ToolBar : File Dialog :
 
 import sys
@@ -1217,7 +1293,7 @@ if __name__ == '__main__':
         def setLabel(self, value):
                 self.label.setText(str(value))
 
-12 ------------->>> pixmap : use pixmap : images :
+12 ------------->>> pixmap : use pixmap : images : resize pixmap:
 
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout
@@ -1256,6 +1332,25 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = MyApp()
     sys.exit(app.exec_())
+
+
+# get size:
+pixmap = QPixmap('landscape.jpg')
+pixmap.size()  # Pyqt5.(width, height)
+
+
+# QSize : size pyqt5:
+
+from PyQt5 import QtCore
+self.window_size = QtCore.QSize(600, 450)
+
+
+# resize pixmap:
+
+self.window_size = QtCore.QSize(600, 450)
+
+img = QPixmap(img_path)
+img.scaled(self.window_size)
 
 
 13 ------------->>>  Timer : updates real time : use timer :
@@ -1336,5 +1431,35 @@ Action performed : It set the fixed size of window.
 # move the window:
 		self.move(150,150)   # (x in the computer's window, y inverser in the window)
 
+# empty layout : clear layout :
+for i in range(layout.count()): layout.itemAt(i).widget().close()
 
-15 ------------->>>
+
+15 ------------->>> CLOSE EVENT : close event :
+
+import sys
+from PyQt5.QtWidgets import (QApplication, QWidget, QMessageBox)
+
+class MainWindow(QWidget):
+	def __init__(self):
+		super().__init__()
+
+	def closeEvent(self, event):
+		reply = QMessageBox.question(self, 'Window Close', 'Are you sure you want to close the window?',
+				QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+
+		if reply == QMessageBox.Yes:
+			event.accept()
+			print('Window closed')
+		else:
+			event.ignore()
+
+if __name__ == '__main__':
+	app = QApplication(sys.argv)
+
+	demo = MainWindow()
+	demo.show()
+
+	sys.exit(app.exec_())
+
+16 ------------------->>>

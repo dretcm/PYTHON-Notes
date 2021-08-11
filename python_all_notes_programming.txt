@@ -124,6 +124,18 @@ dictionary = {value:b[index]  for index, value in enumerate(a)}
 >>> {word: text.count(word) for word in set(text)}
 {'h': 1, 'g': 1, 'c': 1, 'o': 3, 'l': 1, 'e': 2, 'd': 1, 't': 1, ' ': 3, 'm': 1, 'n': 2, 'a': 3}
 
+
+
+# the key of dictionary variants:
+
+>>> data = {}
+>>> data[1] = "a"
+>>> data[1.0] = "b"
+>>> data[2-1] = "c"
+>>> data
+{1: 'c'}
+>>>
+
 ---------------------------->>> PARA QUE FUNCION EL INT PRIMARY KEY AUTOINCREMENT :
 
 ("create table empleados(id integer primary key autoincrement,name text,salario float,bono text)")
@@ -212,7 +224,7 @@ print(find_position('la musica no esta fuerte', 'no esta fuerte'))
 from IPython.display import clear_output
 clear_output(wait=True) # clear the screen.
 
-------------------->>> ASIGNACION MULTIPLE :
+------------------->>> ASIGNACION MULTIPLE : operator " := " : use  "is" :
 
 cadena = "a-b-c"
 a, b, c = cadena.split("-")
@@ -231,6 +243,46 @@ print(c)
 a
 b
 c
+
+
+# use the operator " := ":
+
+>>> func = lambda x: x**2
+>>>
+>>> if func(3) >= 0:
+...     print(func(3))  # we call the func twice
+...
+9
+
+>>> if (x:=func(3)) >= 0:   # here, "x" take the value of "func(3)" which is "9"
+...     print(x) 
+...
+9
+
+
+>>> if x:=func(3) >= 0:    # here, "x" take the value of condition "func(3) >= 0" which is "True"
+...     print(x)
+...
+True
+
+
+
+# use "is" :
+
+>>> a = "".join(["a", "e"])
+>>> b = "a" + "e"
+>>> c = "ae"
+>>> a is b
+False
+>>> b is c
+True
+>>> a == b
+True
+>>> a is c
+False
+>>> b is c
+True
+>>>
 
 1 ----------> use print - end : " ; " : type : len : format : print with f'' :
 
@@ -3651,9 +3703,11 @@ os.system('ping google.com')
 2 option: os.path.abspath(os.getcwd())
 3 option: os.path.dirname(__file__)
 
+
 # get all elements in this directory:
 
-os.listdir()
+os.listdir() # in current directory
+os.listdir(r"C:\Users\USUARIO\Desktop\gg\my games\VT voice\data\images")  # with a directory passed
 
 # join two paths:
 
@@ -3677,7 +3731,19 @@ os.path.exists(fileName)
 
 import os
 fileName = r"C:\Test\test.txt"
-os.path.isfile(fileName)
+os.path.isfile(fileName)  # true if this path is a file, else is a folder # output: True
+
+import os
+
+fpath = 'D:/workspace/python/samplefile.txt'
+isFile = os.path.isfile(fpath)
+print('The file present at the path is a regular file:', isFile)  # The file present at the path is a regular file: True
+
+
+# is dir :
+fpath = 'D:/workspace/python/'
+isDirectory = os.path.isdir(fpath)
+print('Path points to a Directory:', isDirectory)  # Path points to a Directory: True
 
 # is empty our file ? : stat : 
 
@@ -3716,6 +3782,22 @@ os.system(f'COPY {img} {folder_name}')
 import os
 print(list(os.walk('test'))) # [('test', ['other_folder'], ['a.xlsx', 'b.mp3', 'c.docx', 'd.pdf']), ('test\\other_folder', [], [])]
 print(os.path.basename('test\\a.xlsx')) # a.xlsx
+
+
+# get type of file :
+
+print(path)
+OUTPUT
+/Home/Desktop/some_file.csv
+
+name, extension = os.path.splitext(path)
+
+print(name)
+OUTPUT
+/Home/Desktop/some_file
+print(extension)
+OUTPUT
+.csv
 
 ## subprocess : SUBPROCESS :
 
@@ -3983,7 +4065,7 @@ stream = video.streams.first()
 stream.download(output_path = r'..\app\youtube_downloads', filename='hola') # also we can set the path of the installing, or create a folder as youtube_donwloads.
 # finename = name that we want, by default is in format '.mp4'.
 
-57 -------------->> voice to text : voice reproduce of text : winsound : text to voice : speech recogition : gTTs :
+57 -------------->> voice to text : voice reproduce of text : winsound : text to voice : speech recogition : gTTs : sounddevice :
 
 # vocie to text:
 # example 1

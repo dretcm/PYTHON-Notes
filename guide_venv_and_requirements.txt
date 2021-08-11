@@ -230,6 +230,14 @@ cd bin
 python -m ensurepip
 python -m pip install numpy
 
+
+
+# best guide:
+
+C:\Users\USUARIO> cd C:\Program Files\Blender Foundation\Blender\2.80\python\bin
+
+C:\Program Files\Blender Foundation\Blender\2.80\python\bin> python.exe -m pip install sounddevice 
+
 13 ----------------->>> pip install for pygame :
 
 1)> pip install pyinstaller
