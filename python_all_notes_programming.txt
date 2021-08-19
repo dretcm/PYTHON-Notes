@@ -206,6 +206,35 @@ print(string[:-7]) # ''
 print(string[:-1000]) # len(string[:-1000]) = 0    # the same happens when we go backward. # output: ''
 print(string[100:-1200]) # not Error # output: ''
 
+# [ start : end : step ]
+>>> text = "hello its my example"
+>>> text[:10:2]
+'hlois'
+
+>>> text[5:15:3]
+' syx'
+
+>>> text[5:15:5]
+' m'
+
+>>> text[:10:-1]   # remove "hello its m" where "m" is the index "10" and show the text in reverse.
+'elpmaxe y'
+
+>>> text[5:10:-1]
+''
+
+>>> text[10::-1]
+'m sti olleh'
+
+>>> text[10:5:-1]
+'m sti'
+
+>>> text[10::-2]
+'msiolh'
+
+>>> text[:-5:-1]
+'elpm'
+
 
 # for search a subset or sub-string:
 
@@ -339,6 +368,31 @@ timer = "{:02d}{:02d}:{:02d}".format(3,7,12) # output: 03:07:12
 timer = "{:02}{:02}:{:02}".format(3,7,12) # output: 03:07:12
 timer = "{:03}{:03}:{:05}".format(3,7,12) # output: 003:007:00012
 
+
+1.5 -------> use exec : use format : use bytes : use eval :
+
+>>>exec("x=3 \ny=4 \nprint(x+y)")
+7
+>>> exec("def aea(x):\n\treturn 4*x\nprint(aea(5))")
+20
+
+# format :
+>>> format(15, "b")
+'1111'
+>>> bin(15)
+'1111'
+>>> format(0.8, "%")
+'80.000000%'
+
+# bytes  :
+>>> bytes("hola", "utf-8")
+b'hola'
+
+# eval :
+>>> x = 10
+>>> y = 2
+>>> eval('(x*y) - y')
+18
 
 2 ---------> listas : list : dtype list :
 
@@ -2440,6 +2494,151 @@ x_train = vectorize_sequences(train_data)
 x_test = vectorize_sequences(test_data)
 
 >>>
+
+
+# changue the stype :
+
+https://stackoverflow.com/questions/29245848/what-are-all-the-dtypes-that-pandas-recognizes
+
+numpy.generic,
+numpy.number,
+numpy.integer,
+numpy.signedinteger,
+numpy.int8,
+numpy.int16,
+numpy.int32,
+numpy.int64,
+numpy.int64,
+numpy.timedelta64]],
+numpy.unsignedinteger,
+numpy.uint8,
+numpy.uint16,
+numpy.uint32,
+numpy.uint64,
+numpy.uint64,
+numpy.inexact,
+numpy.floating,
+numpy.float16, 
+numpy.float32, 
+numpy.float64, 
+numpy.float128]],
+numpy.complexfloating,
+numpy.complex64, 
+numpy.complex128, 
+numpy.complex256,
+numpy.flexible,
+numpy.character, 
+numpy.bytes_, 
+numpy.str_,
+numpy.void,
+numpy.record,
+numpy.bool_,
+numpy.datetime64,
+numpy.object_
+
+>>> x = np.array([1, 2, 3])
+>>> x
+array([1, 2, 3])
+
+>>> x.dtype
+dtype('int32')
+
+>>> x = np.array([1, 2, 3], dtype=np.int64)
+>>> x
+array([1, 2, 3], dtype=int64)
+
+>>> x = np.array([1, 2, 3], dtype=np.float32)
+>>> x
+array([1., 2., 3.], dtype=float32)
+
+>>> x = np.array([1, 2, 3], dtype=np.complex64)
+>>> x
+array([1.+0.j, 2.+0.j, 3.+0.j], dtype=complex64)
+
+
+# # with ".astypy" :
+>>> x = np.array([1, 2, 3])
+>>> x
+array([1, 2, 3])
+
+>>> x.astype(np.float32)
+array([1., 2., 3.], dtype=float32)
+>>> x
+array([1, 2, 3])
+
+>>> x = x.astype(np.float32)
+>>> x
+array([1., 2., 3.], dtype=float32)
+
+>>> x.dtype
+dtype('float32')
+
+
+
+# use any : use all :
+
+>>> my_array = np.array([1,2,3])
+>>> value = 3
+>>> np.any(my_array == value)
+True
+
+>>> my_array = np.array([3,3,3])
+>>> value = 3
+>>> np.all(my_array == value)
+True
+
+>>> my_array = np.array([[1,2,3], [4,5,6], [0, 5, 2]])
+>>> value = 5
+>>> np.any(my_array[:,1] == value)  
+True
+>>> np.all(my_array[:,1] == value)  
+False
+
+>>> my_array = np.array([[1,5,3], [4,5,6], [0, 5, 2]])
+>>> value = 5
+>>> np.all(my_array[:,1] == value)  
+True
+
+
+# use ceil :
+
+a = np.array([-1.7, -1.5, -0.2, 0.2, 1.5, 1.7, 2.0])
+np.ceil(a)
+array([-1., -1., -0.,  1.,  2.,  2.,  2.])
+
+
+# use np.expand_dims :
+
+>>> import numpy as np
+>>> x = np.zeros((10,10))
+>>> x.shape
+(10, 10)
+
+>>> x = np.expand_dims(x, axis=0)  # axis is the position in the tuple where add a new dimension
+>>> x.shape
+(1, 10, 10)
+
+>>> x = np.expand_dims(x, axis=3)
+>>> x.shape
+(1, 10, 10, 1)
+
+>>> x = np.expand_dims(x, axis=1)
+>>> x.shape
+(1, 1, 10, 10, 1)
+
+>>> x = np.expand_dims(x, axis=1)
+>>> x.shape
+(1, 1, 1, 10, 10, 1)
+
+>>> x = np.zeros((10,10))
+>>> x = np.expand_dims(x, axis=[0,3])
+>>> x.shape
+(1, 10, 10, 1)
+
+>>> x = np.zeros((10,10))
+>>> x = np.expand_dims(x, axis=[0,3,4])
+>>> x.shape
+(1, 10, 10, 1, 1)
 
 
 40 ------------------->>> USO DE * Y ** EN PYTHON PARA PARAMETROS : SOBRECARGA DE FUNCIONES 2.0 :
@@ -4892,6 +5091,7 @@ except:
 
 sys.exit(0)  # equals to sys.exit(), 0 is by default, finish script
 
+
 # Return the size of object in bytes : getsizeof :
 
 import sys
@@ -4905,6 +5105,19 @@ c = Test()
 print(sys.getsizeof(a)) # 28 # bytes
 print(sys.getsizeof(b)) # 50
 print(sys.getsizeof(c)) # 48
+
+>>> a = [1,2,3]
+>>> sys.getsizeof(a)
+120
+>>> a = (1,2,3)
+>>> sys.getsizeof(a)
+64
+>>> a = {1,2,3}
+>>> sys.getsizeof(a)
+216
+>>> a = {1:10,2:20,3:30}
+>>> sys.getsizeof(a)
+232
 
 
 # get the directory of your python version :
@@ -5099,4 +5312,26 @@ class Person():
 someone = Person(, ,)
 someone.get_info()
 
-71 -------------->> 
+71 -------------->> module msvcrt : kbhit : getch :
+
+import msvcrt
+import time
+
+while True:
+    time.sleep(1)
+    if msvcrt.kbhit():
+        # Only if there's a keypress waiting do we get it with getch()
+        print "Key hit! ({})".format(msvcrt.getch())
+    else:
+        # Do something else here
+        print "Nothing..."
+
+72 -------------->>
+73 -------------->>
+74 -------------->>
+75 -------------->>
+76 -------------->>
+77 -------------->>
+78 -------------->>
+79 -------------->>
+

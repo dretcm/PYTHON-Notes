@@ -289,8 +289,12 @@ for event in pygame.event.get():
                 if event.button == 1 and button.collidepoint(event.pos):
                         print('you clicked the button')
 
+if event.type == pygame.MOUSEBUTTONDOWN:
+        if event.button == 4:  # the slide of wheel mouse. # front
+                pass 
+        if event.button == 5:  # back
 
-
+                        
 ## mouse:
 
 import pygame, sys
