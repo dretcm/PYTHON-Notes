@@ -1,0 +1,320 @@
+
+1 ----------------->>> Create a simple window :
+import glfw
+from OpenGL.GL import *
+
+# initializing glfw library
+if not glfw.init():
+    raise Exception("glfw can not be initialized!")
+
+# Configure the OpenGL context.
+# If we are planning to use anything above 2.1 we must at least
+# request a 3.3 core context to make this work across platforms.
+glfw.window_hint(glfw.CONTEXT_VERSION_MAJOR, 3)
+glfw.window_hint(glfw.CONTEXT_VERSION_MINOR, 3)
+glfw.window_hint(glfw.OPENGL_PROFILE, glfw.OPENGL_CORE_PROFILE)
+glfw.window_hint(glfw.OPENGL_FORWARD_COMPAT, True)
+# 4 MSAA is a good default with wide support
+glfw.window_hint(glfw.SAMPLES, 4)
+
+# creating the window
+window = glfw.create_window(900, 500, "My OpenGL window", None, None)
+
+# check if window was created
+if not window:
+    glfw.terminate()
+    raise Exception("glfw window can not be created!")
+
+# Query the actual framebuffer size so we can set the right viewport later
+# -> glViewport(0, 0, framebuffer_size[0], framebuffer_size[1])
+framebuffer_size = glfw.get_framebuffer_size(window)
+
+# set window's position
+glfw.set_window_pos(window, 100, 50)
+
+# make the context current
+glfw.make_context_current(window)   # create a thread for the window, and so on.
+
+
+# the main application loop
+while not glfw.window_should_close(window):
+    glfw.poll_events()
+    glfw.swap_buffers(window)
+
+# terminate glfw, free up allocated resources
+glfw.terminate()
+
+
+2 ------------------>>> create a triangle, rotation, scale, color:
+
+import glfw
+from OpenGL.GL import *
+import numpy as np
+from math import sin, cos
+
+
+# initializing glfw library
+if not glfw.init():
+    raise Exception("glfw can not be initialized!")
+
+# creating the window
+window = glfw.create_window(900, 600, "My OpenGL window", None, None)
+
+# check if window was created
+if not window:
+    glfw.terminate()
+    raise Exception("glfw window can not be created!")
+
+# set window's position
+glfw.set_window_pos(window, 100, 50)
+
+# make the context current
+glfw.make_context_current(window)
+
+vertices = [-0.5, -0.5, 0.0,
+             0.5, -0.5, 0.0,
+             0.0,  0.5, 0.0]
+
+colors = [1.0, 0.0, 0.0,
+          0.0, 1.0, 0.0,
+          0.0, 0.0, 1.0]
+
+vertices = np.array(vertices, dtype=np.float32)
+colors = np.array(colors, dtype=np.float32)
+
+glEnableClientState(GL_VERTEX_ARRAY)
+glVertexPointer(3, GL_FLOAT, 0, vertices)
+
+glEnableClientState(GL_COLOR_ARRAY)
+glColorPointer(3, GL_FLOAT, 0, colors)
+
+glClearColor(0, 0.1, 0.1, 1)
+
+# the main application loop
+while not glfw.window_should_close(window):
+    glfw.poll_events()
+
+    glClear(GL_COLOR_BUFFER_BIT) # Parameters: "mask": Bitwise OR of masks that indicate the buffers to be cleared. The four masks are GL_COLOR_BUFFER_BIT, GL_DEPTH_BUFFER_BIT, GL_ACCUM_BUFFER_BIT, and GL_STENCIL_BUFFER_BIT.
+
+    ct = glfw.get_time()  # returns the elapsed time, since init was called
+
+    glLoadIdentity()  # replace the current matrix with the identity matrix
+    glScale(abs(sin(ct)), abs(sin(ct)), 1)   # width(0.0 - 1.0), height(0.0 - 1.0), axis z
+    glRotatef(sin(ct) * 45, 0, 0, 1)  # (angle deegres, x move, y move, z move)
+    glTranslatef(sin(ct), cos(ct), 0)
+
+    glDrawArrays(GL_TRIANGLES, 0, 3) 
+	# mode: Specifies what kind of primitives to render. Symbolic constants GL_POINTS, GL_LINE_STRIP, GL_LINE_LOOP, GL_LINES, GL_TRIANGLE_STRIP, GL_TRIANGLE_FAN, GL_TRIANGLES, GL_QUAD_STRIP, GL_QUADS, and GL_POLYGON are accepted. 
+	# first: Specifies the starting index in the enabled arrays. 
+	# count: Specifies the number of indices to be rendered.
+
+    glfw.swap_buffers(window)
+
+# terminate glfw, free up allocated resources
+glfw.terminate()
+
+
+#### glClear(GL_COLOR_BUFFER_BIT)
+The values are as follows:
+
+GL_COLOR_BUFFER_BIT
+Indicates the buffers currently enabled for color writing.
+
+GL_DEPTH_BUFFER_BIT
+Indicates the depth buffer.
+
+GL_ACCUM_BUFFER_BIT
+Indicates the accumulation buffer.
+
+GL_STENCIL_BUFFER_BIT
+Indicates the stencil buffer.
+
+3 ------------------>>>  pipeline : shaders :
+
+import glfw
+from OpenGL.GL import *
+from OpenGL.GL.shaders import compileProgram, compileShader
+import numpy as np
+
+vertex_src = """
+# version 330
+in vec3 a_position;
+in vec3 a_color;
+out vec3 v_color;
+void main()
+{
+    gl_Position = vec4(a_position, 1.0);
+    v_color = a_color;
+}
+"""
+
+fragment_src = """
+# version 330
+in vec3 v_color;
+out vec4 out_color;
+void main()
+{
+    out_color = vec4(v_color, 1.0);
+}
+"""
+
+# initializing glfw library
+if not glfw.init():
+    raise Exception("glfw can not be initialized!")
+
+# creating the window
+window = glfw.create_window(900, 500, "My OpenGL window", None, None)
+
+# check if window was created
+if not window:
+    glfw.terminate()
+    raise Exception("glfw window can not be created!")
+
+# set window's position
+glfw.set_window_pos(window, 100, 100)
+
+# make the context current
+glfw.make_context_current(window)
+
+vertices = [-0.5, -0.5, 0.0, 1.0, 0.0, 0.0,
+             0.5, -0.5, 0.0, 0.0, 1.0, 0.0,
+             0.0,  0.5, 0.0, 0.0, 0.0, 1.0]
+
+vertices = np.array(vertices, dtype=np.float32)
+
+shader = compileProgram(compileShader(vertex_src, GL_VERTEX_SHADER), compileShader(fragment_src, GL_FRAGMENT_SHADER))
+
+VBO = glGenBuffers(1)    # generate n buffers, Specifies an array in which the generated buffer object names are stored..
+glBindBuffer(GL_ARRAY_BUFFER, VBO)
+glBufferData(GL_ARRAY_BUFFER, vertices.nbytes, vertices, GL_STATIC_DRAW)
+
+position = glGetAttribLocation(shader, "a_position")  # get the attribute "a_position" of "shader>vertex_src"
+glEnableVertexAttribArray(position)  # Enable or disable a generic vertex attribute array
+glVertexAttribPointer(position, 3, GL_FLOAT, GL_FALSE, 24, ctypes.c_void_p(0)) # define an array of generic vertex attribute data
+# parameters
+# index: Specifies the index of the generic vertex attribute to be modified.
+# size: Specifies the number of components per generic vertex attribute
+# type: Specifies the data type of each component in the array
+# normalized: For glVertexAttribPointer, specifies whether fixed-point data values should be normalized (GL_TRUE) or converted directly as fixed-point values (GL_FALSE) when they are accessed.
+# stride: Specifies the byte offset between consecutive generic vertex attributes. The number of elements in "vertices" variable.
+# pointer: Specifies a offset of the first component of the first generic vertex attribute in the array in the data store of the buffer currently bound to the GL_ARRAY_BUFFER target. The initial value is 0.
+
+color = glGetAttribLocation(shader, "a_color")
+glEnableVertexAttribArray(color)
+glVertexAttribPointer(color, 3, GL_FLOAT, GL_FALSE, 24, ctypes.c_void_p(12))
+
+glUseProgram(shader)  # param: Specifies the handle of the program object whose executables are to be used as part of current rendering state.
+glClearColor(0, 0.1, 0.1, 1)
+#Parameters: (red, green, blue, alpha) Specify the red, green, blue, and alpha values used when the color buffers are cleared. The initial values are all 0.
+
+# the main application loop
+while not glfw.window_should_close(window):
+    glfw.poll_events()
+
+    glClear(GL_COLOR_BUFFER_BIT)
+    
+    glDrawArrays(GL_TRIANGLES, 0, 3)
+
+    glfw.swap_buffers(window)
+
+# terminate glfw, free up allocated resources
+glfw.terminate()
+
+
+
+
+
+# EXAMPLE SQUARE : square :
+
+import glfw
+from OpenGL.GL import *
+from OpenGL.GL.shaders import compileProgram, compileShader
+import numpy as np
+
+vertex_src = """
+# version 330
+layout(location = 0) in vec3 a_position;
+layout(location = 1) in vec3 a_color;
+out vec3 v_color;
+void main()
+{
+    gl_Position = vec4(a_position, 1.0);
+    v_color = a_color;
+}
+"""
+
+fragment_src = """
+# version 330
+in vec3 v_color;
+out vec4 out_color;
+void main()
+{
+    out_color = vec4(v_color, 1.0);
+}
+"""
+
+def window_resize(window, width, height):
+    glViewport(0, 0, width, height)
+
+# initializing glfw library
+if not glfw.init():
+    raise Exception("glfw can not be initialized!")
+
+# creating the window
+window = glfw.create_window(900, 600, "My OpenGL window", None, None)
+
+# check if window was created
+if not window:
+    glfw.terminate()
+    raise Exception("glfw window can not be created!")
+
+# set window's position
+glfw.set_window_pos(window, 100, 100)
+
+# set the callback function for window resize
+glfw.set_window_size_callback(window, window_resize)
+
+glfw.make_context_current(window)
+
+vertices = [-0.5, -0.5, 0.0, 1.0, 0.0, 0.0,
+             0.5, -0.5, 0.0, 0.0, 1.0, 0.0,
+            -0.5,  0.5, 0.0, 0.0, 0.0, 1.0,
+             0.5,  0.5, 0.0, 1.0, 1.0, 1.0]
+
+vertices = np.array(vertices, dtype=np.float32)
+
+shader = compileProgram(compileShader(vertex_src, GL_VERTEX_SHADER), compileShader(fragment_src, GL_FRAGMENT_SHADER))
+
+VBO = glGenBuffers(1)
+glBindBuffer(GL_ARRAY_BUFFER, VBO)
+glBufferData(GL_ARRAY_BUFFER, vertices.nbytes, vertices, GL_STATIC_DRAW)
+
+glEnableVertexAttribArray(0)
+glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 24, ctypes.c_void_p(0))
+
+glEnableVertexAttribArray(1)
+glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 24, ctypes.c_void_p(12))
+
+glUseProgram(shader)
+glClearColor(0, 0.1, 0.1, 1)
+
+# the main application loop
+while not glfw.window_should_close(window):
+    glfw.poll_events()
+
+    glClear(GL_COLOR_BUFFER_BIT)
+
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4)
+
+    glfw.swap_buffers(window)
+
+# terminate glfw, free up allocated resources
+glfw.terminate()
+
+
+4 ------------------>>>
+5 ------------------>>>
+6 ------------------>>>
+7 ------------------>>>
+8 ------------------>>>
+9 ------------------>>>

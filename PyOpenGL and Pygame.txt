@@ -1,0 +1,962 @@
+1 ---------------->>>
+1 ---------------->>> cube 3D rotation :
+
+import pygame
+from pygame.locals import *
+
+from OpenGL.GL import *
+from OpenGL.GLU import *
+
+
+# verticies in the 3D plane(x,y,z):
+
+verticies = (
+    (1, -1, -1),
+    (1, 1, -1),
+    (-1, 1, -1),
+    (-1, -1, -1),
+    (1, -1, 1),
+    (1, 1, 1),
+    (-1, -1, 1),
+    (-1, 1, 1)
+    )
+
+# the connection between the verticies:
+
+edges = (
+    (0,1),
+    (0,3),
+    (0,4),
+    (2,1),
+    (2,3),
+    (2,7),
+    (6,3),
+    (6,4),
+    (6,7),
+    (5,1),
+    (5,4),
+    (5,7)
+    )
+
+
+# glBegin(GL_LINES), this notifies OpenGL that we're about to throw some code at it, and then the GL_LINES tells 
+# OpenGL how to handle that code, which, in this case, means it will treat the code as line-drawing code.
+
+def Cube():
+    glBegin(GL_LINES)  # open the handle opengl
+    for edge in edges:
+        for vertex in edge:
+            glVertex3fv(verticies[vertex]) # this function recieve coordinades in (x,y,z)
+    glEnd()    # to notify OpenGL that we're done telling it what to do # close the handle opengl
+
+
+def main():
+    pygame.init()
+    display = (800,600)
+
+    # These are actually constants, notifying PyGame that we're going to be feeding it OpenGL code
+    pygame.display.set_mode(display, DOUBLEBUF|OPENGL) # DOUBLEBUF, which stands for double buffer, and is a type of buffering 
+    # where there are two buffers to comply with monitor refresh rates. Take note that pipe ("|") that is used to separate constants. 
+    # It will be used again later to separate constants.
+
+    gluPerspective(45, (display[0]/display[1]), 0.1, 50.0) # set up a perspective projection matrix, the creation of 3D environment for the visible
+
+# PARAMETERS:
+# fovy:
+# Specifies the field of view angle, in degrees, in the y direction.
+# 0: it is very hight, ... 45: normal, ... 100: very small, and so on
+# aspect:
+# Specifies the aspect ratio that determines the field of view in the x direction. The aspect ratio is the ratio of x (width) to y (height).
+# zNear
+# Specifies the distance from the viewer to the near clipping plane (always positive).
+# zFar:
+# Specifies the distance from the viewer to the far clipping plane (always positive).
+
+
+    glTranslatef(0.0,0.0, -5)  # move the matrix (x, y, z)  # remind that the object move is the camara. the matrix elements as the cube, triangle, and so on. are static when we define the verticies.
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        glRotatef(1, 3, 1, 1)  # (angle, x, y, z) 
+# angle:
+# Specifies the angle of rotation, in degrees. it does that the cube fence to the botton or deep
+# x, y, z
+# Specify the x, y, and z coordinates of a vector, respectively.
+# x: rotate in x axis.
+# y: rotate in y axis.
+# z: rotate in x and y type angles 
+
+        glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)  # clear the screem or the environment of opengl (this able to opengl draw elements | indices opengl and so ond)
+        Cube()
+        pygame.display.flip()   # update the screem
+        pygame.time.wait(10)    # sleep 10 seconds
+
+
+main()
+
+
+# parameter of "glBegin(...)" :
+
+GL_POINTS
+Treats each vertex as a single point. Vertex n defines point n. N points are drawn.
+
+GL_LINES
+Treats each pair of vertices as an independent line segment. Vertices 2 ⁢ n - 1 and 2 ⁢ n define line n. N 2 lines are drawn.
+
+GL_LINE_STRIP
+Draws a connected group of line segments from the first vertex to the last. Vertices n and n + 1 define line n. N - 1 lines are drawn.
+
+GL_LINE_LOOP
+Draws a connected group of line segments from the first vertex to the last, then back to the first. Vertices n and n + 1 define line n. The last line, however, is defined by vertices N and 1 . N lines are drawn.
+
+GL_TRIANGLES
+Treats each triplet of vertices as an independent triangle. Vertices 3 ⁢ n - 2 , 3 ⁢ n - 1 , and 3 ⁢ n define triangle n. N 3 triangles are drawn.
+
+GL_TRIANGLE_STRIP
+Draws a connected group of triangles. One triangle is defined for each vertex presented after the first two vertices. For odd n, vertices n, n + 1 , and n + 2 define triangle n. For even n, vertices n + 1 , n, and n + 2 define triangle n. N - 2 triangles are drawn.
+
+GL_TRIANGLE_FAN
+Draws a connected group of triangles. One triangle is defined for each vertex presented after the first two vertices. Vertices 1 , n + 1 , and n + 2 define triangle n. N - 2 triangles are drawn.
+
+GL_QUADS
+Treats each group of four vertices as an independent quadrilateral. Vertices 4 ⁢ n - 3 , 4 ⁢ n - 2 , 4 ⁢ n - 1 , and 4 ⁢ n define quadrilateral n. N 4 quadrilaterals are drawn.
+
+GL_QUAD_STRIP
+Draws a connected group of quadrilaterals. One quadrilateral is defined for each pair of vertices presented after the first pair. Vertices 2 ⁢ n - 1 , 2 ⁢ n , 2 ⁢ n + 2 , and 2 ⁢ n + 1 define quadrilateral n. N 2 - 1 quadrilaterals are drawn. Note that the order in which vertices are used to construct a quadrilateral from strip data is different from that used with independent data.
+
+GL_POLYGON
+Draws a single, convex polygon. Vertices 1 through N define this polygon.
+
+
+
+# triangle :
+
+import pygame
+from pygame.locals import *
+
+from OpenGL.GL import *
+from OpenGL.GLU import *
+
+verticies = (
+    (1, 0, 0),
+    (-1, 0, 0),
+    (0,1, 0),
+    (0,-1, 0),
+    (0, 0, 1)
+    )
+
+edges = (
+    (0,2),
+    (0,3),
+    (0,4),
+    (1,2),
+    (1,3),
+    (1,4),
+    (2,4),
+    (3,4)
+    )
+
+def Cube():
+    glBegin(GL_LINES)
+    glColor3fv((1,1,1))
+    for edge in edges:
+        for vertex in edge:
+            glVertex3fv(verticies[vertex])
+    glEnd()
+
+
+def main():
+    pygame.init()
+    display = (800,600)
+    pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
+
+    gluPerspective(45, (display[0]/display[1]), 0.1, 50.0)
+
+    glTranslatef(0.0,0.0, -5.0)
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+                    
+        glRotatef(1, 3, 1, 1)
+        glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+        Cube()
+        pygame.display.flip()
+        pygame.time.wait(10)
+
+
+main()
+
+
+2 ---------------->>>  paint the cube :
+
+import pygame
+from pygame.locals import *
+
+from OpenGL.GL import *
+from OpenGL.GLU import *
+
+verticies = (
+    (1, -1, -1),
+    (1, 1, -1),
+    (-1, 1, -1),
+    (-1, -1, -1),
+    (1, -1, 1),
+    (1, 1, 1),
+    (-1, -1, 1),
+    (-1, 1, 1)
+    )
+
+edges = (
+    (0,1),
+    (0,3),
+    (0,4),
+    (2,1),
+    (2,3),
+    (2,7),
+    (6,3),
+    (6,4),
+    (6,7),
+    (5,1),
+    (5,4),
+    (5,7)
+    )
+
+
+surfaces = (   # define the groups of vertices to colorer, its the side of faces of square
+    (0,1,2,3),
+    (3,2,7,6),
+    (6,7,5,4),
+    (4,5,1,0),
+    (1,5,7,2),
+    (4,0,3,6)
+    )
+
+colors = (
+    (1,0,0),  # red
+    (0,1,0),  # green
+    (0,0,1),  # blue
+    (1,0,1),  # purple
+    (1,1,0),  # yellow
+    (0,1,1)   # sky blue
+    )
+
+def Cube():
+    glBegin(GL_QUADS)
+    x = 0
+    for surface in surfaces:
+        for vertex in surface:
+            glVertex3fv(verticies[vertex])
+	    # glColor3fv(colors[x])  # for combination of colors in a square side
+        glColor3fv(colors[x])  # full color in a side square
+        x+=1
+    glEnd()
+    
+    glBegin(GL_LINES)
+    glColor3fv((0,0,0)) # we colorer the edges with the black color
+    for edge in edges:
+        for vertex in edge:
+            glVertex3fv(verticies[vertex])
+    glEnd()
+
+
+def main():
+    pygame.init()
+    display = (800,600)
+    pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
+
+    gluPerspective(45, (display[0]/display[1]), 0.1, 50.0)
+
+    glTranslatef(0.0, 0.0, -5.0)
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            if event.type == KEYDOWN:
+                if event.key == K_x:
+                    glRotatef(10, 3, 0, 0)
+                if event.key == K_y:
+                    glRotatef(10, 0, 3, 0)
+                if event.key == K_z:
+                    glRotatef(10, 0, 0, 3)
+                    
+        glRotatef(1, 3, 1, 1)
+        glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+        Cube()
+        pygame.display.flip()
+        pygame.time.wait(10)
+
+
+main()
+
+3 ---------------->>> # get the info or positions of matrix :
+
+info = glGetDoublev(GL_MODELVIEW_MATRIX)  # this funtion return a list of lenght 4.
+print(info[0][1,2,3,4])  # the angle of x, y, and z in the axis x
+print(info[1][1,2,3,4])  # the angle of x, y, and z in the axis y
+print(info[2][1,2,3,4])  # the angle of x, y, and z in the axis z
+print(info[3][0])  # get the current axis "x" of matrix element in the display.
+print(info[3][1])  # get the current axis "y" of matrix element in the display.
+print(info[3][2])  # get the current axis "z" of matrix element in the display.  # 9.784514
+print(info[3][3])  # get the current axis "z" of matrix in the display.          # 10.0
+# where +z is the front of us, and the -z is behind of us.
+# the x, y, and z are equals regard the cartesian plane in the real life.
+
+
+4 ---------------->>> full cubes random :
+
+import pygame
+from pygame.locals import *
+
+from OpenGL.GL import *
+from OpenGL.GLU import *
+
+import random
+
+vertices = (
+    (1, -1, -1),
+    (1, 1, -1),
+    (-1, 1, -1),
+    (-1, -1, -1),
+    (1, -1, 1),
+    (1, 1, 1),
+    (-1, -1, 1),
+    (-1, 1, 1)
+    )
+
+edges = (
+    (0,1),
+    (0,3),
+    (0,4),
+    (2,1),
+    (2,3),
+    (2,7),
+    (6,3),
+    (6,4),
+    (6,7),
+    (5,1),
+    (5,4),
+    (5,7)
+    )
+
+surfaces = (
+    (0,1,2,3),
+    (3,2,7,6),
+    (6,7,5,4),
+    (4,5,1,0),
+    (1,5,7,2),
+    (4,0,3,6)
+    )
+
+
+colors = (
+    (1,0,0),
+    (0,1,0),
+    (0,0,1),
+    (0,1,0),
+    (1,1,1),
+    (0,1,1),
+    (1,0,0),
+    (0,1,0),
+    (0,0,1),
+    (1,0,0),
+    (1,1,1),
+    (0,1,1),
+    )
+
+def set_vertices(max_distance):
+    x_value_change = random.randrange(-10,10)
+    y_value_change = random.randrange(-10,10)
+    z_value_change = random.randrange(-1*max_distance,-20)
+
+    new_vertices = []
+
+    for vert in vertices:
+        new_vert = []
+
+        new_x = vert[0] + x_value_change
+        new_y = vert[1] + y_value_change
+        new_z = vert[2] + z_value_change
+
+        new_vert.append(new_x)
+        new_vert.append(new_y)
+        new_vert.append(new_z)
+
+        new_vertices.append(new_vert)
+
+    return new_vertices
+        
+    
+
+
+def Cube(vertices):
+    glBegin(GL_QUADS)
+    
+    for surface in surfaces:
+        x = 0
+
+        for vertex in surface:
+            x+=1
+            glColor3fv(colors[x])
+            glVertex3fv(vertices[vertex])
+        
+    glEnd()
+    
+
+
+    
+    glBegin(GL_LINES)
+    for edge in edges:
+        for vertex in edge:
+            glVertex3fv(vertices[vertex])
+    glEnd()
+
+
+def main():
+    pygame.init()
+    display = (800,600)
+    pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
+
+    gluPerspective(45, (display[0]/display[1]), 0.1, 50.0)
+
+    x_move = 0
+    y_move = 0
+    speed = 5
+
+    max_distance = 500
+
+    cube_dict = {}
+
+    for x in range(100):
+        cube_dict[x] =set_vertices(max_distance)
+
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+                    
+        glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+        glTranslatef(x_move, y_move, speed)
+
+
+        for each_cube in cube_dict:
+            Cube(cube_dict[each_cube])
+
+            
+        pygame.display.flip()
+        pygame.time.wait(10)
+
+main()
+pygame.quit()
+quit()
+
+
+5 ---------------->>> infinite cubes : loop cubes :
+
+import pygame
+from pygame.locals import *
+
+from OpenGL.GL import *
+from OpenGL.GLU import *
+
+import random
+
+vertices = (
+    (1, -1, -1),
+    (1, 1, -1),
+    (-1, 1, -1),
+    (-1, -1, -1),
+    (1, -1, 1),
+    (1, 1, 1),
+    (-1, -1, 1),
+    (-1, 1, 1)
+    )
+
+edges = (
+    (0,1),
+    (0,3),
+    (0,4),
+    (2,1),
+    (2,3),
+    (2,7),
+    (6,3),
+    (6,4),
+    (6,7),
+    (5,1),
+    (5,4),
+    (5,7)
+    )
+
+surfaces = (
+    (0,1,2,3),
+    (3,2,7,6),
+    (6,7,5,4),
+    (4,5,1,0),
+    (1,5,7,2),
+    (4,0,3,6)
+    )
+
+
+colors = (
+    (1,0,0),
+    (0,1,0),
+    (0,0,1),
+    (0,1,0),
+    (1,1,1),
+    (0,1,1),
+    (1,0,0),
+    (0,1,0),
+    (0,0,1),
+    (1,0,0),
+    (1,1,1),
+    (0,1,1),
+    )
+
+
+def set_vertices(max_distance, min_distance = -20):
+    x_value_change = random.randrange(-10,10)
+    y_value_change = random.randrange(-10,10)
+    z_value_change = random.randrange(-1*max_distance,min_distance)
+
+    new_vertices = []
+
+    for vert in vertices:
+        new_vert = []
+
+        new_x = vert[0] + x_value_change
+        new_y = vert[1] + y_value_change
+        new_z = vert[2] + z_value_change
+
+        new_vert.append(new_x)
+        new_vert.append(new_y)
+        new_vert.append(new_z)
+
+        new_vertices.append(new_vert)
+
+    return new_vertices
+        
+    
+
+
+def Cube(vertices):
+    glBegin(GL_QUADS)
+    
+    for surface in surfaces:
+        x = 0
+
+        for vertex in surface:
+            x+=1
+            glColor3fv(colors[x])
+            glVertex3fv(vertices[vertex])
+        
+    glEnd()
+    
+
+
+    
+    glBegin(GL_LINES)
+    for edge in edges:
+        for vertex in edge:
+            glVertex3fv(vertices[vertex])
+    glEnd()
+
+
+def main():
+    pygame.init()
+    display = (800,600)
+    pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
+
+
+    max_distance = 100
+    
+    gluPerspective(45, (display[0]/display[1]), 0.1, max_distance)
+
+    glTranslatef(random.randrange(-5,5),random.randrange(-5,5), -40)
+
+    #object_passed = False
+
+    x_move = 0
+    y_move = 0
+
+    
+
+    cube_dict = {}
+
+    for x in range(20):
+        cube_dict[x] =set_vertices(max_distance)
+
+    #glRotatef(25, 2, 1, 0)
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    x_move = 0.3
+                if event.key == pygame.K_RIGHT:
+                    x_move = -0.3
+
+                if event.key == pygame.K_UP:
+                    y_move = -0.3
+                if event.key == pygame.K_DOWN:
+                    y_move = 0.3
+
+
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                    x_move = 0
+
+                if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
+                    y_move = 0
+
+        x = glGetDoublev(GL_MODELVIEW_MATRIX)
+  
+        camera_x = x[3][0]
+        camera_y = x[3][1]
+        camera_z = x[3][2]
+    
+        glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+
+        glTranslatef(x_move,y_move,.50)
+
+        #ground()
+
+        for each_cube in cube_dict:
+            Cube(cube_dict[each_cube])
+
+        for each_cube in cube_dict:
+            if camera_z <= cube_dict[each_cube][0][2]:
+                print("passed a cube")
+                #delete_list.append(each_cube)
+                new_max = int(-1*(camera_z-max_distance))
+
+                cube_dict[each_cube] = set_vertices(new_max,int(camera_z))
+
+        pygame.display.flip()
+        pygame.time.wait(10)
+
+main()
+pygame.quit()
+quit()
+
+
+
+# option 2 :
+
+
+import pygame
+from pygame.locals import *
+
+from OpenGL.GL import *
+from OpenGL.GLU import *
+
+import random
+
+vertices = (
+    (1, -1, -1),
+    (1, 1, -1),
+    (-1, 1, -1),
+    (-1, -1, -1),
+    (1, -1, 1),
+    (1, 1, 1),
+    (-1, -1, 1),
+    (-1, 1, 1)
+    )
+
+edges = (
+    (0,1),
+    (0,3),
+    (0,4),
+    (2,1),
+    (2,3),
+    (2,7),
+    (6,3),
+    (6,4),
+    (6,7),
+    (5,1),
+    (5,4),
+    (5,7)
+    )
+
+surfaces = (
+    (0,1,2,3),
+    (3,2,7,6),
+    (6,7,5,4),
+    (4,5,1,0),
+    (1,5,7,2),
+    (4,0,3,6)
+    )
+
+
+colors = (
+    (1,0,0),
+    (0,1,0),
+    (0,0,1),
+    (0,1,0),
+    (1,1,1),
+    (0,1,1),
+    (1,0,0),
+    (0,1,0),
+    (0,0,1),
+    (1,0,0),
+    (1,1,1),
+    (0,1,1),
+    )
+
+def set_vertices(max_distance):
+    x_value_change = random.randrange(-10,10)
+    y_value_change = random.randrange(-10,10)
+    z_value_change = random.randrange(-1*max_distance,-20)
+
+    new_vertices = []
+
+    for vert in vertices:
+        new_vert = []
+
+        new_x = vert[0] + x_value_change
+        new_y = vert[1] + y_value_change
+        new_z = vert[2] + z_value_change
+
+        new_vert.append(new_x)
+        new_vert.append(new_y)
+        new_vert.append(new_z)
+
+        new_vertices.append(new_vert)
+
+    return new_vertices
+        
+    
+
+
+def Cube(vertices):
+    glBegin(GL_QUADS)
+    
+    for surface in surfaces:
+        x = 0
+
+        for vertex in surface:
+            x+=1
+            glColor3fv(colors[x])
+            glVertex3fv(vertices[vertex])
+        
+    glEnd()
+    
+
+
+    
+    glBegin(GL_LINES)
+    for edge in edges:
+        for vertex in edge:
+            glVertex3fv(vertices[vertex])
+    glEnd()
+
+
+def main():
+    pygame.init()
+    display = (800,600)
+    pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
+
+    gluPerspective(45, (display[0]/display[1]), 0.1, 50.0)
+
+    x_move = 0
+    y_move = 0
+    speed = 2
+
+    max_distance = 300
+
+    cube_dict = {}
+
+    for x in range(50):
+        cube_dict[x] =set_vertices(max_distance)
+
+    state = False
+    
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+                    
+        glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+
+        camera = glGetDoublev(GL_MODELVIEW_MATRIX)[3][2]
+        
+        for each_cube in cube_dict:
+            Cube(cube_dict[each_cube])
+        con = 0
+        for each_cube in cube_dict:
+            if cube_dict[each_cube][0][2] >= camera:
+                con += 1
+                
+        if con >= 50 or state:
+            glTranslatef(x_move, y_move, -speed)
+            state = True
+        else:
+            glTranslatef(x_move, y_move, speed)
+
+        if con == 0:
+            state = False
+
+            
+        pygame.display.flip()
+        pygame.time.wait(10)
+
+main()
+pygame.quit()
+quit()
+
+
+6 ---------------->>> create a rubik cube :
+
+import pygame
+from pygame.locals import *
+
+from OpenGL.GL import *
+from OpenGL.GLU import *
+import numpy as np
+
+edges = ((0,3),
+        (0,8),
+        (8,11),
+        (11,3),
+        (1,9),
+        (2,10),
+        (4,5),
+        (6,7))
+
+colors = (
+    (1,0,0),  # red
+    (0,1,0),  # green
+    (0,0,1),  # blue
+    (1,0,1),  # purple
+    (1,1,0),  # yellow
+    (0,1,1)   # sky blue
+    )
+
+surface = (0,3,11,8)
+
+def generate_front(z=0):
+    verticies = ((0,0,z),
+                 (1,0,z),
+                 (2,0,z),
+                 (3,0,z),
+                 (0,1,z),
+                 (3,1,z),
+                 (0,2,z),
+                 (3,2,z),
+                 (0,3,z),
+                 (1,3,z),
+                 (2,3,z),
+                 (3,3,z))
+    return verticies
+
+def generate_side(x=0):
+    verticies = ((x,0,0),
+                 (x,0,1),
+                 (x,0,2),
+                 (x,0,3),
+                 (x,1,0),
+                 (x,1,3),
+                 (x,2,0),
+                 (x,2,3),
+                 (x,3,0),
+                 (x,3,1),
+                 (x,3,2),
+                 (x,3,3))
+    return verticies
+
+def generate_over(y=0):
+    verticies = ((0,y,0),
+                 (1,y,0),
+                 (2,y,0),
+                 (3,y,0),
+                 (0,y,1),
+                 (3,y,1),
+                 (0,y,2),
+                 (3,y,2),
+                 (0,y,3),
+                 (1,y,3),
+                 (2,y,3),
+                 (3,y,3))
+    return verticies
+
+
+def Cube(verticies, edges, color):
+    glBegin(GL_QUADS)
+    for vertex in surface:
+        glVertex3fv(verticies[vertex])
+    glColor3fv(color)
+    glEnd()
+    
+    glBegin(GL_LINES)
+    for edge in edges:
+        for vertex in edge:
+            glVertex3fv(verticies[vertex])
+    glEnd()
+
+
+def main():
+    pygame.init()
+    display = (800,600)
+    pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
+
+
+    gluPerspective(45, (display[0]/display[1]), 0.1, 50.0)
+    
+    glTranslatef(-1.0,-1.0, -10)
+
+    verticies_front = generate_front()
+    verticies_back = generate_front(z=3)
+    verticies_left = generate_side()
+    verticies_right = generate_side(x=3)
+    verticies_down = generate_over()
+    verticies_up = generate_over(y=3)
+    
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 4:
+                    glTranslatef(0.0,0.0, -1)
+                if event.button == 5:
+                    glTranslatef(0.0,0.0, 1)
+        
+        glRotatef(1, 1, 1, 0)
+        glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+        
+        Cube(verticies_front, edges, colors[0])
+        Cube(verticies_back, edges, colors[1])
+        Cube(verticies_left, edges, colors[2])
+        Cube(verticies_right, edges, colors[3])
+        Cube(verticies_down, edges, colors[4])
+        Cube(verticies_up, edges, colors[5])
+        
+        pygame.display.flip()
+        pygame.time.wait(10)
+
+main()
+
+7 ---------------->>>
+8 ---------------->>>
+9 ---------------->>>
+10 ---------------->>>
+11 ---------------->>>
+12 ---------------->>>
+13 ---------------->>>
+14 ---------------->>>
+15 ---------------->>>
