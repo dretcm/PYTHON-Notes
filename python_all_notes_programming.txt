@@ -3422,15 +3422,22 @@ c = {**a,**b}  # {'a': 1, 'b': 2, 'c': 3, 'd': 4}
 45 ---------------->> PyAutoGui : auto py :
 
 // escribir por teclado automatico:
-gian se la jala con ricardo milos
+
 import pyautogui, time
 time.sleep(5)
-for word in f:
+for _ in range(1000):
 	pyautogui.typewrite("mensaje spam")
+	pyautogui.press("enter")
+	print(_)
+
+import pyautogui, time
+time.sleep(5)
+text = ["hola", "gente", "hello"]
+for word in text:
+	pyautogui.typewrite(word)
 	pyautogui.press("enter")
 
 // advertencia o warning:
-
 import pyautogui
 def showDialog(title='Error!', 
     text='''
