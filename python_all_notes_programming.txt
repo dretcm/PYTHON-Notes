@@ -4345,18 +4345,27 @@ from gtts import gTTS
 from playsound import playsound
 import os
 
+
 NOMBRE_ARCHIVO = "voz.mp3"
+# PATH =  "D:\\data\\" + NOMBRE_ARCHIVO
 
 message = input('you text: ')
 tts = gTTS(message, lang='es') # (message, lang='es-us') 'es-us': 'Spanish (United States)'
 
-tts.save(NOMBRE_ARCHIVO)
+tts.save(NOMBRE_ARCHIVO)  # Do the TTS API request and write result to file.
+# tts.write_to_fp(PATH) # Do the TTS API request(s) and write bytes to a file-like object.
 
 playsound(NOMBRE_ARCHIVO)
 os.system(f'DEL /F /A {NOMBRE_ARCHIVO}')
 
 # path = os.path.join(os.path.dirname(os.path.abspath(__file__)), NOMBRE_ARCHIVO) # os.path.abspath(__file__)) + '\\' + NOMBRE_ARCHIVO
 # os.remove(path)
+
+# other form
+from gtts import gTTS
+tts = gTTS('hello', lang='es', tld='fr') # (text, language, accent)
+tts.get_bodies()  # get the body audio : Get TTS API request bodies(s) that would be sent to the TTS API.
+
 
 # beep sound:
 

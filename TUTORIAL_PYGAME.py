@@ -1632,7 +1632,52 @@ while True:
     mainClock.tick(60)
 
 
-# (17) ------------------------------------ input text  ---------------------------------- #
+# (17) ------------------------------------ types of colliders  ---------------------------------- #
+
+# source : 
+https://ants.inf.um.es/staff/jlaguna/tp/tutoriales/colisiones/index.html
+
+
+# Colisiones entre círculos
+
+// círculo 1 con centro en (cx1,cy1) y radio r1
+// círculo 2 con centro en (cx2,cy2) y radio r2
+distancia = sqrt( (cx1 - cx2)*(cx1 - cx2) + (cy1 - cy2)*(cy1 - cy2) );
+if ( distancia < r1 + r2 ) {
+	// Colisión detectada
+}
+
+
+
+# Colisiones entre rectángulos
+
+// Rectángulo 1 con esquina superior izquierda en (x1,y1) ancho w1 y alto h1
+// Rectángulo 2 con esquina superior izquierda en (x2,y2) ancho w2 y alto h2
+Si ( x1 > x2+w2 ) ==> No hay colisión
+Si ( x1+w1 < x2 ) ==> No hay colisión
+Si ( y1 > y2+h2 ) ==> No hay colisión
+Si ( y1+h1 < y2 ) ==> No hay colisión
+En otro caso ==> Hay colisión
+
+		
+
+# Colisiones entre un círculo y un rectángulo
+
+// Círculo con centro en (cx,cy) y radio r
+// Rectángulo con esquina superior izquierda en (x,y) ancho w y algo h
+// Punto (en verde) del perímetro del rectángulo más cercano a la circunferencia en (px,py)
+px = cx; // En principio son iguales
+if ( px < x ) px = x;
+if ( px > x + w ) px = x + w;
+py = cy;
+if ( py < y ) py = y;
+if ( py > y + h ) py = y + h;
+distancia = sqrt( (cx - px)*(cx - px) + (cy - py)*(cy - py) );
+if ( distancia < r ) {
+	// Colisión detectada
+}		
+
+
 # (18) ------------------------------------ input text  ---------------------------------- #
 # (19) ------------------------------------ input text  ---------------------------------- #
 # (20) ------------------------------------ input text  ---------------------------------- #
