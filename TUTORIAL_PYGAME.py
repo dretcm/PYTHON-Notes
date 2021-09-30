@@ -1678,7 +1678,17 @@ if ( distancia < r ) {
 }		
 
 
-# (18) ------------------------------------ input text  ---------------------------------- #
+# (18) ------------------------------------ cv2 to pygame  ---------------------------------- #
+
+
+def cvimage_to_pygame(image):
+    """Convert cvimage into a pygame image"""
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    return pygame.image.frombuffer(image.tostring(), image.shape[1::-1], "RGB")
+
+
+screen.blit(cvimage_to_pygame(frame), (0,0))
+
 # (19) ------------------------------------ input text  ---------------------------------- #
 # (20) ------------------------------------ input text  ---------------------------------- #
 # (21) ------------------------------------ input text  ---------------------------------- #
