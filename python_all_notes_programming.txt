@@ -313,10 +313,13 @@ False
 True
 >>>
 
-1 ----------> use print - end : " ; " : type : len : format : print with f'' :
+1 ----------> use print - end - sep: " ; " : type : len : format : print with f'' :
 
 # print end or print continious :
 print("para que lo imprimido sea de forma lateral: ",variable,end=" ")
+
+# print with separates :
+print("hi","my","car", sep="AAA")  // output: hiAAAmyAAAcar
 
 # usar ";" al final es como saltar en el script, e.g:
 

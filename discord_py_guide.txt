@@ -64,7 +64,7 @@ print('Bot activate...')
 bot.run('token of your app in discord dev')  # token bot or key.
 
 
-2 ---------> images scraping discord:
+2 ---------> images scraping discord: use embed :
 
 # example 1:
 
@@ -137,6 +137,16 @@ async def waifu(ctx):
                 for i in f.read()[:-1]:
                         await message.add_reaction(str(i))
 
+
+
+### emded with text :
+
+@bot.command()
+async def ayuda(ctx):
+        embed = discord.Embed(title="PIENSA CHATO", color=discord.Color.blue())
+        embed.add_field(name="say", value="bot say your message.")
+        embed.add_field(name="ruleta", value="coloca varios valores y se elegira uno random.")
+        await ctx.send(embed=embed)
 
 3 ---------> join channel voice : leave : play : stop :
 
