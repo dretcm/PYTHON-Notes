@@ -372,6 +372,8 @@ timer = "{:02}{:02}:{:02}".format(3,7,12) # output: 03:07:12
 timer = "{:03}{:03}:{:05}".format(3,7,12) # output: 003:007:00012
 
 
+print("max: {} min: {}".format(*sorted([int(input(f" {i+1}) number: ")) for i in range(3)])[-1::-2]))  # format with list
+
 1.5 -------> use exec : use format : use bytes : use eval :
 
 >>>exec("x=3 \ny=4 \nprint(x+y)")
@@ -4074,6 +4076,18 @@ for filename in filenames:
 
 imageio.mimsave('my_animates.gif', images)
 
+
+import imageio
+import os
+
+images = []
+
+filenames = os.listdir("alexander")
+path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "alexander")
+for filename in filenames:
+    images.append(imageio.imread(os.path.join(path,filename)))
+
+imageio.mimsave('my_animates.gif', images)
 
 # example 2:
 
