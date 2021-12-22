@@ -179,7 +179,7 @@ async def play(ctx,url):
 
         async with ctx.typing():
             filename = await YTDLSource.from_url(url, loop=bot.loop)
-            voice_channel.play(discord.FFmpegPCMAudio(executable="ffmpeg.exe", source=filename))
+            voice_channel.play(discord.FFmpegPCMAudio(executable="ffmpeg.exe", source=filename))      # "ffmpeg" if just has the package ffmpeg, .exe if you has the app in your environment
         await ctx.send('**Now playing:** {}'.format(filename))
     except:
         await ctx.send("The bot is not connected to a voice channel.")
