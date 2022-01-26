@@ -313,7 +313,7 @@ False
 True
 >>>
 
-1 ----------> use print - end - sep: " ; " : type : len : format : print with f'' :
+1 ----------> use print - end - sep: " ; " : type : len : format : print with f'' : use print % :
 
 # print end or print continious :
 print("para que lo imprimido sea de forma lateral: ",variable,end=" ")
@@ -372,7 +372,15 @@ timer = "{:02}{:02}:{:02}".format(3,7,12) # output: 03:07:12
 timer = "{:03}{:03}:{:05}".format(3,7,12) # output: 003:007:00012
 
 
-print("max: {} min: {}".format(*sorted([int(input(f" {i+1}) number: ")) for i in range(3)])[-1::-2]))  # format with list
+# format with list : use *
+a = [1,2,3,9,9,2,6,0,2,6]
+print("({}{}{}) {}{}{}-{}{}{}{}".format(*a)) # output: (123) 992-6026
+
+print("max: {} min: {}".format(*sorted([int(input(f" {i+1}) number: ")) for i in range(3)])[-1::-2]))
+
+# use print with %
+def create_phone_number(n):
+    return "(%i%i%i) %i%i%i-%i%i%i%i" % tuple(n)
 
 1.5 -------> use exec : use format : use bytes : use eval :
 
