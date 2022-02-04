@@ -136,6 +136,59 @@ dictionary = {value:b[index]  for index, value in enumerate(a)}
 {1: 'c'}
 >>>
 
+
+# example : int to roman :
+
+def solution(n):
+    romans = {1000:'M',
+              900: 'CM',
+              500: 'D',
+              400: 'CD',
+              100: 'C',
+              90: 'XC',
+              50: 'L',
+              40: 'XL',
+              10: 'X',
+              9: 'IX',
+              5: 'V',
+              4: 'IV',
+              1: 'I'}
+
+    string = ''
+    for key in romans:
+        while n >= key:
+            string += romans[key]
+            n -= key
+    return string
+
+print(solution(91)) # XCI
+
+
+# roman to int :
+def solution(string):
+    romans = {1000:'M',
+              900: 'CM',
+              500: 'D',
+              400: 'CD',
+              100: 'C',
+              90: 'XC',
+              50: 'L',
+              40: 'XL',
+              10: 'X',
+              9: 'IX',
+              5: 'V',
+              4: 'IV',
+              1: 'I'}
+    value = 0
+                
+    for key in romans:
+        while string.startswith(romans[key]):
+            string = string[len(romans[key]):]
+            value += key
+    return value
+
+print(solution("MCMLXVI")) # 1966
+
 ---------------------------->>> PARA QUE FUNCION EL INT PRIMARY KEY AUTOINCREMENT :
 
 ("create table empleados(id integer primary key autoincrement,name text,salario float,bono text)")
@@ -444,6 +497,10 @@ lista.sort() # ordena la lista.
 >>> data
 [[2, -3], [2, 3], [1, 5], [6, 0]]
 
+
+# use key advance:
+def order(sentence):
+    return " ".join(sorted(sentence.split(), key=lambda x: int(filter(str.isdigit, x))))  # sort a sentence with numbers in words ("is2 Thi1s T4est 3a"  -->  "Thi1s is2 3a T4est")
 
 lista.count(element)  # retornara el numero de veces que aparece ele element en la lista.
 
@@ -1284,7 +1341,7 @@ file = open('review.txt','r',encoding='utf-8')
 #print(text)
 
 
-20--->>> USE map : filter : reduce :
+20--->>> use map : use filter : use reduce :
 
 ### 1.list(map(funcion,parametros)) # bien para iterar colecciones.
 
@@ -3411,6 +3468,17 @@ del(inventary)
 
  Your data [1, 2, 3]
 the Object was deleted
+
+
+# CALL FUNCTIONS WITH SEVERALS PARAMETERS: my_fun(3)(32)(1)...
+
+class add(int):
+	def __call__(self, n):
+		return add(self + n)
+
+print(add(1)(2)(3)(4)(5)) # 15   # [(n+1)*n] / 2
+
+# other option: add=type('',(int,object),{'__call__':lambda s,n:add(s+n)})
 
 44 ---------------->> Use " * " :
 
