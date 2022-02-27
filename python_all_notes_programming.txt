@@ -666,6 +666,16 @@ random.uniform(2.5, 10.0) # output: 3.1800146073117523
 # randrange tipo for.
 randrange(0, 101, 2)   # output: 26
 
+
+# gen random password using sample :
+
+>>> import random
+>>> random.sample("abcdefg123456789()&#$[];ABC", 5)   # (string or elements to use, lenght of password)
+['3', 'a', '#', '8', '9']
+
+>>> "".join(random.sample("abcdefg123456789()&#$[];ABC", 5))
+'3a#89'
+
 5--->> tuple : tuplas : tuples :
 
 # the tuples are a whole(set) of elements "not modifiable", is as type const.
