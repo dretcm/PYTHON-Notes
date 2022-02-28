@@ -1,0 +1,174 @@
+# to connect with python:
+pip install mysql-connector
+
+1 ----------------------->>> create database and table : load database : delete table
+
+# create a simple table or data base:
+import mysql.connector
+db = mysql.connector.connect(host = "localhost", 
+	user = "root",
+	passwd= "root")
+
+myCursor = db.cursor()
+myCursor.execute("CREATE DATABASE TestDataBase")
+
+
+
+# load data base:
+db = mysql.connector.connect(host = "localhost", 
+	user = "root",
+	passwd = "root",
+	database = "TestDataBase")
+
+myCursor = db.cursor()
+
+
+
+# create a table with features and descrite this:
+db = mysql.connector.connect(host = "localhost", 
+	user = "root",
+	passwd = "root",
+	database = "TestDataBase")
+
+myCursor = db.cursor()
+myCursor.execute("CREATE TABLE Person (name VARCHAR(50), age smallint UNSIGNED, personID int PRIMARY KEY AUTO_INCREMENT)")
+myCursor.execute("DESCRIBE Person")
+for x in myCursor:
+	print(x)
+# output:
+('name', b'varchar(50)', 'YES', '', None, '')
+('age', b'smallint unsigned', 'YES', '', None, '')
+('personID', b'int', 'NO', 'PRI', None, 'auto_increment')  # 1) juan, 21; 2) luis, 12; ...
+
+
+
+# delete table:
+import mysql.connector
+db = mysql.connector.connect(host = "localhost", 
+	user = "root",
+	passwd = "root",
+	database = "TestDataBase")
+
+myCursor = db.cursor()
+
+myCursor.execute("DROP TABLE Person")
+
+2 ----------------------->>> insert values : select values : save table :
+
+import mysql.connector
+db = mysql.connector.connect(host = "localhost", 
+	user = "root",
+	passwd = "root",
+	database = "TestDataBase")
+myCursor = db.cursor()
+
+myCursor.execute("INSERT INTO Person (name, age) VALUES ('Joaquin', 19)")     # 1 form
+
+# a, b = 'Yanet', 39
+# myCursor.execute(f"INSERT INTO Person (name, age) VALUES ({a}, {b})")   # error
+
+# a, b = 'Clara', 21
+# myCursor.execute("INSERT INTO Person (name, age) VALUES ({}, {})".format(a,b))   # error
+
+myCursor.execute("INSERT INTO Person (name, age) VALUES (%s, %s)", ("Pedro", 24))  # 2 form
+
+myCursor.executemany("INSERT INTO Person (name, age) VALUES (%s, %s)", [("Alexa", 31), ("Mark", 27)])  # use ".executemany" 3 form
+
+db.commit()   # save table or changues in the table.
+
+myCursor.execute("SELECT * FROM Person") # from table Person select all elements("""SELECT ALL FEATURES""" name, age, personID)
+for x in myCursor:
+	print(x)
+# output:
+('Joaquin', 19, 1)   # (name, age, default personID auto increment)
+('Pedro', 24, 2)
+('Alexa', 31, 3)
+('Mark', 27, 4)
+
+
+myCursor.execute("SELECT personID, name FROM Person") # only select the columns personID and name.
+for x in myCursor:
+	print(x)
+# output:
+(1, 'Joaquin')   # (personID, name)
+(2, 'Pedro')
+(3, 'Alexa')
+(4, 'Mark')
+
+
+# another option:
+myCursor.execute("SELECT * FROM Person")
+for x in myCursor.fetchall():
+	print(x)
+
+
+
+# selecting data with WHERE : use DESC and ASC
+
+import mysql.connector
+import datetime
+
+db = mysql.connector.connect(host = "localhost", 
+	user = "root",
+	passwd = "root",
+	database = "TestDataBase")
+
+myCursor = db.cursor()
+
+myCursor.execute("""CREATE TABLE Test 
+	(name varchar(50) NOT NULL, 
+	created datetime NOT NULL, 
+	gender ENUM('M', 'F', 'O') NOT NULL, 
+	id int PRIMARY KEY NOT NULL AUTO_INCREMENT)""")
+
+myCursor.executemany("""INSERT INTO Test 
+	(name, created, gender) 
+	VALUES (%s,%s,%s)""", 
+	[("Gladis", datetime.now(), "F"), 
+	("Helenita", datetime.now(), "F"), 
+	("John", datetime.now(), "M")])
+
+db.commit()
+
+myCursor.execute("SELECT * FROM Test WHERE gender='M'")   # by default is ORDER BY ASCEND
+for i in myCursor:
+	print(i)
+#output:
+('Luan', datetime.datetime(2022, 2, 28, 13, 36, 7), 'M', 1)
+('John', datetime.datetime(2022, 2, 28, 13, 47, 8), 'M', 4)
+
+
+myCursor.execute("SELECT * FROM Test WHERE gender='M' ORDER BY id DESC")
+for i in myCursor:
+	print(i)
+#output:
+('John', datetime.datetime(2022, 2, 28, 13, 47, 8), 'M', 4)
+('Luan', datetime.datetime(2022, 2, 28, 13, 36, 7), 'M', 1)
+
+
+myCursor.execute("SELECT * FROM Test WHERE gender='F' ORDER BY id ASC")
+for i in myCursor:
+	print(i)
+#output:
+('Gladis', datetime.datetime(2022, 2, 28, 13, 47, 8), 'F', 2)
+('Helenita', datetime.datetime(2022, 2, 28, 13, 47, 8), 'F', 3)
+
+
+3 ----------------------->>>
+4 ----------------------->>>
+5 ----------------------->>>
+6 ----------------------->>>
+7 ----------------------->>>
+8 ----------------------->>>
+9 ----------------------->>>
+10 ----------------------->>>
+11 ----------------------->>>
+12 ----------------------->>>
+13 ----------------------->>>
+14 ----------------------->>>
+15 ----------------------->>>
+16 ----------------------->>>
+17 ----------------------->>>
+18 ----------------------->>>
+19 ----------------------->>>
+20 ----------------------->>>
