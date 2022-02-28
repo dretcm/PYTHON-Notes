@@ -306,6 +306,11 @@ print(find_position('la musica no esta fuerte', 'no esta fuerte'))
 from IPython.display import clear_output
 clear_output(wait=True) # clear the screen.
 
+------------------->>> Get the current datetime in your country :
+>>> import datetime
+>>> datetime.datetime.now()
+datetime.datetime(2022, 2, 28, 13, 31, 31, 368950)   # (year, month, day, hour, minutes, seconds, milliseconds)
+
 ------------------->>> ASIGNACION MULTIPLE : operator " := " : use  "is" :
 
 cadena = "a-b-c"
