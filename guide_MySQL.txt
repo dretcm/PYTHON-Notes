@@ -36,7 +36,7 @@ myCursor.execute("DESCRIBE Person")
 for x in myCursor:
 	print(x)
 # output:
-('name', b'varchar(50)', 'YES', '', None, '')
+('name', b'varchar(50)', 'YES', '', None, '')     # (name column, data type, null values are allowed YES/NO, ?, type of progression)
 ('age', b'smallint unsigned', 'YES', '', None, '')
 ('personID', b'int', 'NO', 'PRI', None, 'auto_increment')  # 1) juan, 21; 2) luis, 12; ...
 
@@ -53,7 +53,7 @@ myCursor = db.cursor()
 
 myCursor.execute("DROP TABLE Person")
 
-2 ----------------------->>> insert values : select values : save table :
+2 ----------------------->>> insert values : select values : save table : use where : 
 
 import mysql.connector
 db = mysql.connector.connect(host = "localhost", 
@@ -154,7 +154,108 @@ for i in myCursor:
 ('Helenita', datetime.datetime(2022, 2, 28, 13, 47, 8), 'F', 3)
 
 
-3 ----------------------->>>
+myCursor.execute("SELECT id, name FROM Test WHERE gender='F' ORDER BY id DESC")
+for i in myCursor:
+	print(i)
+#output:
+(3, 'Helenita')
+(2, 'Gladis')
+
+
+# where with numbers :
+myCursor.execute("SELECT * FROM Test WHERE id != 3")
+for i in myCursor:
+	print(i)
+# output:
+('Luan', datetime.datetime(2022, 2, 28, 13, 36, 7), 'M', 1)
+('Gladis', datetime.datetime(2022, 2, 28, 13, 47, 8), 'F', 2)
+('John', datetime.datetime(2022, 2, 28, 13, 47, 8), 'M', 4)
+
+
+myCursor.execute("SELECT * FROM Test WHERE id >= 3")
+for i in myCursor:
+	print(i)
+#output:
+('Helenita', datetime.datetime(2022, 2, 28, 13, 47, 8), 'F', 3)
+('John', datetime.datetime(2022, 2, 28, 13, 47, 8), 'M', 4)
+
+
+3 ----------------------->>> ALTERING TABLES : use ALTER TABLE : ADD COLUMNS : DROP COLUMNS : CHANGE COLUMNS :
+
+# ADD COLUMN :
+
+myCursor.execute("ALTER TABLE Test ADD COLUMN food VARCHAR(50) NOT NULL")
+
+myCursor.execute("SELECT * FROM Test")
+for i in myCursor:
+	print(i)
+#output:
+('Luan', datetime.datetime(2022, 2, 28, 13, 36, 7), 'M', 1, '')
+('Gladis', datetime.datetime(2022, 2, 28, 13, 47, 8), 'F', 2, '')
+('Helenita', datetime.datetime(2022, 2, 28, 13, 47, 8), 'F', 3, '')
+('John', datetime.datetime(2022, 2, 28, 13, 47, 8), 'M', 4, '')
+
+
+myCursor.execute("DESCRIBE Test")
+print(myCursor.fetchall())
+#output:
+[('name', b'varchar(50)', 'NO', '', None, ''), ('created', b'datetime', 'NO', '', None, ''), ('gender', b"enum('M','F','O')", 'NO', '', None, ''), ('id', b'int', 'NO', 'PRI', None, 'auto_increment'), ('food', b'varchar(50)', 'NO', '', None, '')]
+
+
+
+# DROP COLUMN :
+
+myCursor.execute("ALTER TABLE Test DROP food")
+myCursor.execute("DESCRIBE Test")
+for i in myCursor:
+	print(i)
+# output:
+('name', b'varchar(50)', 'NO', '', None, '')
+('created', b'datetime', 'NO', '', None, '')
+('gender', b"enum('M','F','O')", 'NO', '', None, '')
+('id', b'int', 'NO', 'PRI', None, 'auto_increment')
+
+
+
+# CHANGE NAME OF COLUMN AND VALUES OF DELIMITATIONS :
+
+myCursor.execute("ALTER TABLE Test CHANGE name first_name VARCHAR(50)")
+
+myCursor.execute("DESCRIBE Test")
+for i in myCursor:
+	print(i)
+#output:
+('first_name', b'varchar(50)', 'YES', '', None, '')
+('created', b'datetime', 'NO', '', None, '')
+('gender', b"enum('M','F','O')", 'NO', '', None, '')
+('id', b'int', 'NO', 'PRI', None, 'auto_increment')
+
+# myCursor.execute("ALTER TABLE Test CHANGE first_name name VARCHAR(5)") 
+# ERROR : VARCHAR(5) lenght in the data is invalid, because the max lenght of names is "Helenita" with lenght 8
+
+myCursor.execute("ALTER TABLE Test CHANGE first_name name VARCHAR(8)")
+myCursor.execute("DESCRIBE Test")
+for i in myCursor:
+	print(i)
+#output:
+('name', b'varchar(8)', 'YES', '', None, '')
+('created', b'datetime', 'NO', '', None, '')
+('gender', b"enum('M','F','O')", 'NO', '', None, '')
+('id', b'int', 'NO', 'PRI', None, 'auto_increment')
+
+
+myCursor.execute("ALTER TABLE Test CHANGE name first_name VARCHAR(50) NOT NULL")
+
+myCursor.execute("DESCRIBE Test")
+for i in myCursor:
+	print(i)
+#output:
+('first_name', b'varchar(50)', 'NO', '', None, '')
+('created', b'datetime', 'NO', '', None, '')
+('gender', b"enum('M','F','O')", 'NO', '', None, '')
+('id', b'int', 'NO', 'PRI', None, 'auto_increment')
+
+
 4 ----------------------->>>
 5 ----------------------->>>
 6 ----------------------->>>
