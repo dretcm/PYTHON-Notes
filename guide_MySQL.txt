@@ -1,6 +1,17 @@
 # to connect with python:
 pip install mysql-connector
 
+
+# dtypes mySql:
+https://www.w3resource.com/mysql/mysql-data-types.php
+
+
+# what is PRIMARY KEY :
+The PRIMARY KEY constraint uniquely identifies each record in a table. 
+Primary keys must contain UNIQUE values, and cannot contain NULL values. 
+A table can have only ONE primary key; and in the table, this primary key can consist of single or multiple columns
+
+
 1 ----------------------->>> create database and table : load database : delete table
 
 # create a simple table or data base:
@@ -36,13 +47,13 @@ myCursor.execute("DESCRIBE Person")
 for x in myCursor:
 	print(x)
 # output:
-('name', b'varchar(50)', 'YES', '', None, '')     # (name column, data type, null values are allowed YES/NO, ?, type of progression)
+('name', b'varchar(50)', 'YES', '', None, '')
 ('age', b'smallint unsigned', 'YES', '', None, '')
 ('personID', b'int', 'NO', 'PRI', None, 'auto_increment')  # 1) juan, 21; 2) luis, 12; ...
+# (name column, data type, null values are allowed YES/NO, Type key(primary key, and so on.), Default value is None or our own value defined, type of progression)
 
 
-
-# delete table:
+# delete table : drop table :
 import mysql.connector
 db = mysql.connector.connect(host = "localhost", 
 	user = "root",
@@ -53,7 +64,24 @@ myCursor = db.cursor()
 
 myCursor.execute("DROP TABLE Person")
 
-2 ----------------------->>> insert values : select values : save table : use where : 
+
+# show tables :
+db = mysql.connector.connect(host = "localhost", 
+	user = "root",
+	passwd = "root",
+	database = "TestDataBase")
+
+myCursor = db.cursor()
+
+myCursor.execute("SHOW TABLES")
+for i in myCursor:
+	print(i)
+#output:
+('person',)
+('test',)
+
+
+2 ----------------------->>> insert values : select values : save table : use where : use DEFAULT :
 
 import mysql.connector
 db = mysql.connector.connect(host = "localhost", 
@@ -116,7 +144,7 @@ db = mysql.connector.connect(host = "localhost",
 myCursor = db.cursor()
 
 myCursor.execute("""CREATE TABLE Test 
-	(name varchar(50) NOT NULL, 
+	(name varchar(50) NOT NULL,     # NOT NULL for call an error when not send a value
 	created datetime NOT NULL, 
 	gender ENUM('M', 'F', 'O') NOT NULL, 
 	id int PRIMARY KEY NOT NULL AUTO_INCREMENT)""")
@@ -178,6 +206,30 @@ for i in myCursor:
 #output:
 ('Helenita', datetime.datetime(2022, 2, 28, 13, 47, 8), 'F', 3)
 ('John', datetime.datetime(2022, 2, 28, 13, 47, 8), 'M', 4)
+
+
+
+# use DEFAULT :
+
+myCursor = db.cursor()
+
+myCursor.execute("""CREATE TABLE Notes
+	(student VARCHAR(50) DEFAULT 'anonimus', 
+	math float DEFAULT 0.0,
+ 	comunication float DEFAULT 0.0)""")
+
+myCursor.execute("INSERT INTO Notes (student, math, comunication) VALUES (%s,%s,%s)", ("Alexander", 12.3, 19.2))
+myCursor.execute("INSERT INTO Notes (student, math) VALUES (%s,%s)", ("Pesy", 15.3))
+myCursor.execute("INSERT INTO Notes () VALUES ()")
+db.commit()
+
+myCursor.execute("SELECT * FROM Notes")
+for x in myCursor:
+	print(x)
+#output:
+('Alexander', 12.3, 19.2)
+('Pesy', 15.3, 0.0)
+('anonimus', 0.0, 0.0)
 
 
 3 ----------------------->>> ALTERING TABLES : use ALTER TABLE : ADD COLUMNS : DROP COLUMNS : CHANGE COLUMNS :
@@ -256,8 +308,186 @@ for i in myCursor:
 ('id', b'int', 'NO', 'PRI', None, 'auto_increment')
 
 
-4 ----------------------->>>
-5 ----------------------->>>
+4 ----------------------->>> Foreign Keys & Relating Tables :
+
+The "FOREIGN KEY" constraint is used to prevent actions that would destroy links between tables.
+A FOREIGN KEY is a field (or collection of fields) in one table, that refers to the PRIMARY KEY in another table.
+The table with the foreign key is called the child table, and the table with the primary key is called the referenced or parent table.
+The FOREIGN KEY constraint prevents invalid data from being inserted into the foreign key column, because it has to be one of the values contained in the parent table.
+Conclussion: The column with FOREIGN KEY only can has values of other table with PRIMARY KEY otherwise it throw an ERROR.
+
+
+db = mysql.connector.connect(host = "localhost", 
+	user = "root",
+	passwd = "root",
+	database = "TestDataBase")
+myCursor = db.cursor()
+
+Q1 = "CREATE TABLE Users (id int PRIMARY KEY AUTO_INCREMENT, name VARCHAR(50), passwd VARCHAR(50))"
+Q2 = "CREATE TABLE Scores (userId int PRIMARY KEY, FOREIGN KEY(userId) REFERENCES Users(id), game1 int DEFAULT 0, game2 int DEFAULT 0)"
+
+myCursor.execute(Q1)
+myCursor.execute(Q2)
+
+Q3 = "INSERT INTO Users (name, passwd) VALUES (%s, %s)"
+Q4 = "INSERT INTO Scores (userId, game1, game2) VALUES (%s, %s, %s)"
+
+users = [("Shasam", "potaxio"), ("Peter", "peti23")]
+scores = [(450, 180), (120, 510)]
+
+for i, user in enumerate(users):
+	myCursor.execute(Q3, user)
+	last_id = myCursor.lastrowid
+	myCursor.execute(Q4, (last_id,) + scores[i])
+
+# myCursor.execute(Q4, (5,100,200))    # ERROR: the Scores(userId) "5" doesnt belong to Users(id).
+
+db.commit()
+
+myCursor.execute("SELECT * FROM Users")
+for x in myCursor:
+	print(x)
+
+myCursor.execute("SELECT * FROM Scores")
+for x in myCursor:
+	print(x)
+
+# output:
+(1, 'Shasam', 'potaxio')
+(2, 'Peter', 'peti23')
+(1, 450, 180)
+(2, 120, 510)
+
+5 ----------------------->>> use AND  - OR  - NOT : use UPDATE and SET : delete rows :
+
+db = mysql.connector.connect(host = "localhost", 
+	user = "root",
+	passwd = "root",
+	database = "TestDataBase")
+
+myCursor = db.cursor()
+
+myCursor.execute("""CREATE TABLE People 
+	(name varchar(50) NOT NULL,
+	gender ENUM('M', 'F') NOT NULL,
+	age int NOT NULL,
+	country varchar(50) NOT NULL,
+	id int PRIMARY KEY AUTO_INCREMENT)""")
+
+myCursor.executemany("""INSERT INTO People 
+	(name, gender, age, country) 
+	VALUES (%s,%s,%s,%s)""", 
+	[("Gladis", 'F', 19,"Colombia"),
+	("Helenita", "F", 23, "Mexico"),
+	("Mario", 'M', 32,"Colombia"),
+	("Jorge", 'M', 17,"Argentina"),
+	("Flor", 'F', 40, "Paraguay")])
+
+db.commit()
+
+
+myCursor.execute("SELECT * FROM People WHERE age>17 AND gender='F'")
+for x in myCursor:
+	print(x)
+# output:
+('Gladis', 'F', 19, 'Colombia', 1)
+('Helenita', 'F', 23, 'Mexico', 2)
+('Flor', 'F', 40, 'Paraguay', 5)
+
+
+myCursor.execute("SELECT * FROM People WHERE NOT gender='F'")
+for x in myCursor:
+	print(x)
+#output:
+('Mario', 'M', 32, 'Colombia', 3)
+('Jorge', 'M', 17, 'Argentina', 4)
+
+
+myCursor.execute("SELECT * FROM People WHERE NOT gender='F' OR country='Paraguay'")
+for x in myCursor:
+	print(x)
+#output:
+('Mario', 'M', 32, 'Colombia', 3)
+('Jorge', 'M', 17, 'Argentina', 4)
+('Flor', 'F', 40, 'Paraguay', 5)
+
+
+# selecting the first word of varchar :
+myCursor.execute("SELECT * FROM People WHERE country>='C' AND country<'D'")   # select the rows that their countrys begin with "C".
+for x in myCursor:
+	print(x)
+#output:
+('Gladis', 'F', 19, 'Colombia', 1)
+('Mario', 'M', 32, 'Colombia', 3)
+
+
+
+# use UPDATE and SET :
+
+myCursor.execute("SELECT * FROM People")
+for x in myCursor:
+	print(x)
+#otuput:
+('Gladis', 'F', 19, 'Colombia', 1)
+('Helenita', 'F', 23, 'Mexico', 2)
+('Mario', 'M', 32, 'Colombia', 3)
+('Jorge', 'M', 17, 'Argentina', 4)
+('Flor', 'F', 40, 'Paraguay', 5)
+
+myCursor.execute("UPDATE People SET country='Bolivia' WHERE country='Colombia'")
+db.commit()
+myCursor.execute("SELECT * FROM People")
+for x in myCursor:
+	print(x)
+#output:
+('Gladis', 'F', 19, 'Bolivia', 1)
+('Helenita', 'F', 23, 'Mexico', 2)
+('Mario', 'M', 32, 'Bolivia', 3)
+('Jorge', 'M', 17, 'Argentina', 4)
+('Flor', 'F', 40, 'Paraguay', 5)
+
+
+myCursor.execute("UPDATE People SET name='Ibai'")
+#db.commit()
+myCursor.execute("SELECT * FROM People")
+for x in myCursor:
+	print(x)
+#output:
+('Ibai', 'F', 19, 'Bolivia', 1)
+('Ibai', 'F', 23, 'Mexico', 2)
+('Ibai', 'M', 32, 'Bolivia', 3)
+('Ibai', 'M', 17, 'Argentina', 4)
+('Ibai', 'F', 40, 'Paraguay', 5)
+
+
+
+# use DELETE rows:
+myCursor.execute("DELETE FROM People WHERE name='Helenita'")
+db.commit()
+myCursor.execute("SELECT * FROM People")
+for x in myCursor:
+	print(x)
+#output:
+('Gladis', 'F', 19, 'Bolivia', 1)
+('Mario', 'M', 32, 'Bolivia', 3)
+('Jorge', 'M', 17, 'Argentina', 4)
+('Flor', 'F', 40, 'Paraguay', 5)
+
+
+# ordering the id 1,3,4,5 => 1,2,3,4 :
+myCursor.execute("UPDATE People SET id=id-1 WHERE id!=1")
+# myCursor.execute("UPDATE People SET id=id-1 WHERE id>1")
+db.commit()
+myCursor.execute("SELECT * FROM People")
+for x in myCursor:
+	print(x)
+#output:
+('Gladis', 'F', 19, 'Bolivia', 1)
+('Mario', 'M', 32, 'Bolivia', 2)
+('Jorge', 'M', 17, 'Argentina', 3)
+('Flor', 'F', 40, 'Paraguay', 4)
+
+
 6 ----------------------->>>
 7 ----------------------->>>
 8 ----------------------->>>
