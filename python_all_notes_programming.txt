@@ -691,6 +691,15 @@ print(a.count(2))  # 4 # quantity of certain number.
 print(a.index(3))  # 5 # position of certain number.
 print(help(tuple))  # information about this
 
+
+# sum of tuples :
+>>> (3) + (1,2)     # ERROR
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: unsupported operand type(s) for +: 'int' and 'tuple'
+>>> (3,) + (1,2)    # GOOD
+(3, 1, 2)
+
 6--->> use pip : use id : direction of memory :
 
 # para instalar algo se podria usar "pip install Howdoi " como ejemplo.
