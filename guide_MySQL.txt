@@ -358,7 +358,7 @@ for x in myCursor:
 (1, 450, 180)
 (2, 120, 510)
 
-5 ----------------------->>> use AND  - OR  - NOT : use UPDATE and SET : delete rows :
+5 ----------------------->>> use AND  - OR  - NOT : use UPDATE and SET : delete rows : use LIKE :
 
 db = mysql.connector.connect(host = "localhost", 
 	user = "root",
@@ -485,6 +485,63 @@ for x in myCursor:
 ('Gladis', 'F', 19, 'Bolivia', 1)
 ('Mario', 'M', 32, 'Bolivia', 2)
 ('Jorge', 'M', 17, 'Argentina', 3)
+('Flor', 'F', 40, 'Paraguay', 4)
+
+
+
+# use LIKE :
+myCursor.execute("SELECT * FROM People WHERE country LIKE 'B%'")  # begin with "B".
+for x in myCursor:
+	print(x)
+print("*"*20)
+myCursor.execute("SELECT * FROM People WHERE country LIKE '%a'")  # end with "a".
+for x in myCursor:
+	print(x)
+print("*"*20)
+myCursor.execute("SELECT * FROM People WHERE name LIKE '%or%'")  # the sequence "or" belong to any name.
+for x in myCursor:
+	print(x)
+print("*"*20)
+myCursor.execute("SELECT * FROM People WHERE country OR name LIKE '_o%'")  # if the second word is "o".
+for x in myCursor:
+	print(x)
+print("*"*20)
+myCursor.execute("SELECT * FROM People WHERE country LIKE 'B%a'")  # if the country begin "B" and end with "a".
+for x in myCursor:
+	print(x)
+print("*"*20)
+myCursor.execute("SELECT * FROM People WHERE name LIKE 'F___%'")  # begin with "F" and lenght of 3 lastwords.
+for x in myCursor:
+	print(x)
+print("*"*20)
+myCursor.execute("SELECT * FROM People WHERE country LIKE '%u__'")  # end with "u" and 2 lastwords(anycountry[-3]=="u").
+for x in myCursor:
+	print(x)
+print("*"*20)
+myCursor.execute("SELECT * FROM People WHERE name LIKE '____'")  # names with lenght 4
+for x in myCursor:
+	print(x)
+
+#output:
+('Gladis', 'F', 19, 'Bolivia', 1)
+('Mario', 'M', 32, 'Bolivia', 2)
+********************
+('Gladis', 'F', 19, 'Bolivia', 1)
+('Mario', 'M', 32, 'Bolivia', 2)
+('Jorge', 'M', 17, 'Argentina', 3)
+********************
+('Jorge', 'M', 17, 'Argentina', 3)
+('Flor', 'F', 40, 'Paraguay', 4)
+********************
+('Jorge', 'M', 17, 'Argentina', 3)
+********************
+('Gladis', 'F', 19, 'Bolivia', 1)
+('Mario', 'M', 32, 'Bolivia', 2)
+********************
+('Flor', 'F', 40, 'Paraguay', 4)
+********************
+('Flor', 'F', 40, 'Paraguay', 4)
+********************
 ('Flor', 'F', 40, 'Paraguay', 4)
 
 
