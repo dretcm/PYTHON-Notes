@@ -1185,8 +1185,95 @@ while True:
         pygame.display.update()
         clock.tick(30)
 
+
+
 #option 2: 
-	# pass
+import pygame, sys
+from pygame.locals import *
+
+clock = pygame.time.Clock() 
+
+pygame.init()
+
+WINDOW_SIZE = (600,400)
+screen = pygame.display.set_mode(WINDOW_SIZE,0,32)
+display = pygame.Surface((600, 400))
+
+player_image = pygame.image.load('character.png')
+player_image.set_colorkey((255, 255, 255))
+
+
+speed = 5 
+
+player_rect  = pygame.Rect(0,0,32,32)
+moving_left = False
+moving_right = False
+moving_up = False
+moving_down = False
+
+# camera : scroll
+
+true_camera = [0,0]
+
+def move(player ,left=False, right=False, up=False, down=False):
+        if left:
+                player.x -= speed
+        elif right:
+                player.x += speed
+
+        if up:
+                player.y -= speed
+        elif down:
+                player.y += speed
+
+        return player
+
+
+while True:
+        display.fill((146, 244, 255))
+
+        true_camera[0] += (player_rect.x - true_camera[0] - 156)/ 20
+        true_camera[1] += (player_rect.y - true_camera[1] - 105)/ 20
+
+        camera = true_camera.copy()
+        camera = tuple(map(int, camera))
+        
+        player_rect = move(player_rect, moving_left, moving_right, moving_up, moving_down)
+        
+        display.blit(player_image, (player_rect.x-camera[0], player_rect.y-camera[1]))
+        pygame.draw.rect(display, (255, 0, 0), [100-camera[0],100-camera[1],100,20])
+        
+        for event in pygame.event.get():
+                if event.type == QUIT:
+                        pygame.quit() 
+                        sys.exit()
+                        
+                if event.type == KEYDOWN: 
+                        if event.key == K_LEFT:
+                                moving_left = True
+                        if event.key == K_RIGHT:
+                                moving_right = True
+                        if event.key == K_UP:
+                                moving_up = True
+                        if event.key == K_DOWN:
+                                moving_down = True
+                                
+                if event.type == KEYUP: 
+                        if event.key == K_LEFT:
+                                moving_left = False
+                        if event.key == K_RIGHT:
+                                moving_right = False
+                        if event.key == K_UP:
+                                moving_up = False
+                        if event.key == K_DOWN:
+                                moving_down = False
+
+        surf = pygame.transform.scale(display, WINDOW_SIZE)
+        screen.blit(surf, (0, 0))
+        pygame.display.update()
+        clock.tick(60)
+
+
 
 # (15) --------------------------------- Gun, Bullet, direction vectors  ---------------------------------- #
 
