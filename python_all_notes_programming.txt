@@ -450,8 +450,10 @@ def create_phone_number(n):
 # format :
 >>> format(15, "b")
 '1111'
+
 >>> bin(15)
-'1111'
+'0b1111'
+
 >>> format(0.8, "%")
 '80.000000%'
 
@@ -464,6 +466,15 @@ b'hola'
 >>> y = 2
 >>> eval('(x*y) - y')
 18
+
+
+# binary to decimal:
+>>> bin_a = bin(13)
+>>> print(bin_a)
+'0b1101'
+>>> print(int(bin_a, 2))     #Base 2(binary)
+13
+
 
 2 ---------> listas : list : dtype list :
 
@@ -5348,11 +5359,11 @@ text = ''' Todo el mundo piensa igual, desde el 2017 la humanidad
         La gente se da cuenta de lo que ahce a cierta edad o momento, uno
         nunca sambra cuando se presentara la iluminacion de tu vida <3.
         '''
-pywhatkit.text_to_handwriting(text, rgb=(0,0,255))
+pywhatkit.text_to_handwriting(text, rgb=(0,0,255), save_to="pywhatkit.png")
 
-string (required) - String that you want to convert to handwritten text
-save_to (optional, val = "pywhatkit.png") - Path where the image will be saved
-rgb (optional, val = [0,0,138]) - Color of the handwritten character in rgb format
+string :(required) - String that you want to convert to handwritten text
+save_to :(optional, val = "pywhatkit.png") - Path where the image will be saved
+rgb :(optional, val = [0,0,138]) - Color of the handwritten character in rgb format
 
 
 # message wsp:

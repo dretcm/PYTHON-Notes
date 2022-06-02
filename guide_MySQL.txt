@@ -1,6 +1,15 @@
 # to connect with python:
 pip install mysql-connector
 
+#To install the mysqlclient package, type the following command:
+pip install mysqlclient
+
+#To install the mysql-connector-python package, type the following command:
+pip install mysql-connector-python
+
+#To install the pymysql package, type the following command:
+pip install pymysql
+
 
 # dtypes mySql:
 https://www.w3resource.com/mysql/mysql-data-types.php
