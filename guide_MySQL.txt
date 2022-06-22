@@ -101,13 +101,13 @@ myCursor = db.cursor()
 
 myCursor.execute("INSERT INTO Person (name, age) VALUES ('Joaquin', 19)")     # 1 form
 
-# a, b = 'Yanet', 39
-# myCursor.execute(f"INSERT INTO Person (name, age) VALUES ({a}, {b})")   # error
+a, b = 'Yanet', 39
+myCursor.execute(f"INSERT INTO Person (name, age) VALUES ('{a}', '{b}')")   # 2 form
 
 # a, b = 'Clara', 21
 # myCursor.execute("INSERT INTO Person (name, age) VALUES ({}, {})".format(a,b))   # error
 
-myCursor.execute("INSERT INTO Person (name, age) VALUES (%s, %s)", ("Pedro", 24))  # 2 form
+myCursor.execute("INSERT INTO Person (name, age) VALUES (%s, %s)", ("Pedro", 24))  # 3 form
 
 myCursor.executemany("INSERT INTO Person (name, age) VALUES (%s, %s)", [("Alexa", 31), ("Mark", 27)])  # use ".executemany" 3 form
 
@@ -367,7 +367,7 @@ for x in myCursor:
 (1, 450, 180)
 (2, 120, 510)
 
-5 ----------------------->>> use AND  - OR  - NOT : use UPDATE and SET : delete rows : use LIKE :
+5 ----------------------->>> use AND  - OR  - NOT : use UPDATE and SET : delete rows : use LIKE : INNER JOIN :
 
 db = mysql.connector.connect(host = "localhost", 
 	user = "root",
@@ -554,7 +554,45 @@ for x in myCursor:
 ('Flor', 'F', 40, 'Paraguay', 4)
 
 
-6 ----------------------->>>
+
+# other form to where :
+
+user = "kelly"
+cursor.execute(f"SELECT * FROM Users WHERE username='{user}'")
+print(cursor.fetchone())
+# output: 
+{'user_ID': 1, 'username': 'kelly', 'password': 'llgde2kyo13'}
+
+
+
+# selecting from another table : user INNER JOIN :
+# example 1:
+cursor.execute(f"""SELECT pr.producto, pr.precio, pr.imagen 
+            FROM Products AS pr
+            INNER JOIN Carrito AS cr
+            ON cr.user_ID='{session['id']}' AND pr.product_ID=cr.product_ID""")
+
+# example 2: normal : selectiong elements of two tables :
+cursor.execute(f"""SELECT pr.producto, pr.precio, pr.imagen 
+            FROM Products pr, Carrito cr
+            WHERE cr.user_ID='{session['id']}' AND pr.product_ID=cr.product_ID""")
+
+
+6 ----------------------->>> show :
+
+# if table exist:
+C.execute("show tables like 'carrito'")
+if C.fetchall():
+	print("Exist")
+
+
+>>> C.execute("show tables like 'carrito'")
+>>> C.fetchall()
+[('carrito',)]
+>>> C.execute("show tables like 'carritos'")
+>>> C.fetchall()
+[]
+
 7 ----------------------->>>
 8 ----------------------->>>
 9 ----------------------->>>
