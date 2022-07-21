@@ -440,7 +440,7 @@ print("max: {} min: {}".format(*sorted([int(input(f" {i+1}) number: ")) for i in
 def create_phone_number(n):
     return "(%i%i%i) %i%i%i-%i%i%i%i" % tuple(n)
 
-1.5 -------> use exec : use format : use bytes : use eval :
+1.5 -------> use exec : use format : use bytes : use eval : use ord - ascii code :
 
 >>>exec("x=3 \ny=4 \nprint(x+y)")
 7
@@ -475,6 +475,11 @@ b'hola'
 >>> print(int(bin_a, 2))     #Base 2(binary)
 13
 
+
+
+##### use ascii code : ord
+>>> print(ord("A"))
+65
 
 2 ---------> listas : list : dtype list :
 
