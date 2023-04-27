@@ -933,6 +933,19 @@ print(math.sin(math.radians(90))) # 1
 print(math.cos(math.radians(90))) # 0
 
 
+### explained:
+
+import math
+
+sen = lambda x: math.sin(x*math.pi/180) # sen or cos (radians) return [-1,1].
+cos = lambda x: math.cos(x*math.pi/180) 
+atan = lambda x: math.atan(x)*180/math.pi  # atan(degrees) return radians.
+
+print(atan(5/8.66)) # 30°
+print(math.asin(math.sin(30*math.pi/180))*180/math.pi) # return 30°
+
+
+
 # example of circunference:
 
 f(x) = 0 +- sqrt(2 - (x - 3)**2)
